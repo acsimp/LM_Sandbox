@@ -1,0 +1,164 @@
+<% include ../partials/header %>
+
+<div class="row">
+
+
+  <div class="col-md-12">
+            <div class="card mb-3">
+
+                <!--css img-thumbnail-->
+                <img class="card-img-top object-fit_cover camp-img"  src="<%= place.image %>" width="100%">
+                <!--css img-fluid mx-auto d-block -->
+                <!--css style="width:100%"-->
+                <div class="card-body">
+                    <h2>From Little Maven Database</h2>
+
+                    <h4 class="card-title"><%= place.name %></h4>
+                    <p>Submitted by <a href="/users/<%= place.author.id %>"><span id="submittedBy"><%= place.author.username %></span></a>, <em><%= moment(place.createdAt).fromNow() %></em></p>
+                    
+
+
+<!------FACEBOOK API--------------------------------------->
+
+<h2>From Facebook Graph API</h2> 
+<p style="width:300px; margin-left:auto; margin-right:auto; ">
+<% if (fb_place.photos) { %>
+<img src="<%= fb_place.photos.data[0].images[0].source %>" alt="Smiley face" height="300" width=""><br/>
+<% } else {%>
+<% if (fb_place.picture) { %>
+<img src="<%= fb_place.picture.data.url %>" alt="Smiley face" height="" width=""><br/>
+<% } } %>
+<br/>
+Name: <%= fb_place.name %><br/>
+<% if (fb_place.about) { %>
+About: <%= fb_place.about %><br/>
+<% } %>
+<% if (fb_place.description) { %>
+Description: <%= fb_place.description %><br/>
+<% } %>
+<br/>
+Category: <%= fb_place.category_list[0].name %><br/>
+<% if (fb_place.restaurant_specialties) { %>
+Restaurant Specialities: <%= fb_place.restaurant_specialties %><br/>
+<% } %>
+<% if (fb_place.restaurant_services) { %>
+Restaurant Services<br/>
+delivery: <%= fb_place.restaurant_services.delivery %><br/>x
+catering: <%= fb_place.restaurant_services.catering %><br/>
+groups: <%= fb_place.restaurant_services.groups %><br/>
+kids: <%= fb_place.restaurant_services.kids %><br/>
+outdoor: <%= fb_place.restaurant_services.outdoor %><br/>
+reserve: <%= fb_place.restaurant_services.reserve %><br/>
+takeout: <%= fb_place.restaurant_services.takeout %><br/>
+waiter: <%= fb_place.restaurant_services.waiter %><br/>
+walkins: <%= fb_place.restaurant_services.walkins %><br/>
+<% } %>
+<br/>
+<% if (fb_place.emails) { %>
+Email: <%= fb_place.emails[0].value %><br/>
+<% } %>
+Phone: <%= fb_place.phone %><br/>
+Facebook: 
+<a href="<%= fb_place.link %>">Facebook</a><br/>
+
+<% if (fb_place.website) { %>
+Website: 
+<a href="<%= fb_place.website %>">Website</a><br/>
+<% } %>
+ID: <%= fb_place.id %><br/>
+
+
+<br/>
+Likes: <%= fb_place.engagement.social_sentence + " (" + fb_place.engagement.count + ")" %><br/>
+Checkins: <%= fb_place.checkins %><br/>
+Rating: <%= fb_place.overall_star_rating + " (" + fb_place.rating_count + ")"%><br/>
+<br/>
+<%= fb_place.location.street %><br/>
+<%= fb_place.location.city %><br/>
+<%= fb_place.location.zip %><br/>
+<%= fb_place.location.country %><br/>
+long: <%= fb_place.location.longitude %><br/>
+Lat: <%= fb_place.location.latitude %><br/>
+<br/>
+<% if (fb_place.price_range) { %>
+Price range: <%= fb_place.price_range %><br/>
+<% } %>
+<br/>
+
+<% if (fb_place.hours) { %>
+Opening Hours <br/>
+ <% var i,j,k; %>
+ <% var days =["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"]; %>
+<%for (i = 0, j=1, k=0; i < fb_place.hours.length; i+=2, j+=2, k++) { %>
+<%= days[k] + " " + fb_place.hours[i].value + " - " + fb_place.hours[j].value %><br/>
+<% } %>
+<br/>
+<% } %>
+
+<% if (fb_place.parking) { %>
+Parking: <%= fb_place.parking %><br/><br/>
+<% } %>
+<br/>
+<% if (fb_place.is_permanently_closed) { %>
+Parking: <%= fb_place.is_permanently_closed %><br/><br/>
+<% } %>
+<% if (fb_place.cover) { %>
+<img src="<%= fb_place.cover.source %>" alt="Smiley face" width="300"><br/>
+<% } %>
+
+
+</p>
+
+
+<!--about,location,checkins,name,parking,link,rating_count,overall_star_rating,description,website,phone,photos{album},hours,engagement,restaurant_specialties,restaurant_services,price_range,single_line_address,is_verified,picture{url}-->
+
+
+
+<!--------------------------------------------------------->
+
+<% if(currentUser && place.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+                    <!-- Button trigger modal -->
+
+<div class="btn-group">
+<a class="btn btn-sm btn-outline-warning" href="/places/<%= place._id %>/edit">Edit</a>
+<button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-sm btn-outline-danger">Delete</button>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirm Deletion</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      Are you sure you want to delete this Place?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <form class="deleteForm" action="/places/<%= place._id %>?_method=DELETE" method="POST">
+            <button class="btn btn-danger">Delete</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+                    <% } %>
+                </div>
+            </div>
+  
+  
+  </div>
+</div>
+    
+
+
+<% include ../partials/footer %>

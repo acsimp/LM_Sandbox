@@ -1,0 +1,59 @@
+<h1>Facebook Graph API</h1>
+<div class="grid">
+
+         <% var i; %>
+<%for (i = 0; i < place.data.length; i++) { %>
+
+                 
+
+        <!--<div class="col-md-4 col-sm-6">-->
+        <div class="item">
+              <div class="content card mb-4 box-shadow">
+                <a href="place/<%= place.data[i].id %>"> 
+                    <% if (place.data[i].photos) { %>
+                        <img class="card-img-top" height="150" src="<%=place.data[i].photos.data[0].images[0].source %>">
+                    <% } else { %>
+                    <% if (place.data[i].picture.data.url) { %>
+                    <img class="card-img-top" height="150" src="<%=place.data[i].picture.data.url %>">
+                    <% } else { %>
+                        <img class="card-img-top" height="150" src="https://uploads-ssl.webflow.com/57e5747bd0ac813956df4e96/5aebae14c6d254621d81f826_placeholder.png">
+                    <% } } %><br/>
+                <%= place.data[i].name %></a>
+                
+                <% if (place.data[i].website) { %><br/>
+                Website: 
+<a href="<%= place.data[i].website %>">Website</a><br/>
+<% } %>
+ID: <%= place.data[i].id %><br/>
+
+
+<br/>
+<% if (place.data[i].engagement.count) { %>
+Likes: <%= place.data[i].engagement.social_sentence + " (" + place.data[i].engagement.count + ")" %><br/>
+<% } %>
+<% if (place.data[i].checkins) { %>
+Checkins: <%= place.data[i].checkins %><br/>
+<% } %>
+<% if (place.data[i].overall_star_rating) { %>
+Rating: <%= place.data[i].overall_star_rating + " (" + place.rating_count + ")"%><br/>
+<% } %>
+<br/>
+<% if (place.data[i].location) { %>
+<%= place.data[i].location.street %><br/>
+<%= place.data[i].location.city %><br/>
+<%= place.data[i].location.zip %><br/>
+<%= place.data[i].location.country %><br/>
+long: <%= place.data[i].location.longitude %><br/>
+Lat: <%= place.data[i].location.latitude %><br/>
+<% } %>
+<br/><br/>
+
+                
+              </div>
+            </div>
+    
+<% } %>
+<br/>
+ <!--<a href="<%= //place.paging.next %>"> next </a>-->
+       
+    </div>

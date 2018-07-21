@@ -1,0 +1,107 @@
+<% include ../partials/header %>
+</div>
+    <header class="jumbotron text-center">
+        <div class="container">
+            <div class="container">
+        <h1 class="jumbotron-heading">List of Places</h1>
+        <p class="lead text-muted">View our hand-picked venues from all over Greater Glasgow</p>
+        <p>        
+            <a class="btn btn-secondary my-2 btn-sm" role="button" href="/places/new">Add New Place</a>
+        </p>
+        <p>
+            <form class="form-inline mx-auto" action="/places" method="GET">
+                <div class="form-group mx-auto">
+                    <input class="form-control" type="text" name="search" placeholder="Places search...">
+                    <input class="btn btn-secondary my-2" type="submit" value="Search">
+                </div>
+            </form>
+        </p>
+        </div>
+        </div>
+    </header>
+    
+                <div class="container">
+
+    
+    <div class="row text-center" style="display:flex; flex-wrap: wrap; margin-bottom:5px;">
+
+
+        <div class="grid">
+          <% var i = 0; %>
+    <% places.forEach(function(place){ %>
+        
+                      
+
+        <!--<div class="col-md-4 col-sm-6">-->
+        <div class="item">
+              <div class="content card mb-4 box-shadow">
+                <a href="/places/<%= place._id %>"><img class="card-img-top" src="https://www.ppihotline.co.uk/wp-content/uploads/2017/02/placeholder-image.jpg"></a>
+                <div class="content card-body">
+                  <h5 class="card-title mb-3"><%=place.name%></h5>
+                  <p class="card-text"><%=place.fb_id%></p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                      <a class="btn btn-sm btn-outline-secondary" href="/places/<%= place._id %>/edit">Edit</a>
+                      <a href="/places/<%= place._id %>" class="btn btn-sm btn-outline-secondary" >View</a>
+                    </div>
+                    <!--Show when the comment was made-->
+                    <small class="text-muted"><%= moment(place.createdAt).fromNow() %></small>
+                  </div>
+                </div>
+              </div>
+            </div>
+        
+        
+        <!--<div class="col-md-4 col-sm-6">-->
+        <!--<div class="card mb-4 box-shadow">-->
+        <!--    <img class="card-img-top" src="<%= place.image %>">-->
+        <!--    <div class="card-body">-->
+        <!--        <h5 class="card-title mb-3"><%=place.name%></h5>-->
+        <!--        <p class="card-text">-->
+                    
+        <!--            <a href="/campgrounds/<%= place._id %>" class="btn btn-primary btn-sm" >More Info</a>-->
+        <!--        </p>-->
+        <!--    </div>-->
+        <!--</div>-->
+        <!--</div>-->
+        
+    <% }); %>
+    </div>
+</div>
+
+<script>
+  
+  function resizeGridItem(item){
+  grid = document.getElementsByClassName("grid")[0];
+  rowHeight = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-auto-rows'));
+  rowGap = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-row-gap'));
+  rowSpan = Math.ceil((item.querySelector('.content').getBoundingClientRect().height+rowGap)/(rowHeight+rowGap));
+    item.style.gridRowEnd = "span "+rowSpan;
+}
+
+function resizeAllGridItems(){
+  allItems = document.getElementsByClassName("item");
+  for(x=0;x<allItems.length;x++){
+    resizeGridItem(allItems[x]);
+  }
+}
+
+function resizeInstance(instance){
+	item = instance.elements[0];
+  resizeGridItem(item);
+}
+
+window.onload = resizeAllGridItems();
+window.addEventListener("resize", resizeAllGridItems);
+
+allItems = document.getElementsByClassName("item");
+for(x=0;x<allItems.length;x++){
+  imagesLoaded( allItems[x], resizeInstance);
+}
+  
+</script>
+
+<% include ../partials/footer %>
+
+
+
