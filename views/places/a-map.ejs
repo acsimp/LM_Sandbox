@@ -1,0 +1,222 @@
+
+
+<% include ../partials/header %>
+<script src="/js/browser.js"></script>
+                    <!--<div class="container">-->
+
+     <div class="row" style="display:flex; flex-wrap: wrap; margin-bottom:5px;">
+<div class="col-md-12">   
+    <div class="form-inline">
+        <input class="form-control mr-sm-2" type="search" name="placeName" id="placeName" placeholder="What are you looking for?" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" id="searchBtn" type="submit">Search</button>
+    </div>
+        <h2>DB Map Test <span style="color: red; font-size: 0.5em" id="demo"></span></h2>
+        
+        <div id="map">
+        
+
+    </div>
+<div class="col-md-12">
+<div id="results" class="row">
+
+</div>
+</div>
+
+</div>
+</div>
+</div>
+
+
+<!--</body>-->
+
+    <script src="https://cdn.apple-mapkit.com/mk/5.x.x/mapkit.js"></script>
+    <script>
+        if (!support) {
+            document.getElementById("demo").innerHTML = "*** Browser May Not Be Supported ***";
+        }
+    </script>
+
+
+    <script>
+        // Initialise map and fetch token 
+        mapkit.init({
+            authorizationCallback: function(done) {
+                // fetch("/token")
+                //     .then(res => res.text())
+                //     .then(token => done(token)) /* If successful, return your token to MapKit JS */ 
+                //     .catch(error => { /* Handle error */ console.log("nae token")});
+                done("eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjI0OU5KQk4ySkoifQ.eyJpc3MiOiJGVVhRWjYyWjlNIiwiaWF0IjoxNTMyMjA4MTEwLjAzMSwiZXhwIjoxNTM0MDA4MTEwLjAzMX0.Ni4ZbLS5ERJd24_Mt19VBsbHsNNEJ11Ps7Ytv-AtwfEGf-14CsedqJAKekAclimyiOOC83ErnsCXtC__j_IBKw"); //alternative to short term token fetched above
+            }
+        });
+        //let map = new mapkit.Map("map", { center: new mapkit.Coordinate(55.8642, -4.2518)  });
+
+        // Set default region of map    
+        var region = new mapkit.CoordinateRegion(
+            new mapkit.Coordinate(55.8642, -4.2518), //Glasgow
+            new mapkit.CoordinateSpan(.005, .005)
+        );
+
+        // Generate Map    
+        var map = new mapkit.Map("map", {
+            center: new mapkit.Coordinate(55.8642, -4.2518),
+            region: region,
+            showsUserLocation: true,
+            showsUserLocationControl: true,
+            // tracksUserLocation: true,
+            showsMapTypeControl: true,
+            showsCompass: mapkit.FeatureVisibility.Visible,
+            // title: mapkit.FeatureVisibility.Visible,
+            isRotationEnabled: true,
+            isScrollEnabled: true,
+            isZoomEnabled: true,
+        });
+
+        // // Geocode Mad Hatters Paisley    
+        //     let geocoder = new mapkit.Geocoder();
+        // geocoder.lookup("Mad Hatters Paisley", (error, data) => {
+        //     if (error) {
+        //         return;
+        // }
+        // map.addAnnotation(new mapkit.MarkerAnnotation(data.results[0].coordinate)); });
+
+
+        // Search near user's location
+
+        // let search = new mapkit.Search({ getsUserLocation: true });
+        // search.search("coffee shop", (error, data) => {
+        //     if (error) {
+        //         // handle search error return;
+        //     }
+        //     // let annotations = data.places.map(place => {
+        //     //     let annotation = new mapkit.MarkerAnnotation(place.coordinate);
+        //     //     annotation.title = place.name;
+        //     //     annotation.subtitle = place.formattedAddress;
+        //     //     annotation.color = "#9B6134";
+        //     //     return annotation;
+        //     // });
+        //     map.showItems(annotations);
+        //     //console.log(data);
+        // });
+
+
+// //     //controls
+    // map.showsUserLocationControl = true; 
+    // map.showsScale = mapkit.FeatureVisibility.Visible; 
+    // map.showsZoomControl = true;
+
+    // map.tintColor = "#ff4040";
+    // map.isZoomEnabled = true; 
+    // map.isRotateEnabled = true;
+    // Map.isRotationEnabled = true;
+    // map.isRotationAvailable = true;
+    // map.isScrollEnabled = true;
+    // map.showsCompass = true;
+    </script>
+
+
+
+<script>
+
+// listen for search input submission via enter key
+document.getElementById("placeName").addEventListener("keypress", function (e) {
+    if (e.keyCode === 13) {  //checks whether the pressed key is "Enter"
+        searchFn(e);
+    }
+});
+// listen for search input submission via search button click
+document.getElementById("searchBtn").addEventListener("click", searchFn);
+
+    
+//search Mapkit JS Places API with search query
+function searchFn() {
+    
+    // call function to clear any exisiting search results
+    clearPreviousAnnotations();
+
+    let address = document.getElementById("placeName").value;
+    let search = new mapkit.Search({ getsUserLocation: true });
+    
+    search.search(address, function(error, results) {
+        if (error) {
+            console.log(error);
+            return;
+        }
+    console.log(results);
+
+
+    // //display search results list
+    // for (i = 0; i < results.places.length; i++) {
+    //     document.getElementById("results").innerHTML +=
+    //         '<div class="card text-center" style="width: 32%; float:left">' +
+    //         '<h5>' + results.places[i].name + '</h5>' +
+    //         '<p>' + results.places[i].formattedAddress + '</p>' +
+    //         '<p>' + results.places[i].coordinate.latitude + '</p>' +
+    //         '<p>' + results.places[i].coordinate.longitude + '</p>' +
+    //         '<p>' + results.places[i].telephone + '</p>' +
+    //         '<a class="btn btn-sm btn-outline-secondary" href="/a-places/a-new?name=' + results.places[i].name + '&myparam2={id2}">Add to database</a>' +
+    //         '</div>';
+    // }
+    // var limit = 10;
+    // if (results.places.length <10){
+    //     limit = results.places.length;
+    // }
+    var limit = results.places.length;
+    
+    for (i = 0; i < limit; i++) {    
+            document.getElementById("results").innerHTML +=
+
+            '<div class="col-md-3 col-sm-6 ">' + 
+              '<div class="content card mb-4 box-shadow">' +
+                // '<a href="/a-places/a-new?name=' + results.places[i].name + '&myparam2={id2}"><img class="card-img-top" src="https://www.ppihotline.co.uk/wp-content/uploads/2017/02/placeholder-image.jpg"></a>' +
+                '<div class="content card-body">' +
+                  '<h5 class="card-title mb-3">' + results.places[i].name + '</h5>' +
+                  '<p class="card-text">' + results.places[i].formattedAddress + '</p>' +
+                  '<div class="d-flex justify-content-between align-items-center">' +
+                    '<div class="btn-group">' +
+                      '<a class="btn btn-sm btn-outline-secondary" href="/a-places/a-new?name=' + results.places[i].name + '&myparam2={id2}">Add to Database</a>' +
+                    '</div>' + 
+                  '</div>' + 
+                '</div>' + 
+              '</div>' + 
+            '</div>';
+    }
+       
+    //Controls - Mapkit search results    
+    var annotations = results.places.map(function(place) {
+        var annotation = new mapkit.MarkerAnnotation(place.coordinate);
+        annotation.title = place.name;
+        annotation.subtitle = place.formattedAddress;
+        annotation.color = "#51d0f1";
+
+        // Clustering setup
+        annotation.clusteringIdentifier = "DetailedCollectionCluster";
+        // annotation.collisionMode = mapkit.Annotation.CollisionMode.Circle;
+        //annotation.displayPriority = mapkit.Annotation.DisplayPriority.High;
+        return annotation;
+    });
+        map.showItems(annotations);
+    });
+};
+
+// function to clear previous results from map and list
+function clearPreviousAnnotations()
+{
+    let annotations = map.annotations;
+    map.removeAnnotations(annotations);
+    document.getElementById('results').innerHTML = "";
+}
+
+</script>
+<script>
+    window.onload = function () { 
+        console.log("isRotationAvailable: " + map.isRotationAvailable); 
+        console.log("isRotationEnabled: " + map.isRotationEnabled); 
+        console.log("isZoomEnabled: " + map.isZoomEnabled); 
+        console.log("isScrollEnabled: " + map.isScrollEnabled); 
+        if(map.isRotationAvailable==false){
+            alert("Rotation not available!");
+            // window.location.replace("http://www.google.com");
+        }
+    }
+</script>
+

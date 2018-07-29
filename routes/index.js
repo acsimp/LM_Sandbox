@@ -6,11 +6,44 @@ var passport = require("passport");
 var User = require("../models/user");
 var middleware = require("../middleware");
 var Place = require("../models/place");
+var jwt = require('jsonwebtoken');
+
+const fs = require('fs');
+
 
 
 // ROOT ROUTE
 router.get("/", function(req, res){
     res.render("landing", {page: 'landing'});
+});
+
+
+
+let payload = {
+iss: "FUXQZ62Z9M", // Issuer: Your Apple Developer Team ID */
+iat: Date.now() / 1000, // Issued at: Current time in seconds */
+exp: (Date.now() / 1000) + 1800, // Expiration: Time to expire in seconds */ 
+// origin: "https://yourdomain.com" /* (recommended - a domain restriction) */
+};
+
+let authKey = fs.readFileSync("AuthKey_249NJBN2JJ.p8");
+//let keyFile = fs.readFileSync("AuthKey_249NJBN2JJ.p8");
+
+
+let header = {
+kid: "249NJBN2JJ", // Key Id: Your MapKit JS Key ID */ 
+typ: "JWT", // Type of token 
+alg: "ES256" // The hashing algorithm being used */
+};
+
+let authorizatonToken = jwt.sign(payload, authKey, { header: header });
+console.log(authorizatonToken);
+
+
+// TOKEN ROUTE
+router.get("/token", function(req, res){
+    res.send(
+        jwt.sign(payload, authKey, { header: header }));
 });
 
 

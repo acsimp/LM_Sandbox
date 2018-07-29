@@ -9,12 +9,17 @@ var express         = require("express"),
     Place           = require("./models/place"),
     User            = require("./models/user"),
     dotenv_var      = require('dotenv').config(),
-    port = process.env.PORT || 3000,
+    port            = process.env.PORT || 3000,
+    jwt             = require('jsonwebtoken'),
     request         = require('request-promise');  
+    
+const fs = require('fs');
+
 
 
 //requiring routes
 var placeRoutes    = require("./routes/places");
+var a_placeRoutes    = require("./routes/a-places");
 var indexRoutes    = require("./routes/index");
 
 
@@ -48,6 +53,7 @@ app.use(function(req, res, next){
 });
 // use the route files that we have required with a prefix that will be added to all routes in that file.
 app.use("/places", placeRoutes);
+app.use("/a-places", a_placeRoutes);
 app.use("/", indexRoutes);
 
 // handle 404 error status
@@ -57,11 +63,42 @@ app.use(function(req, res, next) {
     res.render("404", { messages: req.flash('info') });
 });
 
+// // handle 500 error status
+// app.use(function(req, res, next) {
+//     res.status(500);
+//     req.flash('info', 'Flash is back!');
+//     res.render("500", { messages: req.flash('info') });
+// });
+
 // caching disabled for every route
 app.use(function(req, res, next) {
   res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   next();
 });
+
+
+
+
+
+//JWT endpoint
+// app.get("/token", (req, res) => { 
+//     res.send(jwt.sign(payload, keyFile, { header: header }) );
+// });    
+
+// app.get("/token", (req, res, next) => {
+//     res.header("Cache-Control", "no-cache, no-store, must-revalidate");
+//     next();
+// }, (req, res) => {
+//     res.send(
+//         jwt.sign(payload, authKey, { header: header }));
+// });
+
+
+// app.get("/maps/token", function(req, res){
+//     res.send(
+//         jwt.sign(payload, authKey, { header: header }));
+// });
+
 
 //====================================================
 //tell express to listen for requests (start server)
