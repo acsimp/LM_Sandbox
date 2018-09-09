@@ -190,6 +190,12 @@ router.get("/:id", function(req, res) {
             req.flash("error", "Place not found");
             res.redirect("/places");
         }
+        if (!foundPlace.fb_id) {
+            // req.flash("error", "This place has no Facebook ID");
+            // res.redirect("/places");
+            var fb_place = {};
+            res.render("places/show", { place: foundPlace, fb_place: fb_place});
+        }
         else {
             //call facebook API ----------------------------------
             const userFieldSet = 'id, about, name, location, checkins, link, rating_count, overall_star_rating, description, website, phone, photos{images}, hours, engagement, restaurant_specialties, restaurant_services, price_range, single_line_address, is_verified, picture{url}, category_list, cover, is_permanently_closed';

@@ -1,5 +1,8 @@
 <% include ../partials/header %>
 
+
+
+
 <div class="row">
 
 
@@ -29,7 +32,9 @@
 <img src="<%= fb_place.picture.data.url %>" alt="Smiley face" height="" width=""><br/>
 <% } } %>
 <br/>
+<% if (fb_place.name) { %>
 Name: <%= fb_place.name %><br/>
+<% } %>
 <% if (fb_place.about) { %>
 About: <%= fb_place.about %><br/>
 <% } %>
@@ -37,7 +42,9 @@ About: <%= fb_place.about %><br/>
 Description: <%= fb_place.description %><br/>
 <% } %>
 <br/>
+<% if (fb_place.category_list) { %>
 Category: <%= fb_place.category_list[0].name %><br/>
+<% } %>
 <% if (fb_place.restaurant_specialties) { %>
 Restaurant Specialities: <%= fb_place.restaurant_specialties %><br/>
 <% } %>
@@ -57,28 +64,38 @@ walkins: <%= fb_place.restaurant_services.walkins %><br/>
 <% if (fb_place.emails) { %>
 Email: <%= fb_place.emails[0].value %><br/>
 <% } %>
+<% if (fb_place.phone) { %>
 Phone: <%= fb_place.phone %><br/>
+<% } %>
+<% if (fb_place.link) { %>
 Facebook: 
 <a href="<%= fb_place.link %>">Facebook</a><br/>
+<% } %>
 
 <% if (fb_place.website) { %>
 Website: 
 <a href="<%= fb_place.website %>">Website</a><br/>
 <% } %>
+<% if (fb_place.website) { %>
 ID: <%= fb_place.id %><br/>
-
+<% } %>
 
 <br/>
+<% if (fb_place.engagement) { %>
 Likes: <%= fb_place.engagement.social_sentence + " (" + fb_place.engagement.count + ")" %><br/>
 Checkins: <%= fb_place.checkins %><br/>
 Rating: <%= fb_place.overall_star_rating + " (" + fb_place.rating_count + ")"%><br/>
+<% } %>
 <br/>
+<% if (fb_place.location) { %>
 <%= fb_place.location.street %><br/>
 <%= fb_place.location.city %><br/>
 <%= fb_place.location.zip %><br/>
 <%= fb_place.location.country %><br/>
 long: <%= fb_place.location.longitude %><br/>
 Lat: <%= fb_place.location.latitude %><br/>
+<% } %>
+
 <br/>
 <% if (fb_place.price_range) { %>
 Price range: <%= fb_place.price_range %><br/>

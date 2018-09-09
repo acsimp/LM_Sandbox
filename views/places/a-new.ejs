@@ -1,43 +1,95 @@
 <% include ../partials/header %>
 
-
 </script>
 
     <div class="row"></div>
-        <h1 style="text-align:center">Add Apple place to our Database</h1>
+        <h1 style="text-align:center">Add This Place:</h1>
         <div style="width:30%; min-width:250px; margin: 25px auto; ">
            
            <form action="/places" method="POST">
                 <div class="form-group">
-                <input class="form-control" type="text" name="name" placeholder="name placeholder" value="<%= name %>">
+                    <label class="label" for="name">Name</label>
+                    <input class="form-control" type="text" id="name" name="name" placeholder="name" value="" readonly>
                 </div>
                 <div class="form-group">
-                <input class="form-control" type="number" name="price" placeholder="Relative Expense (£)" min="0.01" step="0.01">
-                </div>
-                <!--<div class="form-group">-->
-                <!--<input class="form-control" type="text" name="image" placeholder="image url">-->
-                <!--</div>-->
+                    <label class="label" for="formattedAddress">Address</label>
+                    <input class="form-control" type="text" id ="formattedAddress" name="formattedAddress" placeholder="formattedAddress" value="" readonly>
+                </div>                
                 <div class="form-group">
-                <input class="form-control" type="text" name="fb_id" placeholder="Facebook ID" value="<%=  %>">
-                </div>
-                <!--<div class="form-group">-->
-                <!--    <label for="location">Location</label>-->
-                <!--    <input class="form-control" type="text" name="location" id="location" placeholder="Yosemite National Park, CA">-->
-                <!--</div>-->
-                <!--<div class="form-group mb-4">-->
-                    <!--<label for="location">Location</label>-->
-                <!--    <input  class="form-control" name="location" id="location" placeholder="address" onFocus="geolocate()" type="text">-->
-                <!--</div>-->
+                    <label class="label" for="latitude">Latitude</label>
+                    <input class="form-control" type="text" id="latitude" name="latitude" placeholder="latitude" value="" readonly>
+                </div>                
                 <div class="form-group">
-                <button class="btn btn-lg btn-primary btn-block">Submit</button>
+                    <label class="label" for="longitude">Longitude</label>
+                    <input class="form-control" type="text" id="longitude" name="longitude" placeholder="longitude" value="" readonly>
+                </div>
+                <div class="form-group">
+                    <label class="label" for="_wpURL">Apple Card</label>
+                    <input class="form-control" type="text" id="_wpURL" name="_wpURL" placeholder="_wpURL" value="" readonly>
+                </div>
+                <div class="form-group">
+                    <label class="label" for="muid">Apple Place ID</label>
+                    <input class="form-control" type="text" id="muid" name="muid" placeholder="muid" value="" readonly>
+                </div>                
+                <div class="form-group">
+                    <label class="label" for="googlePlaceID">Google Place ID</label>
+                    <input class="form-control" type="text" id="googlePlaceID" name="googlePlaceID" placeholder="*No Google Place was found or selected" value="" readonly>
+                </div>
+                <div class="form-group">
+                    <label class="label" for="fbPlaceID">Facebook ID</label>
+                    <input class="form-control" type="text" id="fbPlaceID" name="fbPlaceID" placeholder="*No Facebook Place was found or selected" value="" readonly>
+                </div>
+
+
+
+                <div class="form-group">
+                <button class="btn btn-lg btn-primary btn-block" onclick="clearSession()">Save</button>
                 </div>
             </form>
            
+           <p id="session"></p>
            
-            <a href="/places">Go Back</a>
+            <a onclick="goBack()" href="#">Go Back</a>
         </div>
         
-        
+        <script>
+            var placeData = JSON.parse(sessionStorage.getItem('placeData'));
+            var fbPlaceID = sessionStorage.getItem('fbPlaceID');
+            var googlePlaceID = sessionStorage.getItem('googlePlaceID');
+
+            // sessionStorage.removeItem('placeData');
+            $(document).ready(function() {
+              $('#name').val(placeData.name);
+              $('#formattedAddress').val(placeData.formattedAddress);
+              $('#latitude').val(placeData.coordinate.latitude);
+              $('#longitude').val(placeData.coordinate.longitude);
+              $('#muid').val(placeData.muid);
+              $('#_wpURL').val(placeData._wpURL);
+              if (googlePlaceID) {
+                  $('#googlePlaceID').val(googlePlaceID);
+              };
+              if (fbPlaceID) {
+                  $('#fbPlaceID').val(fbPlaceID);
+              };
+            });
+
+            function clearSession() {
+                sessionStorage.removeItem('placeData');
+                sessionStorage.removeItem('fbPlaceID');
+                sessionStorage.removeItem('googlePlaceID');
+            };            
+            
+            
+            
+
+function goBack() {
+    window.history.back();
+}
+
+        </script>
+   
+   
+   
    
 
         

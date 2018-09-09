@@ -1,0 +1,98 @@
+<% include ../partials/header %>
+
+<div class="container">
+
+
+    <h1 class="my-5 text-center" style="width:100%">Add a New Place</h1>
+
+
+    <div class="row" style="border-bottom: 2px solid lightgray;">
+
+    <div id= "query_card" class="col-lg-3 col-md-4 col-sm-6">
+            <div class="card mb-4 box-shadow text-white bg-dark">
+                <div class="content card-body" style="border-top: 5px solid black;">
+                    <h4 class="text-uppercase text-info">Find a match for:</h4>
+                    <h5 id="query_card_name" class="card-title mb-3">
+                    </h5>
+                    <p id="query_card_formattedAddress" class="card-text"></p>
+                </div>
+            </div>
+        </div>
+                <div id= "no_match" class="col-lg-3 col-md-4 col-sm-6">
+                <div class="content card-body">
+                    <h5 id="" class="card-title mb-3">
+                        No match found?
+                    </h5>
+                    <a href="/a-places/fb-search<%= searchQuery %>" class="btn btn-primary" onclick="clearGoogleSession()">Proceed without</a>
+                </div>
+            </div>
+
+        </div>
+      <div id="results" class="row">
+    <h4 class="my-5 text-center" style="width:100%">Google Search Results</h4>
+
+        <% var i; %>
+        <%for (i = 0; i < place.results.length; i++) { %>
+
+
+
+        <!--<div class="col-md-4 col-sm-6">-->
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="content card mb-4 box-shadow">
+                <div class="content card-body" style="border-top: 5px solid #17a2b8;">
+
+                    <h5 class="card-title mb-3">
+                        <%= place.results[i].name %>
+                    </h5>
+
+                    <b>
+                        <% if (place.results[i].formatted_address) { %>
+                            <%= place.results[i].formatted_address %><br />
+                        <% } else { %>
+                        <% if (place.results[i].vicinity){ %>
+                            <%= place.results[i].vicinity %><br />
+                        <% } else {%>
+                            Address not found
+                        <% } }%>
+                    </b>
+                    <% if (place.results[i].types){ %>
+                            <%= place.results[i].types[0] %><br />
+                        <% } %>
+                        
+                        <a href="https://www.google.com/maps/place/?q=place_id:<%= place.results[i].place_id %>" target="_blank">Google Map Link</a>
+                    <br/><br/>
+                    <a class="mdc-fab" style="position: absolute; bottom: 1rem; right: 1rem; z-index: 1;" onclick="storePlace('<%= place.results[i].place_id %>')" href="/a-places/fb-search<%= searchQuery %>"><span class="material-icons mdc-fab__icon" style="color: white">add</span></a>
+                </div>
+            </div>
+        </div>
+        <%// }); %>
+        <% } %>
+        <br />
+        <!--<a href="<%= //place.paging.next %>"> next </a>-->
+
+    </div>
+</div>
+
+<script>
+
+var placeData = JSON.parse(sessionStorage.getItem('placeData'));
+$(document).ready(function() {
+              $('#query_card_name').text(placeData.name);
+              $('#query_card_formattedAddress').text(placeData.formattedAddress);
+            });
+            
+    function storePlace(id) {
+        var googlePlaceID = id;
+        //fetch object
+
+        sessionStorage.setItem('googlePlaceID', googlePlaceID);
+
+        console.log(sessionStorage.getItem(googlePlaceID));
+    };
+    function clearGoogleSession() {
+        //fetch object
+                sessionStorage.removeItem('googlePlaceID');
+    };
+    
+    
+</script>

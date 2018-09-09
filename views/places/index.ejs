@@ -1,23 +1,24 @@
 <% include ../partials/header %>
-</div>
+
+
     <header class="jumbotron text-center">
         <div class="container">
             <div class="container">
-        <h1 class="jumbotron-heading">List of Places</h1>
-        <p class="lead text-muted">View our hand-picked venues from all over Greater Glasgow</p>
-        <p>        
-            <a class="btn btn-secondary my-2 btn-sm" role="button" href="/places/new">Add New Place</a>
-        </p>
-        <p>
-            <form class="form-inline mx-auto" action="/places" method="GET">
-                <div class="form-group mx-auto">
-                    <input class="form-control" type="text" name="search" placeholder="Places search...">
-                    <input class="btn btn-secondary my-2" type="submit" value="Search">
-                </div>
-            </form>
-        </p>
-        </div>
-        </div>
+                <h1 class="jumbotron-heading">List of Places</h1>
+                <p class="lead text-muted">View our hand-picked venues from all over Greater Glasgow</p>
+                <p>        
+                    <a class="btn btn-secondary my-2 btn-sm" role="button" href="/places/new">Add New Place</a>
+                </p>
+                <p>
+                    <form class="form-inline mx-auto" action="/places" method="GET">
+                        <div class="form-group mx-auto">
+                            <input class="form-control" type="text" name="search" placeholder="Places search...">
+                            <input class="btn btn-secondary my-2" type="submit" value="Search">
+                        </div>
+                    </form>
+                </p>
+            </div><!--container-->
+        </div><!--container-->
     </header>
     
                 <div class="container">
@@ -38,21 +39,22 @@
             <% } %>
             
         </div>
-
-        <div class="grid">
+</div>
+        <div class="row">
           <% var i = 0; %>
     <% places.forEach(function(place){ %>
         
                       
 
-        <!--<div class="col-md-4 col-sm-6">-->
-        <div class="item">
+        <div class="col-lg-3 col-md-4 col-sm-6">
+        <!--<div class="item">-->
               <div class="content card mb-4 box-shadow">
                 <a href="/places/<%= place._id %>"><img class="card-img-top" src="https://www.ppihotline.co.uk/wp-content/uploads/2017/02/placeholder-image.jpg"></a>
                 <div class="content card-body">
                   <h5 class="card-title mb-3"><%=place.name%></h5>
                   <p class="card-text"><%=place.fb_id%></p>
                   <div class="d-flex justify-content-between align-items-center">
+                    <!--<button class="foo-button mdc-button mdc-button--dense mdc-button--raised mdc-ripple-upgraded" style="--mdc-ripple-fg-size:46.8469px; --mdc-ripple-fg-scale:2.01468; --mdc-ripple-fg-translate-start:20.3734px, -14.6109px; --mdc-ripple-fg-translate-end:15.6156px, -7.42344px;">Button</button>-->
                     <div class="btn-group">
                       <a class="btn btn-sm btn-outline-secondary" href="/places/<%= place._id %>/edit">Edit</a>
                       <a href="/places/<%= place._id %>" class="btn btn-sm btn-outline-secondary" >View</a>
@@ -80,7 +82,8 @@
         
     <% }); %>
     </div>
-</div>
+<!--</div>-->
+</div><!--container-->
 
 
 
@@ -134,6 +137,22 @@
 
 
 <script>
+// mdc.ripple.MDCRipple.attachTo(document.querySelector('.foo-button'));
+
+
+        var btns = document.querySelectorAll('.mdc-button');
+        for (var i = 0, btn; btn = btns[i]; i++) {
+          mdc.ripple.MDCRipple.attachTo(btn);
+        }
+
+// see http://material-components-web.appspot.com/ready.js for the below code to work
+// http://material-components-web.appspot.com/button.html
+      // demoReady(function() {
+      //   var btns = document.querySelectorAll('.mdc-button');
+      //   for (var i = 0, btn; btn = btns[i]; i++) {
+      //     mdc.ripple.MDCRipple.attachTo(btn);
+      //   }
+      // });
   
   function resizeGridItem(item){
   grid = document.getElementsByClassName("grid")[0];

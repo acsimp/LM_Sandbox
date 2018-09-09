@@ -51,6 +51,7 @@ app.use(function(req, res, next){
     res.locals.success = req.flash("success");
     next();
 });
+
 // use the route files that we have required with a prefix that will be added to all routes in that file.
 app.use("/places", placeRoutes);
 app.use("/a-places", a_placeRoutes);

@@ -3,73 +3,61 @@
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Little Maven</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
-
     <!--link a page specific stylesheet based on route attribute "page" e.g. res.render("login", {page: 'login'});-->
     <link rel="stylesheet" type="text/css" href="/stylesheets/<%= typeof page !== 'undefined' ? page : '' %>.css">
+    
+        <link rel="stylesheet" type="text/css" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
+      <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js" type="text/javascript" async></script>
+    <script src="/ready.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
-    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
-
-
-
-     <!--MCD core files-->
-      <link rel="stylesheet" type="text/css" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
-  <!--    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js" type="text/javascript" async></script>-->
-  <!--        not required-->
-  <!--        <script src="/js/ready.js"></script>-->
-  <!--        <link rel="stylesheet" type="text/css" href="/stylesheets/top-app-bar.css">-->
-
-
+    
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+      <title>Little Maven</title>
+      <link rel="stylesheet" type="text/css" href="/stylesheets/main.css">
+      <!--<link rel="stylesheet" type="text/css" href="/stylesheets/landing.css">-->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript" async></script>
+      
       <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-    <link rel="stylesheet" type="text/css" href="/stylesheets/main.css">    
-
   </head>
     
   <body>
-    
-
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        
+        <a class="navbar-brand" href="/">Little Maven</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-                <a class="navbar-brand" href="/">Little Maven</a>
-
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
               <a class="nav-link" href="/places">DB Places</a>
             </li>
-            <!--<li class="nav-item">-->
-            <!--  <a class="nav-link" href="/places/map">DB Map</a>-->
-            <!--</li>       -->
-            <!--<li class="nav-item">-->
-            <!--  <a class="nav-link" href="/list">FB List</a>-->
-            <!--</li>    -->
-            <!--<li class="nav-item">-->
-            <!--  <a class="nav-link" href="/a-places">Apple Places</a>-->
-            <!--</li>-->
             <li class="nav-item">
-              <a class="nav-link" href="/a-places/a-map">Add to Database</a>
+              <a class="nav-link" href="/places/map">DB Map</a>
+            </li>       
+            <li class="nav-item">
+              <a class="nav-link" href="/list">FB List</a>
+            </li>    
+            <li class="nav-item">
+              <a class="nav-link" href="/a-places">Apple Places</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/a-places/a-map">Apple Map</a>
             </li>    
               <% if(!currentUser){ %>
               <li class="nav-item">
-                <a class="nav-link <%= typeof page !== 'undefined' && page === 'register' ? 'active' : '' %> " href="/register">Sign Up</a>
-              </li>              
-              <li class="nav-item">
                 <a class="nav-link <%= typeof page !== 'undefined' && page === 'login' ? 'active' : '' %> " href="/login">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link <%= typeof page !== 'undefined' && page === 'register' ? 'active' : '' %> " href="/register">Sign Up</a>
               </li>
               <% }else{ %>
               <li>
@@ -80,8 +68,23 @@
               </li>
               <% } %>
           </ul>
-        </div><!--collapse navbar-collapse-->
+        </div>
       </nav>
+      
+      
+      <header class="mdc-top-app-bar">
+  <div class="mdc-top-app-bar__row">
+    <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+      <a href="#" class="material-icons mdc-top-app-bar__navigation-icon">menu</a>
+      <span class="mdc-top-app-bar__title">Title</span>
+    </section>
+    <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
+      <a href="#" class="material-icons mdc-top-app-bar__action-item" aria-label="Download" alt="Download">file_download</a>
+      <a href="#" class="material-icons mdc-top-app-bar__action-item" aria-label="Print this page" alt="Print this page">print</a>
+      <a href="#" class="material-icons mdc-top-app-bar__action-item" aria-label="Bookmark this page" alt="Bookmark this page">bookmark</a>
+    </section>
+  </div>
+</header>
       
 
         <div class="container">
@@ -98,3 +101,5 @@
         </div>
         
       
+      <div class="container">
+        

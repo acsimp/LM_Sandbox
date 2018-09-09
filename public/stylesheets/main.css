@@ -1,3 +1,15 @@
+:root {
+   --color1: #ffffff;
+   --color2: #e8eded;
+   --color3: #b5c4c2;
+   --color4: #757575;
+   --color5: #3d3d3d;
+    --test: red;
+
+
+
+}
+
 
 #username{
     text-transform: capitalize;
@@ -24,7 +36,46 @@
 }
 
 body{
-    background-color: #f8f9fa;
+    font-family: Roboto,sans-serif;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    font-size: .875rem;
+    line-height: 1.25rem;
+    font-weight: 400;
+    letter-spacing: .04em;
+    text-decoration: inherit;
+    text-transform: inherit;
+    color: rgba(0,0,0,.87);
+    
+}
+
+button:focus {outline:0;}
+
+.navbar {
+    box-shadow: 
+    0 2px 4px -1px rgba(0,0,0,.2), 
+    0 4px 5px 0 rgba(0,0,0,.14), 
+    0 1px 10px 0 rgba(0,0,0,.12);
+    /*padding: 0rem 1rem !important;*/
+    /*height:4rem;*/
+}
+
+.navbar-brand{
+    font-family: 'Lobster', cursive;
+}
+
+.nav-link {
+    position: relative;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -ms-flex-align: center;
+    align-items: center;
+    width: auto;
+    height: 100%;
+    margin: 0 16px;
+    text-transform: capitalize;
+    font-size: 1rem;
+    color: var(--test);
 }
 
 /*h5 { font-size: 1rem; }*/
