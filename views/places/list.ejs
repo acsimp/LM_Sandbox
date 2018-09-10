@@ -34,6 +34,7 @@
         <p>No search results found</p>
     <% } else { %>
         <% var i; %>
+        <% var imageURL = []; %>
         <%for (i = 0; i < place.data.length; i++) { %>
 
 
@@ -44,9 +45,11 @@
 
                 <% if (place.data[i].photos) { %>
                     <img class="card-img-top" src="<%=place.data[i].photos.data[0].images[0].source %>">
+                        <% imageURL[i] = place.data[i].photos.data[0].images[0].source %>
                 <% } else { %>
                 <% if (place.data[i].picture.data.url) { %>
                     <img class="card-img-top" src="<%=place.data[i].picture.data.url %>">
+                    <% imageURL[i] = place.data[i].picture.data.url %>
                 <% } else { %>
                     <img class="card-img-top" src="https://uploads-ssl.webflow.com/57e5747bd0ac813956df4e96/5aebae14c6d254621d81f826_placeholder.png">
                 <% } } %>
@@ -90,7 +93,7 @@
                     <br />
 
 
-                    <a class="mdc-fab" style="position: absolute; bottom: 1rem; right: 1rem; z-index: 1;" onclick="storePlace(<%= place.data[i].id %>)" href="/a-places/a-new"><span class="material-icons mdc-fab__icon" style="color: white">add</span></a>
+                    <a class="mdc-fab" style="position: absolute; bottom: 1rem; right: 1rem; z-index: 1;" onclick="storePlace(<%= place.data[i].id %>, <%= i %>)" href="/a-places/a-new"><span class="material-icons mdc-fab__icon" style="color: white">add</span></a>
 
                 </div>
             </div>
@@ -113,11 +116,14 @@ $(document).ready(function() {
               $('#query_card_formattedAddress').text(placeData.formattedAddress);
             });
 
-    function storePlace(id) {
+    function storePlace(id, i) {
         var fbPlaceID = id;
+        var imageURL = document.querySelectorAll('.card-img-top')[i].src;
+        
         //fetch object
 
         sessionStorage.setItem('fbPlaceID', fbPlaceID);
+        sessionStorage.setItem('imageURL', imageURL);
 
         console.log(sessionStorage.getItem(fbPlaceID));
     };

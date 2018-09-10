@@ -154,15 +154,70 @@ router.get("/map", function(req, res){
 router.post("/", middleware.isLoggedIn, function(req, res){
     //get data from form and add to array
     var name  = req.body.name;
-    var image = req.body.image;
-    var fb_id  = req.body.fb_id;
+    var single_line_address = req.body.formattedAddress;
+    var latitude = req.body.latitude;
+    var longitude = req.body.longitude;
+    var apple_card = req.body._wpURL;
+    var apple_id = req.body.muid;
+    var google_id = req.body.googlePlaceID;
+    var fb_id  = req.body.fbPlaceID;
+    var images = [
+        {card_img: req.body.imageURL},
+    ];
     var author = {
         id: req.user._id,
         username:req.user.username
     };
 
     //create new object
-    var newPlace = {name: name, image: image, fb_id: fb_id, author: author};
+    var newPlace = {
+            name: name, 
+            single_line_address: single_line_address, 
+            latitude: latitude,
+            longitude: longitude,
+            apple_card: apple_card,
+            apple_id: apple_id,
+            google_id: google_id,
+            fb_id: fb_id, 
+            images: images,
+            author: author
+    };
+    
+    if (!fb_id) {
+            // req.flash("error", "This place has no Facebook ID");
+            // res.redirect("/places");
+            var fb_place = {};
+        }
+        else {
+            //call facebook API ----------------------------------
+            const userFieldSet = 'id, about, name, location, checkins, link, rating_count, overall_star_rating, description, website, phone, photos{images}, hours, engagement, restaurant_specialties, restaurant_services, price_range, single_line_address, is_verified, picture{url}, category_list, cover, is_permanently_closed';
+            const options = {
+                method: 'GET',
+                uri: `https://graph.facebook.com/v3.0/${fb_id}`,
+                qs: {
+                    access_token: process.env.access_token,
+                    fields: userFieldSet
+                }
+            };
+            request(options)
+                .then(fbRes => {
+                    var fb_place = JSON.parse(fbRes);
+                    //if place.website does not contain http:// or https:// it simple adds to the end of current url
+                    //this code checks for http and adds if missing
+                    if (fb_place.website) {
+                        var tarea = fb_place.website;
+                        //console.log(tarea);
+                        if (tarea.indexOf("http://") == 0 || tarea.indexOf("https://") == 0) {}
+                        else {
+                            fb_place.website = "http://" + fb_place.website;
+                            //console.log(place.website);
+                        }
+                    }
+                });
+        }
+    
+    
+    
     //create a new place and save to database
     Place.create(newPlace, function(err, newlyCreated){
         if(err){
@@ -171,7 +226,7 @@ router.post("/", middleware.isLoggedIn, function(req, res){
             //redirect back to place
             //  res.redirect("/place");
             //render show template with that place
-            res.render("places/show", {place: newlyCreated});
+            res.render("places/show", {place: newlyCreated, fb_place: fb_place });
         }
     });
 });
@@ -222,7 +277,7 @@ router.get("/:id", function(req, res) {
                         }
                     }
                     //console.log(place);
-                    //res.json(place);
+                    //res.json(foundPlace);
                     //render show template with that place
                     res.render("places/show", { place: foundPlace, fb_place: fb_place });
                     console.log(foundPlace.name);

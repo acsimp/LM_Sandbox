@@ -18,6 +18,8 @@
 
                     <h4 class="card-title"><%= place.name %></h4>
                     <p>Submitted by <a href="/users/<%= place.author.id %>"><span id="submittedBy"><%= place.author.username %></span></a>, <em><%= moment(place.createdAt).fromNow() %></em></p>
+                    <% var obj = JSON.stringify(place); %>
+                    <p><%= obj %></p>
                     
 
 
