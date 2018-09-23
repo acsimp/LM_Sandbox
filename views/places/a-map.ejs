@@ -207,6 +207,16 @@
                     '</div>';
             }
 
+                    document.getElementById("results").innerHTML +=
+                    '<div class="col-lg-3 col-md-4 col-sm-6">' +
+                    '<div class="content card mb-4 box-shadow text-white bg-dark">' +
+                    '<div class="content card-body" style="border-top: 5px solid #17a2b8;">' +
+                    '<h5 class="card-title mb-3">Not found the place you are looking for?</h5>' +
+                    '<a href="#" class="btn btn-primary" onclick="">Try Google</a>'
+                    '</div>' +
+                    '</div>' +
+                    '</div>';
+
             //Controls - Mapkit search results    
             var annotations = results.places.map(function(place) {
                 var annotation = new mapkit.MarkerAnnotation(place.coordinate);

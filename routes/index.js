@@ -162,10 +162,14 @@ router.get("/login", function(req, res) {
     res.render("login", { page: 'login' });
 });
 
+passport.authenticate('local', { successFlash: 'Welcome!' });
+
 //LOGIN logic (with middleware)
 router.post("/login", passport.authenticate("local", {
     successRedirect: "/places",
-    failureRedirect: "/login"
+    failureRedirect: "/login",
+    failureFlash : true,
+    successFlash : true,
 }), function(req, res) {
     //this callback doesn't do anything, could be removed. Here to illustrate middleware.
 });

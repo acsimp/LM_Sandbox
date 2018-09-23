@@ -8,7 +8,7 @@ var request = require('request-promise');
 
 
 //APPLE MAP - show apple map of places
-router.get("/a-map", function(req, res) {
+router.get("/a-map", middleware.isLoggedIn, function(req, res) {
     //get all places from the db
     Place.find({}, function(err, allPlaces) {
         if (err) {
@@ -41,7 +41,7 @@ router.get("/a-new", function(req, res) {
 //---------------------------------------------------------------------------------------------------------------
 
 //FB-SEARCH - search FB using Apple place
-router.get("/fb-search", function(req, res) {
+router.get("/fb-search", middleware.isLoggedIn, function(req, res) {
     var searchQuery = req._parsedUrl.search;
     if (req.query.name) {
         var q = req.query.name;
@@ -59,7 +59,7 @@ router.get("/fb-search", function(req, res) {
     const userFieldSet = 'id, name, location, checkins, link, rating_count, overall_star_rating, photos{images}, price_range, single_line_address, picture, category_list, cover, engagement, website';
     var coords = latitude + ", " + longitude;
     //var coords = '55.8480, -4.4128';
-    var radiusKm = '10000'; //in meters 
+    var radiusKm = '1000'; //in meters 
     var limit = 30;
 
     const options = {
@@ -97,7 +97,7 @@ router.get("/fb-search", function(req, res) {
 //---------------------------------------------------------------------------------------------------------------
 
 //G-SEARCH - search Google using Apple place
-router.get("/g-search", function(req, res) {
+router.get("/g-search", middleware.isLoggedIn, function(req, res) {
     var searchQuery = req._parsedUrl.search;
     const key = 'AIzaSyBspXmmxN0uaVfTHsoc8m4bSTvQ9nIcPFk';
 
@@ -114,7 +114,7 @@ router.get("/g-search", function(req, res) {
         // console.log(latitude);
     }
 
-    var radius = '200';
+    var radius = '250';
 
     // you need permission for most of these fields
     const userFieldSet = 'address_component,adr_address,alt_id,formatted_address,geometry,icon,id,name,permanently_closed,photo,place_id,scope,type,url,utc_offset,vicinity';

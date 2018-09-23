@@ -13,8 +13,8 @@
 
 #username{
     text-transform: capitalize;
-    font-weight: bold;
-    font-style: italic;
+    /*font-weight: bold;*/
+    /*font-style: italic;*/
 }
 
 .commentAuthor {
@@ -158,3 +158,139 @@ box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .2);
 /*  height: 60%; */
 /*  width: 60%;*/
 /*}*/
+.alert  {
+    position: fixed;
+    width:40%;
+    min-width:300px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    bottom: -120px;
+    -webkit-animation: mymove 5s;  
+    animation: mymove 5s;
+    animation-delay: 0.2s;
+    animation-fill-mode: forwards;
+    padding: 1.25rem 1.25rem 1rem 1.25rem;
+    border: 0;
+    border-radius: 0;
+    background-color: #323232;
+    color: white;
+    text-align: center;
+    font-size: 1rem;
+    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, .3);
+    z-index:10;
+    margin-bottom: 0px;
+
+}
+
+.alert-success {
+        border-bottom: 8px solid darkseagreen;
+}
+.alert-danger {
+        border-bottom: 8px solid #ED8E8E;
+
+}
+
+/*.alert{*/
+/*    width:100%;*/
+/*}*/
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes mymove {
+  0% {
+    bottom: -120px;
+  }
+  15% {
+    bottom: 0px;
+  }
+  70% {
+    bottom: 0px;
+  }
+  100% {
+    bottom: -120px;
+    visibility:hidden;
+  }
+}
+
+@keyframes mymove {
+  0% {
+    bottom: -120px;
+  }
+  15% {
+    bottom: 0px;
+  }
+  70% {
+    bottom: 0px;
+  }
+  100% {
+    bottom: -120px;
+    visibility:hidden;
+  }
+}
+
+
+.avatar.avatar-xl {
+    font-size: 1.6rem;
+    height: 3.2rem;
+    width: 3.2rem;
+}
+.avatar.avatar-lg {
+    font-size: 1.2rem;
+    height: 2.4rem;
+    width: 2.4rem;
+}
+.avatar {
+    background: #17a2b8;
+    border-radius: 50%;
+    color: rgba(255,255,255,.85);
+    display: inline-block;
+    font-size: .8rem;
+    font-weight: 300;
+    height: 1.6rem;
+    line-height: 1.25;
+    margin: 0;
+    position: relative;
+    vertical-align: middle;
+    width: 1.6rem;
+    margin-right:3px;
+}
+
+.avatar[data-initial]::before {
+    color: currentColor;
+    content: attr(data-initial);
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 1;
+}
+
+
+
+.card-img-top {
+    object-fit: contain;
+}
+.card-img-top.placeholder {
+    object-fit: cover;
+}
+
+.image{
+    position:relative;
+    overflow:hidden;
+    padding-bottom:100%;
+}
+.image img{
+    position:absolute;
+    height:100%;
+}
+
+.createdAt {
+    text-align: right;
+    width: 100%;
+}
+.pageCount {
+    padding: 0 15px;
+    width: 100%;
+    text-align: right
+}

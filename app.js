@@ -43,6 +43,7 @@ app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+passport.authenticate('local', { successFlash: 'Welcome!' });
 
 //middleware - pass currentUser to all templates. Anything in res.locals is available inside templates
 app.use(function(req, res, next){

@@ -2,24 +2,47 @@
 
 
 
-
+<div class="container">
 <div class="row">
 
 
   <div class="col-md-12">
-            <div class="card mb-3">
+            <div class=" my-3">
 
-                <!--css img-thumbnail-->
-                <img class="card-img-top object-fit_cover camp-img"  src="<%= place.image %>" width="100%">
-                <!--css img-fluid mx-auto d-block -->
-                <!--css style="width:100%"-->
+
                 <div class="card-body">
+                  
                     <h2>From Little Maven Database</h2>
 
-                    <h4 class="card-title"><%= place.name %></h4>
                     <p>Submitted by <a href="/users/<%= place.author.id %>"><span id="submittedBy"><%= place.author.username %></span></a>, <em><%= moment(place.createdAt).fromNow() %></em></p>
-                    <% var obj = JSON.stringify(place); %>
-                    <p><%= obj %></p>
+                    
+                    <% if (typeof place.images!='undefined' && place.images.card_img) { %>
+                      <img class="" src= "<%= place.images.card_img %>" width="300"><% } %>
+                    <% if (typeof place.name!='undefined' && place.name) { %>
+                      <p>Name: <%= place.name %></p> <% } %>
+                    <% if (typeof place.email!='undefined' && place.email) { %>
+                      <p>Email: <%= place.email %></p> <% } %>
+                    <% if (typeof place.slug!='undefined' && place.slug) { %>
+                      <p>Slug: <%= place.slug %></p> <% } %>
+                    <% if (typeof place.single_line_address!='undefined' && place.single_line_address) { %>
+                      <p>Address: <%= place.single_line_address %></p> <% } %>
+                    <% if (typeof place.latitude!='undefined' && place.latitude) { %>
+                      <p>latitude: <%= place.latitude %></p> <% } %>
+                    <% if (typeof place.longitude!='undefined' && place.longitude) { %>
+                      <p>longitude: <%= place.longitude %></p> <% } %>
+                    <% if (typeof place.fb_id!='undefined' && place.fb_id) { %>
+                      <p>fb_id: <%= place.fb_id %></p> <% } %>
+                    <% if (typeof place.google_id!='undefined' && place.google_id) { %>
+                      <p>google_id: <%= place.google_id %></p> <% } %>
+                    <% if (typeof place.apple_id!='undefined' && place.apple_id) { %>
+                      <p>apple_id: <%= place.apple_id %></p> <% } %>
+                      
+                      <div id="placesArray"></div>
+                      <textarea name="" id="myTextarea" cols="150" rows="10"><%=JSON.stringify(place, undefined, 4)%></textarea>
+
+                      
+
+                    
                     
 
 
@@ -128,6 +151,7 @@ Parking: <%= fb_place.is_permanently_closed %><br/><br/>
 
 </p>
 
+</div>
 
 <!--about,location,checkins,name,parking,link,rating_count,overall_star_rating,description,website,phone,photos{album},hours,engagement,restaurant_specialties,restaurant_services,price_range,single_line_address,is_verified,picture{url}-->
 
@@ -177,6 +201,22 @@ Parking: <%= fb_place.is_permanently_closed %><br/><br/>
   
   </div>
 </div>
+
+<script>
+    // Object.keys(place).forEach(function(key) { 
+    //   document.getElementById("placesArray").innerHTML += '<p>' + 'Key : ' + key + ', Value : ' + place[key] + '</p>';
+    //     console.log('Key : ' + key + ', Value : ' + place[key])
+    // })
+// var place = place;
+// var keys = Object.keys(place);
+// for(var i=0;i<keys.length;i++){
+//     var key = keys[i];
+//     console.log(key, place[key]);
+// }
+
+
+
+</script>
     
 
 

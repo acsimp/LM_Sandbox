@@ -1,0 +1,100 @@
+label.label{
+    margin-bottom: 0rem !important;
+    width: 6rem;
+}
+label.label::after { 
+    content: ": ";
+}
+.input {
+    width: 100%;
+}
+table{
+    /*margin-bottom:1rem;*/
+}
+
+.formColumn {
+    /*padding: 0 1rem;*/
+}
+.form {
+    /*display:flex;*/
+}
+.button {
+    width:100%;
+    text-align: center;
+    margin-top: 1rem;
+}
+.btn{
+    width:250px;
+    margin: 5px 15px;
+}
+.btn-danger {
+    width:100px;
+    float: right; 
+    clear: right;
+    display: block;
+}
+
+
+
+/*checkbox -----------------*/
+
+
+
+
+.items {
+  display: flex;
+  flex-direction: column;
+  /*padding: 20px;*/
+  border: 1px solid rgba(255, 255, 255, .2);
+  /*padding-top: 18px;*/
+}
+
+.checkbox {
+  display: block;
+  height: 0px;
+  margin: 0 0 0px -9999px;
+  order: 4;
+}
+
+.checkbox:checked {
+}
+
+.checkbox_label {
+  display: block;
+  position: relative;
+  padding: 7px 10px 7px 10px;
+  /*border-top: 1px solid #fff;*/
+  order: 4;
+  cursor: pointer;
+  margin:0px;
+}
+
+.checkbox_label::before {
+  /*content: '\f10c'; */
+  display: block;
+  position: absolute;
+  top: 7px;
+  right: 10px;
+  font-size: 1.5rem;
+  font-family: "Material Icons";
+    content: "\e835"; /*black checkbox*/
+}
+
+.checkbox_label::after { 
+    content: ": ";
+}
+.checkbox_label:hover {
+  background-color: rgba(255, 255, 255, .2);
+}
+
+.checkbox:checked + label::before {
+  content: '\e834'; /* checkmark */
+}
+
+textarea {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+
+	width: 100%;
+}
