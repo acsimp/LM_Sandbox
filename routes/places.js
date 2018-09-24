@@ -288,7 +288,7 @@ router.put("/:id", middleware.checkPlaceOwnership, function(req, res) {
     // var lng = data[0].longitude;
     // var location = data[0].formattedAddress;
     
-        var name  = req.body.name;
+    var name  = req.body.name;
     var single_line_address = req.body.single_line_address;
     var latitude = req.body.latitude;
     var longitude = req.body.longitude;
@@ -298,6 +298,7 @@ router.put("/:id", middleware.checkPlaceOwnership, function(req, res) {
     var fb_id  = req.body.fbPlaceID;
     var images =
         {card_img: req.body.imageURL};
+    var category = req.body.category;
     var street = req.body.street;
     var city = req.body.city;
     var postcode = req.body.postcode;
@@ -316,6 +317,8 @@ router.put("/:id", middleware.checkPlaceOwnership, function(req, res) {
     var parking = {
             onsite : req.body.parking_onsite,
             nearby: req.body.parking_nearby,
+            free : req.body.parking_free,
+            parent_and_child : req.body.parent_and_child,
         };
     var close_transport = req.body.close_transport;
     var buggy = {
@@ -325,6 +328,7 @@ router.put("/:id", middleware.checkPlaceOwnership, function(req, res) {
         };
     var menu_link = req.body.menu_link;
     var kids_menu_link = req.body.kids_menu_link;
+    var slug = req.body.slug;
     var reservations = req.body.reservations;
     var licenced = req.body.licenced;
     var work_friendly = req.body.work_friendly;
@@ -338,8 +342,104 @@ router.put("/:id", middleware.checkPlaceOwnership, function(req, res) {
     var customer_toilets = req.body.customer_toilets;
     var gift_vouchers = req.body.gift_vouchers;
     var venue_hire = req.body.venue_hire;
-    
-    
+    var cuisine = req.body.cuisine;
+    var special_notes = req.body.special_notes;
+    var meal_type = {
+            breakfast : req.body.breakfast,
+            lunch : req.body.lunch,
+            dinner : req.body.dinner,
+            coffee : req.body.coffee,
+            drinks : req.body.drinks,
+            treats : req.body.treats,
+    };
+    var vegetarian_options = req.body.vegetarian_options;
+    var vegan_options = req.body.vegan_options;
+    var healthy_options = req.body.healthy_options;
+    var organic_options = req.body.organic_options;
+    var halal_options = req.body.halal_options;
+    var great_coffee = req.body.great_coffee;
+    var great_cake = req.body.great_cake;
+    var snacks_available = req.body.snacks_available;
+    var allergy = {
+            friendly : req.body.allergy_friendly,
+            gluten : req.body.gluten,
+            nut : req.body.nut,
+            dairy : req.body.dairy,
+            eggs : req.body.eggs,
+    };
+    var lots_of_space = req.body.lots_of_space;
+    var group_friendly = req.body.group_friendly;
+    var large_group_space = req.body.large_group_space;
+    var breastfeeding = {
+            friendly : req.body.breastfeeding_friendly,
+            discreet : req.body.breastfeeding_discreet,
+            no_purchase_req : req.body.breastfeeding_no_purchase_req,
+            feeding_room : req.body.breastfeeding_feeding_room,
+    };
+    var highchairs = {
+            available : req.body.highchairs_available,
+            lots : req.body.highchairs_lots,
+    };
+    var kids_menu = req.body.kids_menu;
+    var kids_utensils = req.body.kids_utensils;
+    var BYO_infant_food = {
+            allowed : req.body.BYO_allowed,
+            microwave : req.body.BYO_microwave,
+            bottle_warmer : req.body.BYO_bottle_warmer,
+    };
+    var play = {
+            indoor : req.body.play_indoor,
+            outdoor : req.body.play_outdoor,
+            toys : req.body.play_toys,
+            colouring: req.body.play_colouring,
+            soft : req.body.play_soft,
+            creche : req.body.play_creche,
+    };
+    var seating = {
+            indoor : req.body.seating_indoor,
+            outdoor : req.body.seating_outdoor,
+            picnic : req.body.picnic,
+            party_size : req.body.party_size,
+            fifty_plus_seats : req.body.fifty_plus_seats,
+    };
+    var dog = {
+            friendly : req.body.dog_friendly,
+            water : req.body.dog_water,
+            inside : req.body.dog_inside,
+            outside : req.body.dog_outside,
+            restricted : req.body.dog_restricted,
+            good_walks : req.body.dog_walks,
+    };
+    var wifi = req.body.wifi;
+    var other_facilities = req.body.other_facilities;
+    var disability = {
+            friendly : req.body.disability_friendly,
+            access : req.body.disability_access,
+            spacious : req.body.disability_spacious,
+            parking : req.body.disability_parking,
+            toilet : req.body.disability_toilet,
+            induction_loop : req.body.disability_induction_loop,
+            ir_induction_loop : req.body.disability_ir_induction_loop,
+            braille : req.body.disability_braille,
+    };
+    var good_for = {
+            play : req.body.good_for_play,
+            party : req.body.good_for_party,
+            large_groups : req.body.good_for_large_groups,
+            supervised_visits : req.body.good_for_supervised_visits,
+            age_goup : {
+                newborn : req.body.age_group_newborn,
+                baby : req.body.age_group_baby,
+                toddler : req.body.age_group_toddler,
+                pre_school : req.body.age_group_pre_school,
+                school : req.body.age_group_school,
+            }, 
+        };
+    var permanently_closed = req.body.permanently_closed;
+    var temporarily_closed = req.body.temporarily_closed;
+    var kid_friendly = req.body.kid_friendly;
+    var not_for_kids = req.body.not_for_kids;
+    var verified_by_owner = req.body.verified_by_owner;
     
     
     var newData = { 
@@ -364,6 +464,55 @@ router.put("/:id", middleware.checkPlaceOwnership, function(req, res) {
             parking: parking,
             close_transport: close_transport,
             buggy: buggy,
+            category: category,
+            menu_link: menu_link,
+            kids_menu_link: kids_menu_link,
+            slug: slug,
+            reservations: reservations, 
+            licenced: licenced,
+            work_friendly: work_friendly,
+            onsite_cafe_restaurant: onsite_cafe_restaurant,
+            table_service: table_service,
+            delivery: delivery,
+            pickup: pickup,
+            takeout: takeout,
+            walk_ins: walk_ins,
+            walk_ins_only: walk_ins_only,
+            customer_toilets: customer_toilets,
+            gift_vouchers: gift_vouchers,
+            venue_hire: venue_hire,
+            cuisine: cuisine,
+            special_notes: special_notes,
+            meal_type: meal_type,
+            vegetarian_options: vegetarian_options,
+            vegan_options: vegan_options,
+            healthy_options: healthy_options,
+            organic_options: organic_options,
+            halal_options: halal_options,
+            great_coffee: great_coffee,
+            great_cake: great_cake,
+            snacks_available: snacks_available,
+            allergy: allergy,
+            lots_of_space: lots_of_space,
+            group_friendly: group_friendly,
+            large_group_space: large_group_space,
+            breastfeeding: breastfeeding,
+            highchairs: highchairs,
+            kids_menu: kids_menu,
+            kids_utensils: kids_utensils,
+            BYO_infant_food: BYO_infant_food,
+            play: play,
+            seating: seating,
+            dog: dog,
+            wifi: wifi,
+            other_facilities: other_facilities, 
+            disability: disability,
+            good_for: good_for,
+            permanently_closed: permanently_closed,
+            temporarily_closed: temporarily_closed,
+            kid_friendly: kid_friendly,
+            not_for_kids: not_for_kids,
+            verified_by_owner: verified_by_owner,
     };
     
     //find and update place

@@ -269,6 +269,7 @@ var placeSchema = new mongoose.Schema({
         kid_friendly: Boolean,
         not_for_kids: Boolean,
         verified_by_owner: Boolean,
+        temporarily_closed: Boolean,
         // new_management: {
         //     date: String,
         //     state: Boolean,
@@ -282,16 +283,16 @@ var placeSchema = new mongoose.Schema({
     
     // Good for -------------------------------------------
         good_for: {
-        play: Boolean,
-        party: Boolean,
-        large_groups: Boolean,
-        supervised_visits: Boolean,
-        age_goup: {
-            newborn: Boolean, // 0-1 mo
-            baby: Boolean, // <1 yr
-            toddler: Boolean, // 1-3 yrs
-            pre_school: Boolean, // 3-5 yrs
-            school: Boolean, // 5+ yrs
+            play: Boolean,
+            party: Boolean,
+            large_groups: Boolean,
+            supervised_visits: Boolean,
+            age_goup: {
+                newborn: Boolean, // 0-1 mo
+                baby: Boolean, // <1 yr
+                toddler: Boolean, // 1-3 yrs
+                pre_school: Boolean, // 3-5 yrs
+                school: Boolean, // 5+ yrs
             }, 
         },
         

@@ -131,10 +131,6 @@
                                     <th class="label"><label class="label" for="kids_menu_link">Kids Menu Link</label></th>
                                     <th class="input"><input class="form-control" type="text" id="kids_menu_link" name="kids_menu_link" placeholder="" value="<%= place.kids_menu_link %>"></th>
                                 </tr>
-                                <tr>
-                                    <th class="label"><label class="label" for="slug">Slug</label></th>
-                                    <th class="input"><input class="form-control" type="text" id="slug" name="slug" placeholder="" value="<%= place.slug %>"></th>
-                                </tr>
                             </table>     
                             <div class="items">
                                 <input class="checkbox" id="reservations" name="reservations" value="yes" type="checkbox" <% if (place.reservations) { %> checked <% } %>>
@@ -311,7 +307,7 @@
                             </div> 
                             <h6 class="">Allergies</h6>
                             <div class="items">
-                                <input class="checkbox" id="friendly" name="friendly" value="yes" type="checkbox" <% if (place.allergy.friendly) { %> checked <% } %>>
+                                <input class="checkbox" id="friendly" name="allergy_friendly" value="yes" type="checkbox" <% if (place.allergy.friendly) { %> checked <% } %>>
                                 <label class="checkbox_label" for="friendly">Allergy Friendly</label>
                                 
                                 <input class="checkbox" id="gluten" name="gluten" value="yes" type="checkbox" <% if (place.allergy.gluten) { %> checked <% } %>>
@@ -404,6 +400,12 @@
                                 
                                 <input class="checkbox" id="play_colouring" name="play_colouring" value="yes" type="checkbox" <% if (place.play.colouring) { %> checked <% } %>>
                                 <label class="checkbox_label" for="play_colouring">Colouring</label>
+                                
+                                <input class="checkbox" id="play_soft" name="play_soft" value="yes" type="checkbox" <% if (place.play.soft) { %> checked <% } %>>
+                                <label class="checkbox_label" for="play_soft">Soft</label>
+                                
+                                <input class="checkbox" id="play_creche" name="play_creche" value="yes" type="checkbox" <% if (place.play.creche) { %> checked <% } %>>
+                                <label class="checkbox_label" for="play_creche">Creche</label>
                             </div> 
                             <h6 class="">Seating</h6>
                             <div class="items">
