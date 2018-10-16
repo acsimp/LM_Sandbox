@@ -55,11 +55,16 @@ router.get("/fb-search", middleware.isLoggedIn, function(req, res) {
         var latitude = req.query.latitude;
         // console.log(latitude);
     }
+    if (req.query.radius) {
+        var radius = req.query.radius;
+        // console.log(latitude);
+    } else {
+        var radius = '1000'; //in meters 
+    }
     // you need permission for most of these fields
     const userFieldSet = 'id, name, location, checkins, link, rating_count, overall_star_rating, photos{images}, price_range, single_line_address, picture, category_list, cover, engagement, website';
     var coords = latitude + ", " + longitude;
     //var coords = '55.8480, -4.4128';
-    var radiusKm = '1000'; //in meters 
     var limit = 30;
 
     const options = {
@@ -70,7 +75,7 @@ router.get("/fb-search", middleware.isLoggedIn, function(req, res) {
             access_token: process.env.access_token,
             fields: userFieldSet,
             center: coords,
-            distance: radiusKm,
+            distance: radius,
             q: q,
             limit: limit,
         }
@@ -83,14 +88,51 @@ router.get("/fb-search", middleware.isLoggedIn, function(req, res) {
             // }
             // else {
             //res.json(place);
+            
+            
+           
+            
+            // this code calculates and adds the distance from search coordinate to the JSON data
+            for (var i = 0; i < place.data.length; i++) {
+                var distance = getDistanceFromLatLonInKm(latitude,longitude,place.data[i].location.latitude,place.data[i].location.longitude);
+                place.data[i].distance = distance;
+                //if place.website does not contain http:// or https:// it simple adds to the end of current url
+                //this code checks for http and adds if missing
+                if (place.data[i].website) {
+                    var tarea = place.data[i].website;
+                    //console.log(tarea);
+                    if (tarea.indexOf("http://") == 0 || tarea.indexOf("https://") == 0) {}
+                    else {
+                        place.data[i].website = "http://" + place.data[i].website;
+                        //console.log(place.website);
+                    }
+                }
+                //console.log(place.data[i].distance);
+            }
 
-                res.render('places/list', { place: place, searchQuery: searchQuery });
+            res.render('places/list', { place: place, searchQuery: searchQuery, q: q, latitude: latitude, longitude: longitude, radius: radius });
             // }
         })
-        .catch(function(err) {
-            // API call failed...
-            res.status(err).send("failed to return response - ");
-        });
+        // .catch(function(err) {
+        //     // API call failed...
+        //     console.log(err);
+        //     res.status(err).send("failed to return response - ");
+        // });
+        .catch(function (error) {
+            // I think only the last part of this (just the else statement) is actually working here. I don't think error status codes are being read properly
+            if (error.status === 400) {
+              console.log('Bad request, often due to missing a required parameter.');
+            } else if (error.status === 401) {
+              console.log('No valid API key provided.');
+            } else if (error.status === 404) {
+              console.log('The requested resource doesn\'t exist.');
+            } else {
+                console.log('Probably and invalid request to the facebook api error');
+                var place = {};
+                res.render('places/list', { place: place, searchQuery: searchQuery, q: q, latitude: latitude, longitude: longitude, radius: radius });
+
+            }
+          });
 });
 
 
@@ -105,6 +147,10 @@ router.get("/g-search", middleware.isLoggedIn, function(req, res) {
         var name = req.query.name;
         // console.log(q);
     }
+    if (req.query.address) {
+        var address = req.query.address;
+        // console.log(q);
+    }
     if (req.query.longitude) {
         var longitude = req.query.longitude;
         // console.log(longitude);
@@ -113,22 +159,36 @@ router.get("/g-search", middleware.isLoggedIn, function(req, res) {
         var latitude = req.query.latitude;
         // console.log(latitude);
     }
+    if (req.query.radius) {
+        var radius = req.query.radius;
+        // console.log(latitude);
+    } else {
+        var radius = '2500';
+    }
 
-    var radius = '250';
+    
 
     // you need permission for most of these fields
+    //const userFieldSet = 'photos,formatted_address,name,opening_hours,rating';
     const userFieldSet = 'address_component,adr_address,alt_id,formatted_address,geometry,icon,id,name,permanently_closed,photo,place_id,scope,type,url,utc_offset,vicinity';
+    //const userFieldSet = 'formatted_address,geometry,id,name,place_id,vicinity';
     var coords = latitude + "," + longitude;
 
     const options = {
         method: 'GET',
         uri: `https://maps.googleapis.com/maps/api/place/nearbysearch/json?`,
+        // uri: `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?`,
+        //input=mongolian%20grill&inputtype=textquery&fields=photos,formatted_address,name,opening_hours,rating&locationbias=circle:2000@47.6918452,-122.2226413&key=YOUR_API_KEY
+
         qs: {
-            access_token: process.env.access_token,
-            fields: userFieldSet,
+            //access_token: process.env.access_token,
             location: coords,
             radius: radius,
-            keyword: name,
+            // input: name,
+            // inputtype: "textquery",
+            fields: userFieldSet,
+            // locationbias: "circle:" + radius + "@" + latitude,longitude,
+            keyword: name + address,
             key: key,
         }
     };
@@ -136,11 +196,19 @@ router.get("/g-search", middleware.isLoggedIn, function(req, res) {
         .then(fbRes => {
             var googlePlaces = JSON.parse(fbRes);
             // console.log(googlePlaces);
-            //res.json(googlePlaces);
-            res.render('places/g-search', { place: googlePlaces, searchQuery: searchQuery });
+            // res.json(googlePlaces);
+            
+            for (var i = 0; i < googlePlaces.results.length; i++) {
+                var distance = getDistanceFromLatLonInKm(latitude,longitude,googlePlaces.results[i].geometry.location.lat,googlePlaces.results[i].geometry.location.lng);
+                googlePlaces.results[i].distance = distance;
+                //console.log(place.data[i].distance);
+            }
+            
+            res.render('places/g-search', { place: googlePlaces, searchQuery: searchQuery, name: name, address: address, longitude: longitude, latitude: latitude, radius: radius });
         })
         .catch(function(err) {
             // API call failed...
+            console.log(err);
             res.status(err).send("failed to return response - ");
         });
 
@@ -157,3 +225,23 @@ function escapeRegex(text) {
 
 //exporting "router"
 module.exports = router;
+
+
+
+ function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+              var R = 6371; // Radius of the earth in km
+              var dLat = deg2rad(lat2-lat1);  // deg2rad below
+              var dLon = deg2rad(lon2-lon1); 
+              var a = 
+                Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+                Math.sin(dLon/2) * Math.sin(dLon/2)
+                ; 
+              var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+              var d = R * c; // Distance in km
+              return d;
+            }
+            
+            function deg2rad(deg) {
+              return deg * (Math.PI/180);
+            }

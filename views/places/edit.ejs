@@ -444,6 +444,7 @@
                                 <input class="checkbox" id="dog_walks" name="dog_walks" value="yes" type="checkbox" <% if (place.dog.good_walks) { %> checked <% } %>>
                                 <label class="checkbox_label" for="dog_walks">Good Walks Nearby</label>
                             </div> 
+                                
                             <input class="checkbox" id="wifi" name="wifi" value="yes" type="checkbox" <% if (place.wifi) { %> checked <% } %>>
                             <label class="checkbox_label" for="wifi">Wifi</label>
                             <table>
@@ -451,6 +452,11 @@
                                     <th class="label"><label class="label" for="other_facilities">Other Facilities</label></th>
                                     <th class="input"><input class="form-control" type="text" id="other_facilities" name="other_facilities" placeholder="e.g. something, something else" value="<%= place.other_facilities.join(', ') %>"></th>
                                 </tr>
+                                <tr>
+                                    <th class="label"><label class="label" for="dog_restrictions">Dog Restrictions</label></th>
+                                    <th class="input"><input class="form-control" type="text" id="dog_restrictions" name="dog_restrictions" placeholder="" value="<%= place.dog.restrictions %>"></th>
+                                </tr>
+                          </table>
                             </table>  
                     </div>
                 </div>
@@ -550,6 +556,12 @@
                             <input class="checkbox" id="verified_by_owner" name="verified_by_owner" value="yes" type="checkbox" <% if (place.verified_by_owner) { %> checked <% } %>>
                             <label class="checkbox_label" for="verified_by_owner">Verified By Owner</label> 
                           </div>
+                          <table>
+                                <tr>
+                                    <th class="label"><label class="label" for="kid_restrictions">Kid Restrictions</label></th>
+                                    <th class="input"><input class="form-control" type="text" id="kid_restrictions" name="kid_restrictions" placeholder="" value="<%= place.kid_restrictions %>"></th>
+                                </tr>
+                          </table>
                     </div>
                 </div>
             </div>

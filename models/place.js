@@ -214,6 +214,7 @@ var placeSchema = new mongoose.Schema({
              outside: { type: Boolean },
              restricted: { type: Boolean },
              good_walks: { type: Boolean }, 
+             restrictions: String,
             // poo_bag: { type: Boolean },
         },
         other_facilities: [],
@@ -268,6 +269,7 @@ var placeSchema = new mongoose.Schema({
         permanently_closed: { type: Boolean, default: false },
         kid_friendly: Boolean,
         not_for_kids: Boolean,
+        kid_restrictions: String,
         verified_by_owner: Boolean,
         temporarily_closed: Boolean,
         // new_management: {
@@ -304,8 +306,11 @@ var placeSchema = new mongoose.Schema({
         checkins: Number,
         tips: [],
         disability_review: [],
-        ratings: [
-            //Overall
+        ratings: {
+            overall:{
+               mean: {type: Number, default: 0 },
+               count: {type: Number, default: 0 },
+            },
             //BF friendly
             //Healthy eating
             //Changing Facilities
@@ -314,8 +319,9 @@ var placeSchema = new mongoose.Schema({
             //disability
             //staff_attitude
             //friendliness
-        ],            
+        },            
         //Excellence awards
+        
     });
 
 module.exports = mongoose.model("Place", placeSchema);

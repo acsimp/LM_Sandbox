@@ -213,17 +213,21 @@ router.get("/new", middleware.isLoggedIn, function(req, res){
 router.get("/:id", function(req, res) {
     //find the place with provided ID and populate with comment content not just id
     Place.findById(req.params.id).populate("comments").exec(function(err, foundPlace) {
-        if (err || !foundPlace) {
-            req.flash("error", "Place not found");
+        if (err || !foundPlace || null) {
+            req.flash("error", "ERROR: Place not found");
             res.redirect("/places");
+            // should maybe redirect to a no place found "sorry :P" page
+            //console.log(foundPlace.name + " - nae fb_id!");
         }
-        if (!foundPlace.fb_id) {
+        if (typeof foundPlace!='undefined' && !foundPlace.fb_id) {
             // req.flash("error", "This place has no Facebook ID");
             // res.redirect("/places");
             var fb_place = {};
             res.render("places/show", { place: foundPlace, fb_place: fb_place});
+            console.log(foundPlace.name + " - nae fb_id!");
         }
-        else {
+        else if (typeof foundPlace!='undefined' && typeof foundPlace.fb_id!='undefined'){
+            
             //call facebook API ----------------------------------
             const userFieldSet = 'id, about, name, location, checkins, link, rating_count, overall_star_rating, description, website, phone, photos{images}, hours, engagement, restaurant_specialties, restaurant_services, price_range, single_line_address, is_verified, picture{url}, category_list, cover, is_permanently_closed';
             const options = {
@@ -298,7 +302,7 @@ router.put("/:id", middleware.checkPlaceOwnership, function(req, res) {
     var fb_id  = req.body.fbPlaceID;
     var images =
         {card_img: req.body.imageURL};
-    var category = req.body.category;
+    var category = req.body.category.split(', ');
     var street = req.body.street;
     var city = req.body.city;
     var postcode = req.body.postcode;
@@ -342,7 +346,7 @@ router.put("/:id", middleware.checkPlaceOwnership, function(req, res) {
     var customer_toilets = req.body.customer_toilets;
     var gift_vouchers = req.body.gift_vouchers;
     var venue_hire = req.body.venue_hire;
-    var cuisine = req.body.cuisine;
+    var cuisine = req.body.cuisine.split(', ');
     var special_notes = req.body.special_notes;
     var meal_type = {
             breakfast : req.body.breakfast,
@@ -409,6 +413,7 @@ router.put("/:id", middleware.checkPlaceOwnership, function(req, res) {
             outside : req.body.dog_outside,
             restricted : req.body.dog_restricted,
             good_walks : req.body.dog_walks,
+            restrictions : req.body.dog_restrictions,
     };
     var wifi = req.body.wifi;
     var other_facilities = req.body.other_facilities;
@@ -440,7 +445,7 @@ router.put("/:id", middleware.checkPlaceOwnership, function(req, res) {
     var kid_friendly = req.body.kid_friendly;
     var not_for_kids = req.body.not_for_kids;
     var verified_by_owner = req.body.verified_by_owner;
-    
+    var kid_restrictions = req.body.kid_restrictions;
     
     var newData = { 
         name: name, 
@@ -513,6 +518,7 @@ router.put("/:id", middleware.checkPlaceOwnership, function(req, res) {
             kid_friendly: kid_friendly,
             not_for_kids: not_for_kids,
             verified_by_owner: verified_by_owner,
+            kid_restrictions: kid_restrictions,
     };
     
     //find and update place

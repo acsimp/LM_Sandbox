@@ -8,7 +8,12 @@ var UserSchema = new mongoose.Schema({
     firstname: String,
     lastname: String,
     email: String, //{type: String, unique: true, required: true},
-    isAdmin: {type: Boolean, default: false}
+    isAdmin: {type: Boolean, default: false},
+    comments: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Comment"
+        }],
+    
 });
 
 UserSchema.plugin(passportLocalMongoose);

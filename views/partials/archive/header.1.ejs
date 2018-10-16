@@ -25,9 +25,7 @@
     
 
     <!--link a page specific stylesheet based on route attribute "page" e.g. res.render("login", {page: 'login'});-->
-    <% if (typeof page !== 'undefined') { %>
-      <link rel="stylesheet" type="text/css" href="/stylesheets/<%= typeof page !== 'undefined' ? page : '' %>.css">
-      <% } %>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/<%= typeof page !== 'undefined' ? page : '' %>.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
     <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
@@ -53,85 +51,55 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-    <link rel="stylesheet" type="text/css" href="../../stylesheets/main.css">    
+    <link rel="stylesheet" type="text/css" href="/stylesheets/main.css">    
 
   </head>
     
-  <body class="mt-5">
+  <body>
     
-    
-    
-        <header id="navbar">
 
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+                <a class="navbar-brand" href="/">Little Maven</a>
 
-  <div class="branch-journeys-top"></div>
-
-  <div id="mobileMenuBG"></div>
-  <div class="mobileMenuOuter">
-    <div id="search" onclick="searchMenuFn()" >
-      <!--<img src="baseline-search-24px.svg" alt="search" id="searchIcon">-->
-      <i class="material-icons" id="searchIcon">search</i>
-      <!--<img src="baseline-close-24px.svg" alt="close" class="displayNone" id="closeSearchIcon">-->
-      <i class="material-icons displayNone" id="closeSearchIcon">close</i>
-
-    </div>
-    <div id="hamburger">
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-    
-    <img height="50px" class="mt-2" src="/images/Little Maven 0.JPG" id="imgClickAndChange" onclick="changeImage()" usemap="#SUB15" />
-
-    <!--<a href="/" id="navBrand">Little Maven</a>-->
-
-
-    <div class="mobileMenuInner">
-      <ul>
-        <li>
-          <a href="/places">DB Places</a>
-        </li>
-        <li>
-          <a href="/a-places/a-map">Add to Database</a>
-        </li>
-        <% if(!currentUser){ %>
-        <li>
-          <a class="<%= typeof page !== 'undefined' && page === 'register' ? 'active' : '' %>" href="/register">Sign Up</a>
-        </li>
-        <li>
-          <a class="<%= typeof page !== 'undefined' && page === 'login' ? 'active' : '' %> " href="/login">Login</a>
-        </li>
-        <% }else{ %>
-            <li>
-                <a class="" href="/users/<%= currentUser._id %>"><span id="username"> <%= currentUser.username %></span></a>
-                <!--<a class="" href="/users/<%= currentUser._id %>"><figure class="avatar avatar" data-initial="A"></figure> <span id="username"> <%= currentUser.username %></span></a>-->
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/places">DB Places</a>
+            </li>
+            <!--<li class="nav-item">-->
+            <!--  <a class="nav-link" href="/places/map">DB Map</a>-->
+            <!--</li>       -->
+            <!--<li class="nav-item">-->
+            <!--  <a class="nav-link" href="/list">FB List</a>-->
+            <!--</li>    -->
+            <!--<li class="nav-item">-->
+            <!--  <a class="nav-link" href="/a-places">Apple Places</a>-->
+            <!--</li>-->
+            <li class="nav-item">
+              <a class="nav-link" href="/a-places/a-map">Add to Database</a>
+            </li>    
+              <% if(!currentUser){ %>
+              <li class="nav-item">
+                <a class="nav-link <%= typeof page !== 'undefined' && page === 'register' ? 'active' : '' %> " href="/register">Sign Up</a>
+              </li>              
+              <li class="nav-item">
+                <a class="nav-link <%= typeof page !== 'undefined' && page === 'login' ? 'active' : '' %> " href="/login">Login</a>
               </li>
+              <% }else{ %>
               <li>
-                <a class="" href="/logout">Logout</a>
+                <a class="nav-link" href="/users/<%= currentUser._id %>"><figure class="avatar avatar" data-initial="A"></figure> <span id="username"> <%= currentUser.username %></span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/logout">Logout</a>
               </li>
               <% } %>
-      </ul>
-      
-    </div>
-
-
-
-  </div>
-  <div id="searchMenuBG"></div>
-  <div class="" id="searchMenu" >
-    <form>
-      <input type="text" name="search" placeholder="Search.." style="margin-top: 80px; margin-right: auto; margin-left: auto; display: block; width: 200px;">
-    </form>
-  </div>
-
-
-</header>
-    
-    
-<script src="/js/navbar.js"></script>
-
-      
+          </ul>
+        </div><!--collapse navbar-collapse-->
+      </nav>
       
 
           <% if(error && error.length > 0){ %>

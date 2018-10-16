@@ -22,17 +22,53 @@
                     <h5 id="" class="card-title mb-3">
                         No match found?
                     </h5>
-                    <a href="/a-places/a-new" <%= searchQuery %>" class="btn btn-primary" onclick="clearFbSession()">Proceed without</a>
+                    <a href="/a-places/a-new<%= searchQuery %>" class="btn btn-primary" onclick="clearFbSession()">Proceed without</a>
                 </div>
             </div>
 
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card mb-4 box-shadow text-white bg-dark">
+                    <div class="content card-body">
+                        <h4 class="text-uppercase text-info">Redefine Search</h4>
+                        <form>
+                            <table>
+                                <tr>
+                                    <th class="label"><label class="label" for="name">Query</label></th>
+                                    <th class="input"><input class="form-control" type="text" id="name" name="name" placeholder="" value="<%= q %>"></th>
+                                </tr>
+                                <tr>
+                                    <th class="label"><label class="label" for="latitude">Latitude</label></th>
+                                    <th class="input"><input class="form-control" type="text" id="latitude" name="latitude" placeholder="" value="<%= latitude %>"></th>
+                                </tr>
+                                <tr>
+                                    <th class="label"><label class="label" for="longitude">Longitude</label></th>
+                                    <th class="input"><input class="form-control" type="text" id="longitude" name="longitude" placeholder="" value="<%= longitude %>"></th>
+                                </tr>
+                                <tr>
+                                    <th class="label"><label class="label" for="radius">Radius (m)</label></th>
+                                    <th class="input"><input class="form-control" type="text" id="radius" name="radius" placeholder="" value="<%= radius %>"></th>
+                                </tr>
+                            </table>
+                            
+                            <div class="button">
+                                <button class="btn btn-lg btn-info">Search</button>
+                            </div>
+                            
+                            </form>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
+        
+        
       <div id="results" class="row">
     <h4 class="my-5 text-center" style="width:100%">Facebook Search Results</h4>
     
-    <% if (place.data.length == 0) { %>
+    <% if (typeof place.data!='undefined' && place.data.length == 0) { %>
         <p>No search results found</p>
-    <% } else { %>
+    <% } else if (typeof place.data!='undefined'){ %>
         <% var i; %>
         <% var imageURL = []; %>
         <%for (i = 0; i < place.data.length; i++) { %>
@@ -69,6 +105,10 @@
                      <% if (place.data[i].category_list) { %>
                             <%= place.data[i].category_list[0].name %><br />
                     <% } %>
+                    <br/>
+                     <% if (place.data[i].distance) { %>
+                            <%= place.data[i].distance.toFixed(3) %>km from Apple place<br />
+                    <% } %>
                     
                     <br/>
                     <% if (place.data[i].link) { %>
@@ -100,8 +140,9 @@
         </div>
 
         <% } %>
+        <% } else { %>
+        <p>Bad request, often due to missing a required search parameter - try again with updated parameters.</p>
         <% } %>
-
         <br />
         <!--<a href="<%= //place.paging.next %>"> next </a>-->
 

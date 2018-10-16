@@ -7,11 +7,14 @@ var express         = require("express"),
     LocalStrategy   = require("passport-local"),
     methodOverride  = require("method-override"),    
     Place           = require("./models/place"),
+    Comment         = require("./models/comment"),
     User            = require("./models/user"),
     dotenv_var      = require('dotenv').config(),
     port            = process.env.PORT || 3000,
     jwt             = require('jsonwebtoken'),
-    request         = require('request-promise');  
+    request         = require('request-promise');
+    // updateSchema          = require("./updateSchema");
+
     
 const fs = require('fs');
 
@@ -21,14 +24,16 @@ const fs = require('fs');
 var placeRoutes    = require("./routes/places");
 var a_placeRoutes    = require("./routes/a-places");
 var indexRoutes    = require("./routes/index");
+var commentRoutes       = require("./routes/comments");
 
 
-mongoose.connect("mongodb://Andrew:Dogma6969@ds129321.mlab.com:29321/lm_sandbox");
+// mongoose.connect("mongodb://Andrew:Dogma6969@ds129321.mlab.com:29321/lm_sandbox"); this is the old connection method - it is depreciated
+mongoose.connect("mongodb://Andrew:Dogma6969@ds129321.mlab.com:29321/lm_sandbox", { useNewUrlParser: true });
 app.use(bodyParser.urlencoded({extended:true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
-//seedDB(); //seed the database
+// updateSchema(); //seed the database
 app.use(flash());
 
 //passport configuration
@@ -57,6 +62,7 @@ app.use(function(req, res, next){
 app.use("/places", placeRoutes);
 app.use("/a-places", a_placeRoutes);
 app.use("/", indexRoutes);
+app.use("/places/:id/comments", commentRoutes);
 
 // handle 404 error status
 app.use(function(req, res, next) {

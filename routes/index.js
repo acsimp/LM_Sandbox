@@ -6,6 +6,7 @@ var passport = require("passport");
 var User = require("../models/user");
 var middleware = require("../middleware");
 var Place = require("../models/place");
+var Comment = require("../models/comment");
 var jwt = require('jsonwebtoken');
 
 const fs = require('fs');
@@ -54,7 +55,7 @@ router.get("/token", (req, res, next) => {
 
 
 //--FACEBOOK API SEARCH TEST LIST-------------------------------------------------------------------------------------------------------- 
-router.get('/list', (req, res) => {
+router.get('/list', (req, res)  => {
     // you need permission for most of these fields
     const userFieldSet = 'id, name, location, checkins, link, rating_count, overall_star_rating, photos{images}, price_range, single_line_address, picture, category_list, cover, engagement, website';
     var coords = '55.8480, -4.4128';
@@ -114,7 +115,7 @@ router.post("/register", function(req, res) {
         }
         passport.authenticate("local")(req, res, function() {
             req.flash("success", "Welcome to Little Maven " + user.username + "! Nice to meet you :)");
-            res.redirect("/Places");
+            res.redirect("/places");
         });
     });
 });
@@ -185,23 +186,61 @@ router.get("/logout", function(req, res) {
 
 // USER PROFILE
 router.get("/users/:id", function(req, res) {
+    // var  place={};
+    // var  comment={};
     User.findById(req.params.id, function(err, foundUser) {
         if (err) {
             req.flash("error", "Something went wrong.");
             res.redirect("back");
         }
+        console.log(foundUser);
         Place.find().where("author.id").equals(foundUser._id).exec(function(err, places) {
             if (err) {
                 req.flash("error", "Something went wrong.");
                 res.redirect("back");
             }
-            res.render("users/show", { user: foundUser, places: places });
+            // console.log(places);
+            // place == places;
+        Comment.find().where("author.id").equals(foundUser._id).exec(function(err, comments) {
+            if (err) {
+                req.flash("error", "Something went wrong.");
+                res.redirect("back");
+                // next();
+            }
+            console.log(comments);
+            // comment == comments;
+        
+        // console.log(place);
+        // console.log(comment);
+        res.render("users/show", { user: foundUser, places: places, comments: comments, page: 'user' });
             //  console.log(foundUser._id);
             //  console.log(req.params.id);
-
+    });
         });
     });
 });
+
+// router.get("/users/:id", function(req, res){
+//     User.findById(req.params.id, function(err, foundUser){
+//         if(err) {
+//             req.flash("error", "Something went wrong.");
+//             res.redirect("back");
+//         }
+//         console.log(foundUser);
+//         console.log(foundUser._id);
+//         Place.find().where("author.id").equals(foundUser._id).exec(function(err, places) {
+//                     if(err) {
+//             req.flash("error", "Something went wrong.");
+//             res.redirect("back");
+//         }
+//          res.render("users/show", {user:foundUser, places: places});
+//                 //  console.log(req.user._id);
+//                  console.log(req.params.id);
+//                  console.log("test");
+
+//         });
+//     });
+// });
 
 
 module.exports = router;

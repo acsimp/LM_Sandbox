@@ -2,7 +2,7 @@
 <script src="/js/browser.js"></script>
 <!--<div class="container">-->
 
-<header class="jumbotron text-center">
+<div class="jumbotron text-center">
     <div class="container">
         <div class="row" style="display:flex; flex-wrap: wrap; margin-bottom:5px;">
             <div class="col-md-12">
@@ -16,7 +16,9 @@
 
             </div>
             <!--container-->
-</header>
+            </div>
+            </div>
+</div>
 <div class="container">
 
 
@@ -192,9 +194,9 @@
                     // '<div class="btn-group">' +
                     '<a class="btn btn-sm btn-outline-secondary" target="_blank" href="' + results.places[i]._wpURL + '"><i class="fab fa-apple"></i>&nbsp; Card</a>' +
                     //   '<a class="mdc-fab" onclick="storePlace(' + i + ')" href="/a-places/a-new?name=' + results.places[i].name + 
-                    '<a class="mdc-fab" onclick="storePlace(' + i + ')" href="/a-places/g-search?name=' + results.places[i].name +
+                    '<a class="mdc-fab" onclick="storePlace(' + i + ')" href="/a-places/g-search?name=' + results.places[i].name + 
 
-                    //   '&formattedAddress=' + results.places[i].formattedAddress + 
+                    '&address=' + results.places[i].formattedAddress + 
                     '&latitude=' + results.places[i].coordinate.latitude +
                     '&longitude=' + results.places[i].coordinate.longitude +
                     //   '&_wpURL=' + results.places[i]._wpURL + 
@@ -212,7 +214,7 @@
                     '<div class="content card mb-4 box-shadow text-white bg-dark">' +
                     '<div class="content card-body" style="border-top: 5px solid #17a2b8;">' +
                     '<h5 class="card-title mb-3">Not found the place you are looking for?</h5>' +
-                    '<a href="#" class="btn btn-primary" onclick="">Try Google</a>'
+                    '<a href="g-search" class="btn btn-primary" onclick="">Try Google</a>'
                     '</div>' +
                     '</div>' +
                     '</div>';
@@ -265,3 +267,5 @@
 </script>
 
 <!--sessionStorage.setItem('place', JSON.stringify(placeObj[0]));-->
+
+<% include ../partials/footer %>

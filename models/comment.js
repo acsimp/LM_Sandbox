@@ -9,7 +9,17 @@ var commentSchema = mongoose.Schema({
             ref: "User"
         },
         username: String
-    }
+    },
+    rating: {
+        overall_star: Number,
+    },
+    place: {
+        id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Place"
+        },
+        name: String
+    },
 });
 
 module.exports = mongoose.model("Comment", commentSchema);

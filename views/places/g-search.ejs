@@ -26,7 +26,42 @@
                     <a href="/a-places/fb-search<%= searchQuery %>" class="btn btn-primary" onclick="clearGoogleSession()">Proceed without</a>
                 </div>
             </div>
-
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card mb-4 box-shadow text-white bg-dark">
+                    <div class="content card-body">
+                        <h4 class="text-uppercase text-info">Redefine Search</h4>
+                        <form>
+                            <table>
+                                <tr>
+                                    <th class="label"><label class="label" for="name">Name</label></th>
+                                    <th class="input"><input class="form-control" type="text" id="name" name="name" placeholder="" value="<%= name %>"></th>
+                                </tr>
+                                <tr>
+                                    <th class="label"><label class="label" for="address">Address</label></th>
+                                    <th class="input"><input class="form-control" type="text" id="address" name="address" placeholder="" value="<%= address %>"></th>
+                                </tr>
+                                <tr>
+                                    <th class="label"><label class="label" for="latitude">Latitude</label></th>
+                                    <th class="input"><input class="form-control" type="text" id="latitude" name="latitude" placeholder="" value="<%= latitude %>"></th>
+                                </tr>
+                                <tr>
+                                    <th class="label"><label class="label" for="longitude">Longitude</label></th>
+                                    <th class="input"><input class="form-control" type="text" id="longitude" name="longitude" placeholder="" value="<%= longitude %>"></th>
+                                </tr>
+                                <tr>
+                                    <th class="label"><label class="label" for="radius">Radius (m)</label></th>
+                                    <th class="input"><input class="form-control" type="text" id="radius" name="radius" placeholder="" value="<%= radius %>"></th>
+                                </tr>
+                            </table>
+                            
+                            <div class="button">
+                                <button class="btn btn-lg btn-info">Search</button>
+                            </div>
+                            
+                            </form>
+                    </div>
+                </div>
+            </div>
         </div>
       <div id="results" class="row">
     <h4 class="my-5 text-center" style="width:100%">Google Search Results</h4>
@@ -58,6 +93,9 @@
                     <% if (place.results[i].types){ %>
                             <%= place.results[i].types[0] %><br />
                         <% } %>
+                    <% if (place.results[i].distance) { %>
+                            <%= place.results[i].distance.toFixed(3) %>km from Apple place<br />
+                    <% } %>
                         
                         <a href="https://www.google.com/maps/place/?q=place_id:<%= place.results[i].place_id %>" target="_blank">Google Map Link</a>
                     <br/><br/>
