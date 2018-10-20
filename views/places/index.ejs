@@ -9,14 +9,17 @@
                 <!--<p>        -->
                 <!--    <a class="btn btn-secondary my-2 btn-sm" role="button" href="/places/new">Add New Place</a>-->
                 <!--</p>-->
-                <!--<p>-->
-                <!--    <form class="form-inline mx-auto" action="/places" method="GET">-->
-                <!--        <div class="form-group mx-auto">-->
-                <!--            <input class="form-control" type="text" name="search" placeholder="Places search...">-->
-                <!--            <input class="btn btn-secondary my-2" type="submit" value="Search">-->
-                <!--        </div>-->
-                <!--    </form>-->
-                <!--</p>-->
+                <p>
+                    <form class="form-inline mx-auto" action="/places" method="GET">
+                        <div class="form-group mx-auto">
+                            <input class="form-control" type="text" name="search" placeholder="name, category, cuisine...">
+                            <input class="form-control" type="text" name="dist" placeholder="distance in km">
+                            <input class="form-control" type="text" name="lat" placeholder="latitide">
+                            <input class="form-control" type="text" name="lng" placeholder="longitude">
+                            <input class="btn btn-secondary my-2" type="submit" value="Search">
+                        </div>
+                    </form>
+                </p>
             </div><!--container-->
         </div><!--container-->
     </div>
@@ -66,6 +69,8 @@
                 <div class="content card-body">
                   <h5 class="card-title mb-3"><%=place.name%></h5>
                   <p class="card-text"><%=place.single_line_address%></p>
+                  <% if (typeof place.distance!='undefined' && place.distance) { %>
+                      <p class="card-text text-right"><%= place.distance.toFixed(2) %>km away</p><% } %>
                   <div class="d-flex justify-content-between align-items-center">
                     <!--<button class="foo-button mdc-button mdc-button--dense mdc-button--raised mdc-ripple-upgraded" style="--mdc-ripple-fg-size:46.8469px; --mdc-ripple-fg-scale:2.01468; --mdc-ripple-fg-translate-start:20.3734px, -14.6109px; --mdc-ripple-fg-translate-end:15.6156px, -7.42344px;">Button</button>-->
                     <% if(currentUser && place.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>

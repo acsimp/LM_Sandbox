@@ -1,5 +1,11 @@
 var mongoose = require("mongoose");
 
+// GeoJSON Schema
+var PointSchema = new mongoose.Schema({
+    type: { type: String, enum: ['Point'], required: true },
+    coordinates: { type: [Number], index: '2dsphere', required: true},
+});
+
 //schema setup
 var placeSchema = new mongoose.Schema({
     
@@ -12,6 +18,7 @@ var placeSchema = new mongoose.Schema({
         email: String,
         price: Number, // 1-4, relative, ££££
         slug: String,
+        distance: Number,
         // free_entry: Boolean,
     
     // Location ------------------------------------------
@@ -22,6 +29,7 @@ var placeSchema = new mongoose.Schema({
         country: String,
         latitude: { type: Number, required: true },
         longitude: { type: Number, required: true },
+        location: { type: PointSchema, required: true },
         
     // Hours ---------------------------------------------
         opening_hours: [

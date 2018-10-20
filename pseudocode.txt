@@ -1,0 +1,23 @@
+Comment delete
+
+1. find comment in comments collection
+2. find place document the comment belongs to
+3. find the user document of whom created the comment
+4. pull the comment ID from the place.comments array in the place document
+5. pull the comment ID from the user.comments array in the user document
+6. delete the comment from Comments collection
+7. calculate the place's mean rating and total number of rating (potentially not the same as number of comments)
+8. update the place document with new mean and total
+(future) 9. Calculate the user's points
+(future) 10. update hte user document with new points totals
+
+Comment Modify
+
+1. find comment in comments collection
+2. find place document the comment belongs to
+3. find the user document of whom created the comment
+4. update the comment in Comments collection
+5. calculate the place's mean rating and total number of rating (potentially not the same as number of comments)
+6. update the place document with new mean and totals
+(future) 7. calculate the user's new points totals
+(future) 8. update the user's points totals
