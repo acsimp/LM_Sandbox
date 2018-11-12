@@ -344,9 +344,9 @@ header .mobileMenuOuter #navBrand{font-family: 'Lobster', cursive; position: sti
     z-index: 300;
   }
 header .mobileMenuOuter .mobileMenuInner,header ul{float:right; padding:0px}
-header .mobileMenuOuter a img{height:40px;margin:12px 0 0}
+header .mobileMenuOuter a img{height:48px;margin:10px 0 0;opacity:0.8}
 header ul{display:inline-block;margin:24px 0 0}
-header ul li{display:inline-block;margin:0 0 0 26px}
+header ul li{display:inline-block;margin:0 0 0 22px}
 header ul li a{font-weight:700;font-size:12px;line-height:1.33;color:#657885;text-decoration:none;text-transform:uppercase;cursor:pointer}
 header ul li a:hover{color:#00a5e6}
 header #hamburger,header #mobileMenuBG {-webkit-tap-highlight-color:transparent;display:none}
@@ -566,4 +566,25 @@ header #search{display:inline-block;margin:14px 0 0 24px; float: right;}
     width: 100%;
     left: 0%;
   } 
+}
+
+.placeNumber {
+    height: 2rem;
+    width: 2rem;
+    border-radius: 50%;
+    background-color: blue;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 2rem;
+    font-size: 1rem;
+    position: absolute;
+    z-index: 2;
+    margin: 0.5rem;
+    font-weight: 500;
+}
+
+.col-xs-6 {
+    padding-right: 0px; 
+    padding-left: 0px; 
 }

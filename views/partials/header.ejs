@@ -82,7 +82,8 @@
       <span></span>
     </div>
     
-    <img height="50px" class="mt-2" src="/images/Little Maven 0.JPG" id="imgClickAndChange" onclick="changeImage()" usemap="#SUB15" />
+    <!--<img height="50px" class="mt-2" src="/images/Little Maven 0.JPG" id="imgClickAndChange" onclick="changeImage()" usemap="#SUB15" />-->
+    <a href="/"><img height="45px" class="mt-2" src="/images/Little Maven 1.JPG" /></a>
 
     <!--<a href="/" id="navBrand">Little Maven</a>-->
 
@@ -93,7 +94,7 @@
           <a href="/places">DB Places</a>
         </li>
         <li>
-          <a href="/a-places/a-map">Add to Database</a>
+          <a href="/a-places/a-map">Add to DB</a>
         </li>
         <% if(!currentUser){ %>
         <li>
@@ -104,7 +105,7 @@
         </li>
         <% }else{ %>
             <li>
-                <a class="" href="/users/<%= currentUser._id %>"><span id="username"> <%= currentUser.username %></span></a>
+                <a class="" href="/users/<%= currentUser._id %>"><span id="username"> <%= currentUser.firstname %></span></a>
                 <!--<a class="" href="/users/<%= currentUser._id %>"><figure class="avatar avatar" data-initial="A"></figure> <span id="username"> <%= currentUser.username %></span></a>-->
               </li>
               <li>

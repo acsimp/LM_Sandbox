@@ -1,0 +1,104 @@
+<!--<hr class="pt-4 my-md-5 pt-md-5">-->
+<footer class="pt-4 my-md-5 pt-md-5 border-top mastfoot mt-auto">
+  <div class="container">
+        <div class="row">
+          <div class="col-12 col-md">
+            <img class="mb-2" src="https://tarmac-bluecircle.co.uk/wp-content/uploads/2017/05/BlueCircle.png" alt="" width="24" height="24">
+            <small class="d-block mb-3 text-muted">&copy; 2017-2018 Maven Family Ltd.</small>
+          </div>
+          <!--<div class="col-6 col-md">-->
+          <!--  <h5>Features</h5>-->
+          <!--  <ul class="list-unstyled text-small">-->
+          <!--    <li><a class="text-muted" href="#">Cool stuff</a></li>-->
+          <!--    <li><a class="text-muted" href="#">Random feature</a></li>-->
+          <!--  </ul>-->
+          <!--</div>-->
+          <!--<div class="col-6 col-md">-->
+          <!--  <h5>Resources</h5>-->
+          <!--  <ul class="list-unstyled text-small">-->
+          <!--    <li><a class="text-muted" href="#">Resource</a></li>-->
+          <!--    <li><a class="text-muted" href="#">Resource name</a></li>-->
+          <!--  </ul>-->
+          <!--</div>-->
+          <!--<div class="col-6 col-md">-->
+          <!--  <h5>About</h5>-->
+          <!--  <ul class="list-unstyled text-small">-->
+          <!--    <li><a class="text-muted" href="#">Team</a></li>-->
+          <!--    <li><a class="text-muted" href="#">Locations</a></li>-->
+          <!--    <li><a class="text-muted" href="#">Privacy</a></li>-->
+          <!--    <li><a class="text-muted" href="#">Terms</a></li>-->
+          <!--  </ul>-->
+          <!--</div>-->
+        </div>
+        </div>
+      </footer>
+
+
+<!--</div><!-- /.container -->
+
+
+
+<!--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>-->
+<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>-->
+
+
+<!--<script src="/js/navbar.js"></script>-->
+
+<script>
+  var counter = 1;
+
+imgClickAndChange.onclick = function(){
+    if(counter == 0){
+        document.getElementById("imgClickAndChange").src = "/images/Little Maven 0.JPG";
+        document.getElementById("imgClickAndChange").height = "50";
+        document.getElementById("imgClickAndChange").classList.add('mt-2');
+        counter++;
+    }
+    else if(counter == 1){
+        document.getElementById("imgClickAndChange").src = "/images/Little Maven 1.JPG";
+        document.getElementById("imgClickAndChange").height = "35";
+        document.getElementById("imgClickAndChange").classList.remove('mt-2');
+        document.getElementById("imgClickAndChange").classList.add('mt-3');
+        counter++;
+    }
+    else if(counter == 2){
+        document.getElementById("imgClickAndChange").src = "/images/Little Maven 2.JPG";
+        document.getElementById("imgClickAndChange").height = "50";
+        document.getElementById("imgClickAndChange").classList.remove('mt-3');
+        document.getElementById("imgClickAndChange").classList.add('mt-2')
+        counter++;
+    }
+    else if(counter == 3){
+        document.getElementById("imgClickAndChange").src = "/images/Little Maven 2b.JPG";
+        document.getElementById("imgClickAndChange").height = "35";
+        document.getElementById("imgClickAndChange").classList.remove('mt-2');
+        document.getElementById("imgClickAndChange").classList.add('mt-3');
+        counter++;
+    }
+    else if(counter == 4){
+        document.getElementById("imgClickAndChange").src = "/images/Little Maven 3.JPG";
+        document.getElementById("imgClickAndChange").height = "50";
+        document.getElementById("imgClickAndChange").classList.remove('mt-3');
+        document.getElementById("imgClickAndChange").classList.add('mt-2')
+        counter++;
+    }
+    else if(counter == 5){
+        document.getElementById("imgClickAndChange").src = "/images/Little Maven 4.JPG";
+        document.getElementById("imgClickAndChange").height = "64";
+        document.getElementById("imgClickAndChange").classList.remove('mt-2');
+        counter++;
+    }
+    else if(counter == 6){
+        document.getElementById("imgClickAndChange").src = "/images/Little Maven 5.JPG";
+        document.getElementById("imgClickAndChange").height = "50";
+        document.getElementById("imgClickAndChange").classList.add('mt-2');
+        counter = 0;
+    }
+};
+</script>
+
+
+
+    </body>
+</html>

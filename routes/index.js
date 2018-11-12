@@ -55,32 +55,32 @@ router.get("/token", (req, res, next) => {
 
 
 //--FACEBOOK API SEARCH TEST LIST-------------------------------------------------------------------------------------------------------- 
-router.get('/list', (req, res)  => {
-    // you need permission for most of these fields
-    const userFieldSet = 'id, name, location, checkins, link, rating_count, overall_star_rating, photos{images}, price_range, single_line_address, picture, category_list, cover, engagement, website';
-    var coords = '55.8480, -4.4128';
-    var radiusKm = '1000';
-    var limit = 25;
-    const options = {
-        method: 'GET',
-        uri: `https://graph.facebook.com/v3.0/search?type=place`,
-        qs: {
-            access_token: process.env.access_token,
-            fields: userFieldSet,
-            categories: ["FOOD_BEVERAGE"],
-            center: coords,
-            distance: radiusKm,
-            limit: limit,
-        }
-    };
-    request(options)
-        .then(fbRes => {
-            var place = JSON.parse(fbRes);
-            //console.log(place);
-            //res.json(place);
-            res.render('list', { place: place });
-        });
-});
+// router.get('/list', (req, res)  => {
+//     // you need permission for most of these fields
+//     const userFieldSet = 'id, name, location, checkins, link, rating_count, overall_star_rating, photos{images}, price_range, single_line_address, picture, category_list, cover, engagement, website';
+//     var coords = '55.8480, -4.4128';
+//     var radiusKm = '1000';
+//     var limit = 25;
+//     const options = {
+//         method: 'GET',
+//         uri: `https://graph.facebook.com/v3.0/search?type=place`,
+//         qs: {
+//             access_token: process.env.access_token,
+//             fields: userFieldSet,
+//             categories: ["FOOD_BEVERAGE"],
+//             center: coords,
+//             distance: radiusKm,
+//             limit: limit,
+//         }
+//     };
+//     request(options)
+//         .then(fbRes => {
+//             var place = JSON.parse(fbRes);
+//             //console.log(place);
+//             //res.json(place);
+//             res.render('list', { place: place });
+//         });
+// });
 //---------------------------------------------------------------------------------------------------------- 
 
 
@@ -114,7 +114,7 @@ router.post("/register", function(req, res) {
             return res.redirect("/register");
         }
         passport.authenticate("local")(req, res, function() {
-            req.flash("success", "Welcome to Little Maven " + user.username + "! Nice to meet you :)");
+            req.flash("success", "Welcome to Little Maven " + user.firstname + "! Nice to meet you :)");
             res.redirect("/places");
         });
     });

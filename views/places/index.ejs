@@ -10,39 +10,53 @@
                 <!--    <a class="btn btn-secondary my-2 btn-sm" role="button" href="/places/new">Add New Place</a>-->
                 <!--</p>-->
                 <p>
-                    <form class="form-inline mx-auto" action="/places" method="GET">
+                    <form id="searchForm" class="form-inline mx-auto" action="/places" method="GET">
                         <div class="form-group mx-auto">
-                            <input class="form-control" type="text" name="search" placeholder="name, category, cuisine...">
-                            <input class="form-control" type="text" name="dist" placeholder="distance in km">
-                            <input class="form-control" type="text" name="lat" placeholder="latitide">
-                            <input class="form-control" type="text" name="lng" placeholder="longitude">
-                            <input class="btn btn-secondary my-2" type="submit" value="Search">
+                            <label class="label" for="search">Find:</label>
+                            <input class="form-control" type="text" name="search" placeholder="name, category, cuisine..." value="<%= search %>">
+                                    <!--<input class="form-control" id="location" type="text" name="loc" placeholder="location" onclick="getLocation()" value="">-->
+                                    <input class="form-control" id="latitide" type="hidden" name="lat" placeholder="latitide" value="<%= lat %>" >
+                                    <input class="form-control" id="longitude" type="hidden" name="lng" placeholder="longitude" value="<%= lng %>">
+                            <label class="label ml-1" for="geocoder">Near:</label>
+                            <input class="form-control mr-sm-2" type="text" name="geocoder" id="geocoder" placeholder="address, neighbouthood, city, postcode" aria-label="geocoder" value="<%=geocoder%>">
+                            <a class="btn btn-sm btn-outline-info" id="nearMeBtn" onclick="getLocation()">Near Me</a>
+                            <label class="label ml-1" for="distKm">Radius:</label>
+                            <input class="form-control" style="width: 70px;" id="distKm" type="number" name="distKm" placeholder="distance in km" value="<%= distKm %>">
+                            <input class="btn btn-secondary my-2" type="button" onclick="submitFn()" value="Search">
                         </div>
                     </form>
+                    
+                    <div id="coords"></div>
                 </p>
+                
+                <!--<div class="form-inline">-->
+                <!--    <input class="form-control mr-sm-2" type="search" name="geocoder" id="geocoder" placeholder="What are you looking for?" aria-label="geocoder">-->
+                <!--    <button class="btn btn-outline-success my-2 my-sm-0" id="geocoderBtn" type="submit">Geocode</button>-->
+                <!--</div>-->
+                
             </div><!--container-->
         </div><!--container-->
+    </div>
+    
+    <div class="container">
+        <div id="map">
+        </div>
+        <script src="https://cdn.apple-mapkit.com/mk/5.x.x/mapkit.js"></script>
+
     </div>
     
                 <div class="container">
 
     
     <div class="row text-center" style="display:flex; flex-wrap: wrap; margin-bottom:5px;">
-        <% var first = ((current - 1)* limit)+1 %>
-        <% var last = count > ((((current - 1)* limit)+1)+(limit - 1)) ? ((((current - 1)* limit)+1)+(limit - 1)) : count %>
-        <p class="pageCount"><b><%= first %></b> - <b><%= last %></b> of <%= count %> places</p>
-
+        <% if(noMatch == null) { %>
+            <% var first = ((current - 1)* limit)+1 %>
+            <% var last = count > ((((current - 1)* limit)+1)+(limit - 1)) ? ((((current - 1)* limit)+1)+(limit - 1)) : count %>
+            <p class="pageCount"><b><%= first %></b> - <b><%= last %></b> of <%= count %> places</p>
+        <% } %>
 <div class="col-md-12">
             <% if(noMatch !== null) { %>
             <h3><%= noMatch %></h3>
-            <p>
-                <form class="form-inline" action="/places" method="GET">
-                    <div class="form-group">
-                        <input class="form-control" type="text" name="search" placeholder="Places search...">
-                        <input class="btn btn-default" type="submit" value="Search">
-                    </div>
-                </form>
-            </p>
             <% } %>
             
         </div>
@@ -53,9 +67,11 @@
         
                       
 
-        <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="col-lg-3 col-md-4 col-sm-6 ">
+            <!--col-6-->
         <!--<div class="item">-->
               <div class="content card mb-4 box-shadow">
+                  <span class="placeNumber"><%= (first+i).toString() %></span>
                 <a href="/places/<%= place._id %>">
                     <% if (place.images.card_img) { %>
                         <div class="image">
@@ -67,6 +83,7 @@
                         </div>
                     <% } %>
                 <div class="content card-body">
+                    
                   <h5 class="card-title mb-3"><%=place.name%></h5>
                   <p class="card-text"><%=place.single_line_address%></p>
                   <% if (typeof place.distance!='undefined' && place.distance) { %>
@@ -84,7 +101,7 @@
                 </div>
               </div>
             </div>
-        
+        <% i++ %>
         
         <!--<div class="col-md-4 col-sm-6">-->
         <!--<div class="card mb-4 box-shadow">-->
@@ -112,13 +129,13 @@
         <% if (current == 1) { %>
         <a><li class="disabled page-link">First</li></a>
         <% } else { %>
-        <a href="/places<%if(search){%>?search=<%=search%><%}%>"><li class="page-link">First</li></a>
+        <a href="/places<%if(search || (lat && lng && distKm)){%>?search=<%=search%>&distKm=<%=distKm%>&lat=<%=lat%>&lng=<%=lng%><%}%>"><li class="page-link">First</li></a>
         <% } %>
  
         <% if (current == 1) { %>
         <a><li class="disabled page-link">«</li></a>
         <% } else { %>
-        <a href="/places?page=<%= Number(current) - 1 %><%if(search){%>&search=<%=search%><%}%>"><li class="page-link">«</li></a>
+        <a href="/places?page=<%= Number(current) - 1 %><%if(search || (lat && lng && distKm)){%>&search=<%=search%>&distKm=<%=distKm%>&lat=<%=lat%>&lng=<%=lng%><%}%>"><li class="page-link">«</li></a>
         <% } %>
  
         <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
@@ -129,7 +146,7 @@
         <% if (i == current) { %>
         <a><li class="active page-link"><%= i %></li></a>
         <% } else { %>
-        <a href="/places?page=<%= i %><%if(search){%>&search=<%=search%><%}%>"><li class="page-link"><%= i %></li></a>
+        <a href="/places?page=<%= i %><%if(search || (lat && lng && distKm)){%>&search=<%=search%>&distKm=<%=distKm%>&lat=<%=lat%>&lng=<%=lng%><%}%>"><li class="page-link"><%= i %></li></a>
         <% } %>
         <% if (i == Number(current) + 4 && i < pages) { %>
         <a><li class="disabled page-link">...</li></a>
@@ -139,13 +156,13 @@
         <% if (current == pages) { %>
         <a><li class="disabled page-link">»</li></a>
         <% } else { %>
-        <a href="/places?page=<%= Number(current) + 1 %><%if(search){%>&search=<%=search%><%}%>"><li class="page-link">»</li></a>
+        <a href="/places?page=<%= Number(current) + 1 %><%if(search || (lat && lng && distKm)){%>&search=<%=search%>&distKm=<%=distKm%>&lat=<%=lat%>&lng=<%=lng%><%}%>"><li class="page-link">»</li></a>
         <% } %>
  
         <% if (current == pages) { %>
         <a><li class="disabled page-link">Last</li></a>
         <% } else { %>
-        <a href="/places?page=<%= pages %><%if(search){%>&search=<%=search%><%}%>"><li class="page-link">Last</li></a>
+        <a href="/places?page=<%= pages %><%if(search || (lat && lng && distKm)){%>&search=<%=search%>&distKm=<%=distKm%>&lat=<%=lat%>&lng=<%=lng%><%}%>"><li class="page-link">Last</li></a>
         <% } %>
     </ul>
     <% } %>
@@ -155,55 +172,200 @@
 
 
 
-<script>
-// mdc.ripple.MDCRipple.attachTo(document.querySelector('.foo-button'));
 
 
-        var btns = document.querySelectorAll('.mdc-button');
-        for (var i = 0, btn; btn = btns[i]; i++) {
-          mdc.ripple.MDCRipple.attachTo(btn);
+<script> // get user location with browser geolocation
+var x = document.getElementById("coords");
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+    } else { 
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+
+function showPosition(position) {
+    // x.innerHTML = "Latitude: " + position.coords.latitude + 
+    // "<br>Longitude: " + position.coords.longitude;
+    document.getElementById("latitide").value = position.coords.latitude;
+    document.getElementById("longitude").value = position.coords.longitude;
+    document.getElementById("geocoder").value = "";
+    document.getElementById("geocoder").placeholder = "Near Me";
+    document.getElementById("distKm").value = "5";
+}
+function showError(error) {
+    switch(error.code) {
+        case error.PERMISSION_DENIED:
+            x.innerHTML = "User denied the request for Geolocation."
+            break;
+        case error.POSITION_UNAVAILABLE:
+            x.innerHTML = "Location information is unavailable."
+            break;
+        case error.TIMEOUT:
+            x.innerHTML = "The request to get user location timed out."
+            break;
+        case error.UNKNOWN_ERROR:
+            x.innerHTML = "An unknown error occurred."
+            break;
+    }
+}
+
+</script>
+
+
+<script> // Map
+  var places =<%-JSON.stringify(places)%>
+
+    // Initialise map and fetch token 
+    mapkit.init({
+        authorizationCallback: function(done) {
+            fetch("/token")
+                .then(res => res.text())
+                .then(token => done(token)) /* If successful, return your token to MapKit JS */
+                .catch(error => { /* Handle error */
+                    console.log("nae token")
+                });
+            // done("eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjI0OU5KQk4ySkoifQ.eyJpc3MiOiJGVVhRWjYyWjlNIiwiaWF0IjoxNTM0NjA4MDI4LjEzNSwiZXhwIjoxNTM0NjA5ODI4LjEzNX0.RlxNj23pp1Agx1qwfuHMcRCAgx5nFDXKpxmSLgEKuxOn_to3p-4LOH0uqNMACBY52WEOhxgW6byx8fDCY9E5kg"); //alternative to short term token fetched above
         }
 
-// see http://material-components-web.appspot.com/ready.js for the below code to work
-// http://material-components-web.appspot.com/button.html
-      // demoReady(function() {
-      //   var btns = document.querySelectorAll('.mdc-button');
-      //   for (var i = 0, btn; btn = btns[i]; i++) {
-      //     mdc.ripple.MDCRipple.attachTo(btn);
-      //   }
-      // });
-  
-  function resizeGridItem(item){
-  grid = document.getElementsByClassName("grid")[0];
-  rowHeight = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-auto-rows'));
-  rowGap = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-row-gap'));
-  rowSpan = Math.ceil((item.querySelector('.content').getBoundingClientRect().height+rowGap)/(rowHeight+rowGap));
-    item.style.gridRowEnd = "span "+rowSpan;
-}
+    });
 
-function resizeAllGridItems(){
-  allItems = document.getElementsByClassName("item");
-  for(x=0;x<allItems.length;x++){
-    resizeGridItem(allItems[x]);
-  }
-}
+    // Set default region of map    
+    var region = new mapkit.CoordinateRegion(
+        new mapkit.Coordinate(55.8642, -4.2518), //Glasgow
+        new mapkit.CoordinateSpan(.005, .005)
+    );
 
-function resizeInstance(instance){
-	item = instance.elements[0];
-  resizeGridItem(item);
-}
+    // Generate Map    
+    var map = new mapkit.Map("map", {
+        center: new mapkit.Coordinate(55.8642, -4.2518),
+        region: region,
+        showsUserLocation: true,
+        showsUserLocationControl: true,
+        // tracksUserLocation: true,
+        showsMapTypeControl: true,
+        showsCompass: mapkit.FeatureVisibility.Visible,
+        // title: mapkit.FeatureVisibility.Visible,
+        isRotationEnabled: true,
+        isScrollEnabled: true,
+        isZoomEnabled: true,
+    });
+    
+    // create and display annotations for the places in our DB
+    var firstPlaceNumber = ((<%=current%> - 1)* <%=limit%>)+1;
+    var MarkerAnnotation = mapkit.MarkerAnnotation;
+    var mapItems = [];
+    var i = 0;
+    places.forEach(function(place){ 
+        var item = new mapkit.Coordinate(place.latitude, place.longitude);
+        if (place.category){
+            var annotation = new MarkerAnnotation(item, { color: "blue", title: place.name, subtitle: place.category.join(', '), glyphText: (firstPlaceNumber+i).toString() });
+        } else {
+            var annotation = new MarkerAnnotation(item, { color: "blue", title: place.name, glyphText: (i+1).toString() });
+        }
+        mapItems.push(annotation);
+        i++;
+    }); 
+    <% if (coords == true){ %>
+    var lat = <%=lat%>;
+    var lng = <%=lng%>;
+    var originCoord = new mapkit.Coordinate(<%=lat%>, <%=lng%>);
+    var orginAnnotation = new MarkerAnnotation(originCoord, { color: "green", glyphText: "YOU" });
+    mapItems.push(orginAnnotation);
+    <% } %>
+    map.showItems(mapItems);
 
-window.onload = resizeAllGridItems();
-window.addEventListener("resize", resizeAllGridItems);
 
-allItems = document.getElementsByClassName("item");
-for(x=0;x<allItems.length;x++){
-  imagesLoaded( allItems[x], resizeInstance);
-}
-  
+</script>
+
+<script>
+    
+    
+    
+    function submitFn() {
+    
+        let location = document.getElementById("geocoder").value;
+        let geocoder = new mapkit.Geocoder({
+            getsUserLocation: true
+        });
+        if (!location == "") {
+        geocoder.lookup(location, function(error, data) {
+            if (error) {
+                console.log(error);
+                return;
+            }
+            // console.log(data);
+
+                // document.getElementById("geo-coords").innerHTML +=
+                //     '<h5 class="card-title mb-3">' + data.results[0].coordinate + '</h5>';
+
+                // map.addAnnotation(new mapkit.MarkerAnnotation(data.results[0].coordinate));
+                let coordinate = new mapkit.Coordinate(data.results[0].coordinate.latitude, data.results[0].coordinate.longitude);
+                map.setCenterAnimated(coordinate, true);
+                document.getElementById("latitide").value = data.results[0].coordinate.latitude;
+                document.getElementById("longitude").value = data.results[0].coordinate.longitude;
+                // document.getElementById("distKm").value = 3;
+                document.getElementById("searchForm").submit();
+                
+            });
+        } else {
+        document.getElementById("searchForm").submit();
+    }
+    } 
+    
+</script>
+
+
+<script> // Geocoder
+    // listen for geocoder input submission via enter key
+    // document.getElementById("geocoder").addEventListener("keypress", function(e) {
+    //     if (e.keyCode === 13) { //checks whether the pressed key is "Enter"
+    //         geocoderFn(e);
+    //     }
+    // });
+    
+    // listen for search input submission via search button click
+    // document.getElementById("geocoderBtn").addEventListener("click", geocoderFn);
+
+
+    //search Mapkit JS Places API with search query
+    // function geocoderFn(data, callback) {
+
+    //     // // call function to clear any exisiting search results
+    //     clearPreviousAnnotations();
+
+    //     let location = document.getElementById("geocoder").value;
+    //     let geocoder = new mapkit.Geocoder({
+    //         getsUserLocation: true
+    //     });
+
+    //     geocoder.lookup(location, function(error, data) {
+    //         if (error) {
+    //             console.log(error);
+    //             return;
+    //         }
+    //         console.log(data);
+
+    //             document.getElementById("geo-coords").innerHTML +=
+    //                 '<h5 class="card-title mb-3">' + data.results[0].coordinate + '</h5>';
+
+    //             map.addAnnotation(new mapkit.MarkerAnnotation(data.results[0].coordinate));
+    //             let coordinate = new mapkit.Coordinate(data.results[0].coordinate.latitude, data.results[0].coordinate.longitude);
+    //             map.setCenterAnimated(coordinate, true);
+    //             document.getElementById("latitide").value = data.results[0].coordinate.latitude;
+    //             document.getElementById("longitude").value = data.results[0].coordinate.longitude;
+    //         });
+    //         callback();
+    //     };
+        
+            // function to clear previous results from map and list
+    function clearPreviousAnnotations() {
+        let annotations = map.annotations;
+        map.removeAnnotations(annotations);
+        document.getElementById('geo-coords').innerHTML = "";
+    }
+
 </script>
 
 <% include ../partials/footer %>
-
-
-

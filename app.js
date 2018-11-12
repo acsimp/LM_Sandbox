@@ -5,6 +5,7 @@ var express         = require("express"),
     flash           = require("connect-flash"),
     passport        = require("passport"),
     LocalStrategy   = require("passport-local"),
+    passportLocalMongoose   = require("passport-local-mongoose"),
     methodOverride  = require("method-override"),    
     Place           = require("./models/place"),
     Comment         = require("./models/comment"),
@@ -45,10 +46,14 @@ app.use(require("express-session")({
 app.locals.moment = require('moment');
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(new LocalStrategy(User.authenticate()));
+// passport.use(new LocalStrategy(User.authenticate()));
+passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+// User.plugin(passportLocalMongoose, { usernameField : 'email' });
+passport.use(User.createStrategy());
 passport.authenticate('local', { successFlash: 'Welcome!' });
+
 
 //middleware - pass currentUser to all templates. Anything in res.locals is available inside templates
 app.use(function(req, res, next){

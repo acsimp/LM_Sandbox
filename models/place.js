@@ -19,6 +19,10 @@ var placeSchema = new mongoose.Schema({
         price: Number, // 1-4, relative, ££££
         slug: String,
         distance: Number,
+        service: {
+             food: { type: Boolean },
+             nappy_change: { type: Boolean },
+            },
         // free_entry: Boolean,
     
     // Location ------------------------------------------
@@ -30,6 +34,7 @@ var placeSchema = new mongoose.Schema({
         latitude: { type: Number, required: true },
         longitude: { type: Number, required: true },
         location: { type: PointSchema, required: true },
+        coordinate: {},
         
     // Hours ---------------------------------------------
         opening_hours: [
@@ -87,8 +92,8 @@ var placeSchema = new mongoose.Schema({
         
     // Integrations --------------------------------------
         fb_id: String,
-        google_id: String,
-        apple_id: { type: String, required: true },
+        google_id: { type: String, unique: true },
+        apple_id: { type: String, unique: true },
         apple_card: String,
         // trip advisor ID or rating?
         // yelp

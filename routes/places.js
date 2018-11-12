@@ -128,7 +128,7 @@ router.get("/old", function(req, res) {
 
 //regex geoWithin Index Testing - show all places
 router.get("/", function(req, res) {
-    var perPage = 8;
+    var perPage = 12;
     var pageQuery = parseInt(req.query.page,10);
     var pageNumber = pageQuery ? pageQuery : 1;
     var skip = (perPage * pageNumber) - perPage;
@@ -137,41 +137,30 @@ router.get("/", function(req, res) {
     //fuzzy search
     var noMatch = null;
     if (req.query.search) {
-        var term = req.query.search;
-        // console.log(q);
-    } else { var term = ""; 
-        
+        var search = req.query.search;
+    // } else { var search = ""; 
     }
     if (req.query.lng) {
         var lng = req.query.lng;
-        // console.log(q);
-    } else { var lng = -4.4149481; 
-        
+    // } else { var lng = ""; 
     }
     if (req.query.lat) {
         var lat = req.query.lat;
-        // console.log(q);
-    } else { var lat = 55.8480465; 
-        
+    // } else { var lat = ""; 
     }
-    if (req.query.dist) {
-        var distKm = req.query.dist;
-        // console.log(q);
-    } else { var distKm = 15; 
-        
+    if (req.query.distKm) {
+        var distKm = req.query.distKm;
+    } else { var distKm = "5"; 
     }
-    
-    // const lat = 55.8480465;
-    // const lng = -4.4149481;
-    // const term = "pizza";
-    // const distKm = 15;
+    if (req.query.geocoder) {
+        var geocoder = req.query.geocoder;
+    // } else { var geocoder = ""; 
+    }
     const radius = distKm/6378.1;
     console.log("Km: " + distKm + " radius: " + radius);
-    const regex = new RegExp(escapeRegex(term), "gi");
-    if (term) {
-    // if (req.query.search) {
-        // const regex = new RegExp(escapeRegex(req.query.search), "gi");
-        
+    
+    if (search && lat && lng) {
+        const regex = new RegExp(escapeRegex(search), "gi");
         Place.find({
           "location": { "$geoWithin": { "$centerSphere": [ [lng, lat], radius ] } },
             $or: [{ name: regex }, { category: regex }, { cuisine: regex }] })
@@ -193,13 +182,13 @@ router.get("/", function(req, res) {
                 var distance = getDistanceFromLatLonInKm(lat,lng,allPlaces[i].latitude,allPlaces[i].longitude);
                 // console.log("distance: " + distance);
                 allPlaces[i].distance = distance;
+                allPlaces[i].coordinate = {latitude: allPlaces[i].latitude, longitude: allPlaces[i].longitude};
+                console.log(allPlaces[i].coordinate);
                 // console.log(allPlaces[i].name);
             }
             allPlaces.sort(function(a, b) {
                 return a.distance - b.distance;
             });
-                    
-
                     res.render("places/index", {
                         places: allPlaces.slice(start,end),
                         currentUser: req.user,
@@ -207,16 +196,123 @@ router.get("/", function(req, res) {
                         current: pageNumber,
                         pages: pages,
                         search: req.query.search,
+                        lat: lat,
+                        lng: lng,
+                        distKm: distKm,
                         count: count,
                         limit: perPage,
+                        geocoder: geocoder,
+                        coords: true,
                     });
-                    console.log("perpage: " + perPage);
-                    console.log("count: " + count);
-                    console.log("pages: " + Math.ceil(count / perPage));
+                    // console.log("perpage: " + perPage);
+                    // console.log("count: " + count);
+                    // console.log("pages: " + Math.ceil(count / perPage));
                 }
-                
         });
-
+    } else if (lat && lng && !search) {
+    // if ((search && lat==="" && lng==="" && distKm==="") || (lat && lng && distKm && !search) || (search && lat && lng && distKm)) {
+        Place.find({
+          "location": { "$geoWithin": { "$centerSphere": [ [lng, lat], radius ] } },
+            // $or: [{ name: regex }, { category: regex }, { cuisine: regex }] 
+        })
+            // .skip((perPage * pageNumber) - perPage).limit(perPage)
+            .exec(function(err, allPlaces) {
+                if (err) {
+                    console.log(err);
+                    res.redirect("back");
+                }
+                else {
+                    var count = allPlaces.length;
+                    var pages = Math.ceil(count / perPage);
+                    if (count < 1) {
+                        noMatch = "No places match that query, please try again.";
+                    } else if (pageNumber > pages){
+                        noMatch = "No places match that query. There are only " + pages + " pages, please try again.";
+                    }
+                    for (var i = 0; i < allPlaces.length; i++) {
+                var distance = getDistanceFromLatLonInKm(lat,lng,allPlaces[i].latitude,allPlaces[i].longitude);
+                // console.log("distance: " + distance);
+                allPlaces[i].distance = distance;
+                allPlaces[i].coordinate = {latitude: allPlaces[i].latitude, longitude: allPlaces[i].longitude};
+                console.log(allPlaces[i].coordinate);
+                // console.log(allPlaces[i].name);
+            }
+            allPlaces.sort(function(a, b) {
+                return a.distance - b.distance;
+            });
+                    res.render("places/index", {
+                        places: allPlaces.slice(start,end),
+                        currentUser: req.user,
+                        noMatch: noMatch,
+                        current: pageNumber,
+                        pages: pages,
+                        search: req.query.search,
+                        lat: lat,
+                        lng: lng,
+                        distKm: distKm,
+                        count: count,
+                        limit: perPage,
+                        geocoder: geocoder,
+                        coords: true,
+                    });
+                    // console.log("perpage: " + perPage);
+                    // console.log("count: " + count);
+                    // console.log("pages: " + Math.ceil(count / perPage));
+                }
+        });
+    } 
+    else if ((!lat && !lng && search) || (search) ) {
+        const regex = new RegExp(escapeRegex(search), "gi");
+    // if ((search && lat==="" && lng==="" && distKm==="") || (lat && lng && distKm && !search) || (search && lat && lng && distKm)) {
+        Place.find({
+        //   "location": { "$geoWithin": { "$centerSphere": [ [lng, lat], radius ] } },
+            $or: [{ name: regex }, { category: regex }, { cuisine: regex }] 
+        })
+            // .skip((perPage * pageNumber) - perPage).limit(perPage)
+            .exec(function(err, allPlaces) {
+                if (err) {
+                    console.log(err);
+                    res.redirect("back");
+                }
+                else {
+                    var count = allPlaces.length;
+                    var pages = Math.ceil(count / perPage);
+                    if (count < 1) {
+                        noMatch = "No places match that query, please try again.";
+                    } else if (pageNumber > pages){
+                        noMatch = "No places match that query. There are only " + pages + " pages, please try again.";
+                    }
+                    for (var i = 0; i < allPlaces.length; i++) {
+                // var distance = getDistanceFromLatLonInKm(lat,lng,allPlaces[i].latitude,allPlaces[i].longitude);
+                // // console.log("distance: " + distance);
+                // allPlaces[i].distance = distance;
+                allPlaces[i].coordinate = {latitude: allPlaces[i].latitude, longitude: allPlaces[i].longitude};
+                // console.log(allPlaces[i].coordinate);
+                // console.log(allPlaces[i].name);
+            }
+            allPlaces.sort(function(a, b) {
+                return a.distance - b.distance;
+            });
+                    res.render("places/index", {
+                        places: allPlaces.slice(start,end),
+                        currentUser: req.user,
+                        noMatch: noMatch,
+                        current: pageNumber,
+                        pages: pages,
+                        search: req.query.search,
+                        lat: lat,
+                        lng: lng,
+                        distKm: distKm,
+                        count: count,
+                        limit: perPage,
+                        geocoder: geocoder,
+                        coords: false,
+                    });
+                    // console.log("perpage: " + perPage);
+                    // console.log("count: " + count);
+                    // console.log("pages: " + Math.ceil(count / perPage));
+                }
+        });
     }
     else {
         //get all places from the db
@@ -232,9 +328,14 @@ router.get("/", function(req, res) {
                         noMatch: noMatch,
                         current: pageNumber,
                         pages: Math.ceil(count / perPage),
-                        search: false,
+                        search: search,
+                        lat: lat,
+                        lng: lng,
+                        distKm: distKm,                        
                         count: count,
                         limit: perPage,
+                        geocoder: geocoder,
+                        coords: false,
                     });
                 }
             });
@@ -284,7 +385,7 @@ router.get("/map", function(req, res) {
 
 //CREATE - add new place to DB
 router.post("/", middleware.isLoggedIn, function(req, res) {
-    //get data from form and add to array
+    //get data from form
     var name = req.body.name;
     var single_line_address = req.body.formattedAddress;
     var latitude = req.body.latitude;
@@ -302,6 +403,10 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
         id: req.user._id,
         username: req.user.username
     };
+    var service = {
+        food: req.body.food_service,
+        nappy_change: req.body.nappy_change_facilities,
+    };
 
     //create new object
     var newPlace = {
@@ -315,7 +420,8 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
         google_id: google_id,
         fb_id: fb_id,
         images: images,
-        author: author
+        author: author, 
+        service: service,
     };
 
 
@@ -380,7 +486,7 @@ router.get("/text", function(req, res, next) {
     // PA1 3RA
     // const lat = 55.8480465;
     // const lng = -4.4149481;
-    const term = "pizzaexpress";
+    const term = "pizza";
 
     Place.find({
         $text: { $search: term },
@@ -424,7 +530,7 @@ router.get("/regex", function(req, res, next) {
     // PA1 3RA
     // const lat = 55.8480465;
     // const lng = -4.4149481;
-    const term = "pizza";
+    const term = "pizza mad";
     const regex = new RegExp(escapeRegex(term), "gi");
     Place.find({ $or: [{ name: regex }, { category: regex }, { cuisine: regex }] })
     // Place.find({ $or: [{ name: { $regex: /term/i} }, { category: /^term/ }, { cuisine: /^term/ }] })
@@ -436,7 +542,7 @@ router.get("/regex", function(req, res, next) {
 
 // ******************************************************************************************************************
 
-// regex & $geoWithin ans sort test
+// regex & $geoWithin and sort test
 router.get("/regexgeowithin", function(req, res, next) {
     
     // const { lng, lat } = req.query;
@@ -613,6 +719,10 @@ router.put("/:id", middleware.checkPlaceOwnership, function(req, res) {
 
     var name = req.body.name;
     var single_line_address = req.body.single_line_address;
+    var service = {
+        food: req.body.food_service,
+        nappy_change: req.body.nappy_change_facilities,
+    };
     var latitude = req.body.latitude;
     var longitude = req.body.longitude;
     var coordinates = [req.body.longitude, req.body.latitude];
@@ -772,6 +882,7 @@ router.put("/:id", middleware.checkPlaceOwnership, function(req, res) {
     var newData = {
         name: name,
         single_line_address: single_line_address,
+        service: service,
         latitude: latitude,
         longitude: longitude,
         location: location,

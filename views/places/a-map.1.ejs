@@ -23,9 +23,6 @@
                                 <!--<input class="form-control" style="width: 70px;" id="distKm" type="number" name="distKm" placeholder="distance in km" value="">-->
                             <!--<input class="btn btn-secondary my-2" type="button" id="searchBtn" value="Search">-->
                             <button class="btn btn-outline-success my-2 my-sm-0" id="searchBtn" type="submit">Search</button>
-                            <button class="btn btn-outline-danger my-2 my-sm-0" id="regionSearchBtn" type="submit">Search here instead</button>
-
-                        
                         </div>
                     <!--</form>-->
                     
@@ -91,16 +88,15 @@
     });
     //let map = new mapkit.Map("map", { center: new mapkit.Coordinate(55.8642, -4.2518)  });
 
-    var glasgowLat = 55.8642;
-    var glasgowLng = -4.2518;    
-    
     // Set default region of map    
-    region = new mapkit.CoordinateRegion(
-        new mapkit.Coordinate(glasgowLat, glasgowLng), //Glasgow
-        new mapkit.CoordinateSpan(.04, .04)
+    var region = new mapkit.CoordinateRegion(
+        new mapkit.Coordinate(55.8642, -4.2518), //Glasgow
+        new mapkit.CoordinateSpan(.005, .005)
     );
-        var map = new mapkit.Map("map", {
-        // center: new mapkit.Coordinate(55.8642, -4.2518),
+
+    // Generate Map    
+    var map = new mapkit.Map("map", {
+        center: new mapkit.Coordinate(55.8642, -4.2518),
         region: region,
         showsUserLocation: true,
         showsUserLocationControl: true,
@@ -112,12 +108,6 @@
         isScrollEnabled: true,
         isZoomEnabled: true,
     });
-    
-
-
-
-    // Generate Map    
-
 
     // // Geocode Mad Hatters Paisley    
     //     let geocoder = new mapkit.Geocoder();
@@ -222,31 +212,12 @@
     // listen for search input submission via search button click
     document.getElementById("searchBtn").addEventListener("click", searchFn);
 
-    // listen for search input submission via reion search button click
-    document.getElementById("regionSearchBtn").addEventListener("click", regionSearchFn);
-
-    function regionSearchFn() {
-                
-        clearPreviousAnnotations();
-        
-        document.getElementById("geocoder").value = "";
-        document.getElementById("latitide").value = "";
-        document.getElementById("longitude").value = "";
-
-            search = new mapkit.Search({
-            region: map.region
-        });
-           
-        performSearch(search);
-
-    };
-
 
     //search Mapkit JS Places API with search query
     function searchFn() {
 
         // // call function to clear any exisiting search results
-        // clearPreviousAnnotations();
+        clearPreviousAnnotations();
 
         let location = document.getElementById("geocoder").value;
         let lat;
@@ -274,28 +245,18 @@
             // });
             // map.showItems(annotations);
             var center = new mapkit.Coordinate(lat, lng),
-                span = new mapkit.CoordinateSpan(0.0015, 0.0015),
+                span = new mapkit.CoordinateSpan(0.1, 0.1),
                 region = new mapkit.CoordinateRegion(center, span);
             
             search = new mapkit.Search({
             getsUserLocation: true,
             coordinate: new mapkit.Coordinate(lat, lng),
-            region: region
+            region: map.region
         });
             let coordinate = new mapkit.Coordinate(lat, lng);
-                // map.setCenterAnimated(coordinate, true);
+                map.setCenterAnimated(coordinate, true);
                 map.setRegionAnimated(region, true);
-                
-                var MarkerAnnotation = mapkit.MarkerAnnotation;
-                var mapItems = [];
-                    var orginAnnotation = new mapkit.MarkerAnnotation(coordinate, { color: "green", glyphText: "HERE" });
-                    mapItems.push(orginAnnotation);
-                map.showItems(mapItems);
-
-                
-                
-                // performSearch(search);
-                setTimeout(function() { performSearch(search); }, 2000);
+                performSearch(search);
 
         });
         // search = new mapkit.Search({
@@ -313,7 +274,7 @@
     };
         
       function performSearch(search) {
-        clearPreviousAnnotations();
+
         let searchTerm = document.getElementById("searchTerm").value;
         // let search = new mapkit.Search({
         //     getsUserLocation: true,
@@ -390,30 +351,18 @@
                     '</div>';
 
             //Controls - Mapkit search results    
-            // var annotations = results.places.map(function(place) {
-            //     var annotation = new mapkit.MarkerAnnotation(place.coordinate);
-            //     annotation.title = place.name;
-            //     annotation.subtitle = place.formattedAddress;
-            //     annotation.color = "#51d0f1";
-            
-            // // Clustering setup
-            //     annotation.clusteringIdentifier = "DetailedCollectionCluster";
-            //     // annotation.collisionMode = mapkit.Annotation.CollisionMode.Circle;
-            //     //annotation.displayPriority = mapkit.Annotation.DisplayPriority.High;
-            //     return annotation;
-            // });
+            var annotations = results.places.map(function(place) {
+                var annotation = new mapkit.MarkerAnnotation(place.coordinate);
+                annotation.title = place.name;
+                annotation.subtitle = place.formattedAddress;
+                annotation.color = "#51d0f1";
 
-
-            // number map items
-            var MarkerAnnotation = mapkit.MarkerAnnotation;
-            var mapItems = [];
-            var i = 0;
-            results.places.forEach(function(place){ 
-                var item = new mapkit.Coordinate(place.coordinate.latitude, place.coordinate.longitude);
-                    var annotation = new MarkerAnnotation(item, { color: "blue", title: place.name, subtitle: place.formattedAddress, glyphText: (i+1).toString() });
-                mapItems.push(annotation);
-                i++;
-            }); 
+                // Clustering setup
+                annotation.clusteringIdentifier = "DetailedCollectionCluster";
+                // annotation.collisionMode = mapkit.Annotation.CollisionMode.Circle;
+                //annotation.displayPriority = mapkit.Annotation.DisplayPriority.High;
+                return annotation;
+            });
             var locationOrigin = document.getElementById("geocoder").value;
         if (!locationOrigin == "") {
                 var latOrigin = Number(document.getElementById("latitide").value);
@@ -421,16 +370,9 @@
                 console.log("lat: " + latOrigin);
                 var originCoord = new mapkit.Coordinate(latOrigin, lngOrigin);
                 var orginAnnotation = new mapkit.MarkerAnnotation(originCoord, { color: "green", glyphText: "YOU" });
-                mapItems.push(orginAnnotation);
+                annotations.push(orginAnnotation);
                 }
-            map.showItems(mapItems);
-
-
-
-
-
-            
-            // map.showItems(orginAnnotation);
+            map.showItems(annotations);
         });
     };
     
@@ -504,43 +446,7 @@
 </script>
 
 
-<script> // get user location with browser geolocation
-var x = document.getElementById("coords");
 
-function getLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition, showError);
-    } else { 
-        x.innerHTML = "Geolocation is not supported by this browser.";
-    }
-}
-
-function showPosition(position) {
-    // x.innerHTML = "Latitude: " + position.coords.latitude + 
-    // "<br>Longitude: " + position.coords.longitude;
-    document.getElementById("latitide").value = position.coords.latitude;
-    document.getElementById("longitude").value = position.coords.longitude;
-    document.getElementById("geocoder").value = "";
-    document.getElementById("geocoder").placeholder = "Near Me";
-}
-function showError(error) {
-    switch(error.code) {
-        case error.PERMISSION_DENIED:
-            x.innerHTML = "User denied the request for Geolocation."
-            break;
-        case error.POSITION_UNAVAILABLE:
-            x.innerHTML = "Location information is unavailable."
-            break;
-        case error.TIMEOUT:
-            x.innerHTML = "The request to get user location timed out."
-            break;
-        case error.UNKNOWN_ERROR:
-            x.innerHTML = "An unknown error occurred."
-            break;
-    }
-}
-
-</script>
 
 
 
@@ -548,8 +454,6 @@ function showError(error) {
 
 <script>
     window.onload = function() {
-        
-        // check to see if interactive features of apple maps are working
         console.log("isRotationAvailable: " + map.isRotationAvailable);
         console.log("isRotationEnabled: " + map.isRotationEnabled);
         console.log("isZoomEnabled: " + map.isZoomEnabled);
@@ -558,40 +462,6 @@ function showError(error) {
             // alert("Rotation not available!");
             // window.location.replace("http://www.google.com");
         }
-        
-    // get user location and center map
-    var userLat, userLng;
-    var region;
-    if(navigator.geolocation){
-        navigator.geolocation.getCurrentPosition(loadPosition, loadError);
-    }
-    function loadPosition(position) {
-        userLat = position.coords.latitude;
-        userLng = position.coords.longitude;
-        
-        region = new mapkit.CoordinateRegion(
-            new mapkit.Coordinate(userLat, userLng), 
-            new mapkit.CoordinateSpan(.005, .005)
-        );
-        console.log(userLat + " ," + userLng + typeof(userLat));
-        map.setRegionAnimated(region, true);
-        map.showsUserLocation = true;
-    };
-    function loadError(error) {
-    switch(error.code) {
-        case error.PERMISSION_DENIED:
-            document.getElementById("demo").innerHTML = "User denied the request for Geolocation."
-            break;
-        case error.POSITION_UNAVAILABLE:
-            document.getElementById("demo").innerHTML = "Location information is unavailable."
-            break;
-        case error.TIMEOUT:
-            document.getElementById("demo").innerHTML = "The request to get user location timed out."
-            break;
-        case error.UNKNOWN_ERROR:
-            document.getElementById("demo").innerHTML = "An unknown error occurred."
-            break;
-    } };
     }
 </script>
 

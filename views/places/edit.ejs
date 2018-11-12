@@ -52,6 +52,25 @@
                     </div>
                 </div>
             </div>
+            
+            
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                <div class="card mb-4 box-shadow text-white bg-dark">
+                    <div class="content card-body">
+                         <h4 class="text-uppercase text-info">Services</h4>
+                         <!--<h6 class="">Baby Change:</h6>-->
+                          <div class="items">
+                                <input class="checkbox" id="food_service" name="food_service" value="yes" type="checkbox" <% if (place.service.food) { %> checked <% } %>>
+                                <label class="checkbox_label" for="food_service">Food</label>
+                                
+                                <input class="checkbox" id="nappy_change_facilities" name="nappy_change_facilities" value="yes" type="checkbox" <% if (place.service.nappy_change) { %> checked <% } %>>
+                                <label class="checkbox_label" for="nappy_change_facilities">Nappy Change Facilities</label>
+                            </div> 
+                    </div>
+                </div>
+            </div> 
+            
+            
             <div class="col-lg-6 col-md-12 col-sm-12">
                 <div class="card mb-4 box-shadow text-white bg-dark">
                     <div class="content card-body ">
