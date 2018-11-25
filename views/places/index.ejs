@@ -251,7 +251,8 @@ function showError(error) {
         isScrollEnabled: true,
         isZoomEnabled: true,
     });
-    
+        map.showsScale = mapkit.FeatureVisibility.Visible; 
+
     // create and display annotations for the places in our DB
     var firstPlaceNumber = ((<%=current%> - 1)* <%=limit%>)+1;
     var MarkerAnnotation = mapkit.MarkerAnnotation;
@@ -260,9 +261,9 @@ function showError(error) {
     places.forEach(function(place){ 
         var item = new mapkit.Coordinate(place.latitude, place.longitude);
         if (place.category){
-            var annotation = new MarkerAnnotation(item, { color: "blue", title: place.name, subtitle: place.category.join(', '), glyphText: (firstPlaceNumber+i).toString() });
+            var annotation = new MarkerAnnotation(item, { color: "#5960e7", title: place.name, subtitle: place.category.join(', '), glyphText: (firstPlaceNumber+i).toString() });
         } else {
-            var annotation = new MarkerAnnotation(item, { color: "blue", title: place.name, glyphText: (i+1).toString() });
+            var annotation = new MarkerAnnotation(item, { color: "#5960e7", title: place.name, glyphText: (i+1).toString() });
         }
         mapItems.push(annotation);
         i++;
@@ -273,8 +274,33 @@ function showError(error) {
     var originCoord = new mapkit.Coordinate(<%=lat%>, <%=lng%>);
     var orginAnnotation = new MarkerAnnotation(originCoord, { color: "green", glyphText: "YOU" });
     mapItems.push(orginAnnotation);
+    
+    var stats = [
+        { radius: <%= distKm %> },
+        // { radius: 200 },
+    ];
+    var style = new mapkit.Style({
+        lineWidth: 2,         // 2 CSS pixels
+        strokeColor: "#999",
+        fillColor: "#666"
+    });
+    var circles = stats.map(function(stat) {
+        var coordinate = new mapkit.Coordinate(<%=lat%>, <%=lng%>),
+            // radius = <%= //distKm %> * 1000, // radius is expressed in meters
+            radius = ((stat.radius) * 1000), // radius is expressed in meters
+            circle = new mapkit.CircleOverlay(coordinate, radius);
+            circle.data = { radius: stat.radius };
+        circle.style = style;
+        return circle;
+    });
+    map.addOverlays(circles);   
     <% } %>
     map.showItems(mapItems);
+    
+    
+    
+    
+    
 
 
 </script>

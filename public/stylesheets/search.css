@@ -1,0 +1,51 @@
+.card-img-top {
+    object-fit: contain;
+}
+.card-img-top.placeholder {
+    object-fit: cover;
+}
+
+.image{
+    position:relative;
+    overflow:hidden;
+    padding-bottom:100%;
+}
+.image img{
+    position:absolute;
+    height:100%;
+}
+
+.createdAt {
+    text-align: right;
+    width: 100%;
+}
+.pageCount {
+    padding: 0 15px;
+    width: 100%;
+    text-align: right
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+.col-md-4 .card:hover  {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .2);
+}
+
+.placeNumber {
+    height: 2rem;
+    width: 2rem;
+    border-radius: 50%;
+    background-color: var(--maven-blue);
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 2rem;
+    font-size: 1rem;
+    position: absolute;
+    z-index: 2;
+    margin: 0.5rem;
+    /*font-weight: 500;*/
+    font-weight: 500;
+}

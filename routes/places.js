@@ -63,66 +63,66 @@ var async = require('async');
 
 // ******************************************************************************************************************
 
-//INDEX - show all places
-router.get("/old", function(req, res) {
-    var perPage = 8;
-    var pageQuery = parseInt(req.query.page,10);
-    var pageNumber = pageQuery ? pageQuery : 1;
-    //fuzzy search
-    var noMatch = null;
-    if (req.query.search) {
-        const regex = new RegExp(escapeRegex(req.query.search), "gi");
-        Place.find({ $or: [{ name: regex }, { description: regex }, { price: regex }, { "author.username": regex }] }).skip((perPage * pageNumber) - perPage).limit(perPage).exec(function(err, allPlaces) {
-            Place.countDocuments({ name: regex }).exec(function(err, count) {
+// //INDEX - show all places
+// router.get("/old", function(req, res) {
+//     var perPage = 8;
+//     var pageQuery = parseInt(req.query.page,10);
+//     var pageNumber = pageQuery ? pageQuery : 1;
+//     //fuzzy search
+//     var noMatch = null;
+//     if (req.query.search) {
+//         const regex = new RegExp(escapeRegex(req.query.search), "gi");
+//         Place.find({ $or: [{ name: regex }, { description: regex }, { price: regex }, { "author.username": regex }] }).skip((perPage * pageNumber) - perPage).limit(perPage).exec(function(err, allPlaces) {
+//             Place.countDocuments({ name: regex }).exec(function(err, count) {
 
-                if (err) {
-                    console.log(err);
-                    res.redirect("back");
+//                 if (err) {
+//                     console.log(err);
+//                     res.redirect("back");
 
-                }
-                else {
-                    if (allPlaces.length < 1) {
-                        noMatch = "No places match that query, please try again.";
-                    }
-                    res.render("places/index", {
-                        places: allPlaces,
-                        currentUser: req.user,
-                        noMatch: noMatch,
-                        current: pageNumber,
-                        pages: Math.ceil(count / perPage),
-                        search: req.query.search,
-                        count: count,
-                        limit: perPage,
-                    });
-                }
-            });
-        });
+//                 }
+//                 else {
+//                     if (allPlaces.length < 1) {
+//                         noMatch = "No places match that query, please try again.";
+//                     }
+//                     res.render("places/index", {
+//                         places: allPlaces,
+//                         currentUser: req.user,
+//                         noMatch: noMatch,
+//                         current: pageNumber,
+//                         pages: Math.ceil(count / perPage),
+//                         search: req.query.search,
+//                         count: count,
+//                         limit: perPage,
+//                     });
+//                 }
+//             });
+//         });
 
-    }
-    else {
-        //get all places from the db
-        Place.find({}).skip((perPage * pageNumber) - perPage).limit(perPage).exec(function(err, allPlaces) {
-            Place.countDocuments().exec(function(err, count) {
-                if (err) {
-                    console.log(err);
-                }
-                else {
-                    console.log("count: " + count);
-                    res.render("places/index", {
-                        places: allPlaces,
-                        currentUser: req.user,
-                        noMatch: noMatch,
-                        current: pageNumber,
-                        pages: Math.ceil(count / perPage),
-                        search: false,
-                        count: count,
-                        limit: perPage,
-                    });
-                }
-            });
-        });
-    }
-});
+//     }
+//     else {
+//         //get all places from the db
+//         Place.find({}).skip((perPage * pageNumber) - perPage).limit(perPage).exec(function(err, allPlaces) {
+//             Place.countDocuments().exec(function(err, count) {
+//                 if (err) {
+//                     console.log(err);
+//                 }
+//                 else {
+//                     console.log("count: " + count);
+//                     res.render("places/index", {
+//                         places: allPlaces,
+//                         currentUser: req.user,
+//                         noMatch: noMatch,
+//                         current: pageNumber,
+//                         pages: Math.ceil(count / perPage),
+//                         search: false,
+//                         count: count,
+//                         limit: perPage,
+//                     });
+//                 }
+//             });
+//         });
+//     }
+// });
 
 // ******************************************************************************************************************
 
@@ -203,6 +203,7 @@ router.get("/", function(req, res) {
                         limit: perPage,
                         geocoder: geocoder,
                         coords: true,
+                        page: 'search',
                     });
                     // console.log("perpage: " + perPage);
                     // console.log("count: " + count);
@@ -254,6 +255,7 @@ router.get("/", function(req, res) {
                         limit: perPage,
                         geocoder: geocoder,
                         coords: true,
+                        page: 'search',
                     });
                     // console.log("perpage: " + perPage);
                     // console.log("count: " + count);
@@ -307,6 +309,7 @@ router.get("/", function(req, res) {
                         limit: perPage,
                         geocoder: geocoder,
                         coords: false,
+                        page: 'search',
                     });
                     // console.log("perpage: " + perPage);
                     // console.log("count: " + count);
@@ -336,6 +339,7 @@ router.get("/", function(req, res) {
                         limit: perPage,
                         geocoder: geocoder,
                         coords: false,
+                        page: 'search',
                     });
                 }
             });
@@ -642,17 +646,19 @@ router.get("/:id", function(req, res) {
         if (typeof foundPlace != 'undefined' && !foundPlace.fb_id) {
             // req.flash("error", "This place has no Facebook ID");
             // res.redirect("/places");
+            console.log("*place found but it has no fb_id");
             var fb_place = {};
-            res.render("places/show", { place: foundPlace, fb_place: fb_place });
+            res.render("places/show", { place: foundPlace, fb_place: fb_place, page: 'place' });
             console.log(foundPlace.name + " - nae fb_id!");
         }
         else if (typeof foundPlace != 'undefined' && typeof foundPlace.fb_id != 'undefined') {
 
             //call facebook API ----------------------------------
+            console.log("*place found and it has a fb_id");
             const userFieldSet = 'id, about, name, location, checkins, link, rating_count, overall_star_rating, description, website, phone, photos{images}, hours, engagement, restaurant_specialties, restaurant_services, price_range, single_line_address, is_verified, picture{url}, category_list, cover, is_permanently_closed';
             const options = {
                 method: 'GET',
-                uri: `https://graph.facebook.com/v3.0/${foundPlace.fb_id}`,
+                uri: `https://graph.facebook.com/v3.2/${foundPlace.fb_id}`,
                 qs: {
                     access_token: process.env.access_token,
                     fields: userFieldSet
@@ -676,14 +682,15 @@ router.get("/:id", function(req, res) {
                     //res.json(foundPlace);
                     //render show template with that place
                     // console.log(foundPlace.ratings);
-                    res.render("places/show", { place: foundPlace, fb_place: fb_place });
+                    res.render("places/show", { place: foundPlace, fb_place: fb_place, page: 'place' });
                     console.log(foundPlace.name);
                 })
                 .catch(function(err) {
                     // API call failed...
                     var fb_place = {};
-                    res.render("places/show", { place: foundPlace, fb_place: fb_place });
-                    res.status(err).send("failed to return response - ");
+                    res.render("places/show", { place: foundPlace, fb_place: fb_place, page: 'place' });
+                    // res.status(err).send("failed to return response - ");
+                    console.log("**********ERROR: " + err.message);
                 });
         }
     });

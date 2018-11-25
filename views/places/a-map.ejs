@@ -107,11 +107,16 @@
         // tracksUserLocation: true,
         showsMapTypeControl: true,
         showsCompass: mapkit.FeatureVisibility.Visible,
-        // title: mapkit.FeatureVisibility.Visible,
+        title: mapkit.FeatureVisibility.Visible,
         isRotationEnabled: true,
         isScrollEnabled: true,
         isZoomEnabled: true,
+        showsScale: true,
     });
+    map.showsScale = mapkit.FeatureVisibility.Visible; 
+    
+
+
     
 
 
@@ -422,6 +427,29 @@
                 var originCoord = new mapkit.Coordinate(latOrigin, lngOrigin);
                 var orginAnnotation = new mapkit.MarkerAnnotation(originCoord, { color: "green", glyphText: "YOU" });
                 mapItems.push(orginAnnotation);
+                
+                
+                 var stats = [
+                    { radius: 1000 },
+                    { radius: 2000 },
+                ];
+                var style = new mapkit.Style({
+                    lineWidth: 2,         // 2 CSS pixels
+                    strokeColor: "#999",
+                    fillColor: "#666"
+                });
+                var circles = stats.map(function(stat) {
+                    // var coordinate = new mapkit.Coordinate(latOrigin, lngOrigin),
+                        // radius = <%= //distKm %> * 1000, // radius is expressed in meters
+                        var radius = stat.radius, // radius is expressed in meters
+                        circle = new mapkit.CircleOverlay(originCoord, radius);
+                    circle.style = style;
+                    return circle;
+                });
+                map.addOverlays(circles);   
+
+                
+                
                 }
             map.showItems(mapItems);
 
@@ -439,6 +467,9 @@
     function clearPreviousAnnotations() {
         let annotations = map.annotations;
         map.removeAnnotations(annotations);
+        let overlays = map.overlays;
+        map.removeOverlays(overlays);
+        // mapkit.Overlay[] removeOverlays(mapkit.Overlay[] overlays);
         document.getElementById('results').innerHTML = "";
     }
 

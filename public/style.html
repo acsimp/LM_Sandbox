@@ -30,9 +30,9 @@
   <!-- fonts and icons -->
 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
-  <link href="https://fonts.googleapis.com/css?family=Barlow:100,100i,300,300i,400,400i,500,500i" rel="stylesheet">  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link href="https://fonts.googleapis.com/css?family=Barlow:100,100i,300,300i,400,400i,500,500i|Playfair+Display" rel="stylesheet">  
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
@@ -41,11 +41,11 @@
 
 
   <!--MCD core files-->
-  <link rel="stylesheet" type="text/css" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
-      <!--<script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js" type="text/javascript" async></script>-->
-          <!--not required-->
-      <!--    <script src="/js/ready.js"></script>-->
-      <!--    <link rel="stylesheet" type="text/css" href="/stylesheets/top-app-bar.css">-->
+  <!--<link rel="stylesheet" type="text/css" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">-->
+  <!--    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js" type="text/javascript" async></script>-->
+  <!--        not required-->
+  <!--        <script src="/js/ready.js"></script>-->
+  <!--        <link rel="stylesheet" type="text/css" href="/stylesheets/top-app-bar.css">-->
 
 
   <!-- Bootstrap CSS -->
@@ -58,9 +58,6 @@
   <!-- Stylesheets -->
   <link rel="stylesheet" type="text/css" href="../../stylesheets/main.css">
   <!--link a page specific stylesheet based on route attribute "page" e.g. res.render("login", {page: 'login'});-->
-  <% if (typeof page !== 'undefined') { %>
-    <link rel="stylesheet" type="text/css" href="/stylesheets/<%= typeof page !== 'undefined' ? page : '' %>.css">
-    <% } %>
 
 
 </head>
@@ -97,22 +94,6 @@
           <li>
             <a href="/a-places/a-map">Add to DB</a>
           </li>
-          <% if(!currentUser){ %>
-            <li>
-              <a class="<%= typeof page !== 'undefined' && page === 'register' ? 'active' : '' %>" href="/register">Sign Up</a>
-            </li>
-            <li>
-              <a class="<%= typeof page !== 'undefined' && page === 'login' ? 'active' : '' %> " href="/login">Login</a>
-            </li>
-            <% }else{ %>
-              <li>
-                <a class="" href="/users/<%= currentUser._id %>"><span id="username"> <%= currentUser.firstname %></span></a>
-                <!--<a class="" href="/users/<%= //currentUser._id %>"><figure class="avatar avatar" data-initial="A"></figure> <span id="username"> <%= //currentUser.username %></span></a>-->
-              </li>
-              <li>
-                <a class="" href="/logout">Logout</a>
-              </li>
-              <% } %>
         </ul>
 
       </div>
@@ -133,14 +114,40 @@
 
   <script src="/js/navbar.js"></script>
 
-  <!-- flash messages -->
-  <% if(error && error.length > 0){ %>
-    <div class="alert alert-danger" role="alert">
-      <%= error %>
+<div class="container">
+    <br/>
+        <h5 class="text-left mt-3">Typography</h5>
+        <hr>
+    <div class="col-md-8 mx-auto">
+
+        <h1 class="mt-3">H1</h1>
+        <h2>H2</h2>
+        <h3>H3</h3>
+        <h4>H4</h4>
+        <h5>H5</h5>
+        <h6>H6</h6>
+        <h6 class="subtitle1">Subtitle 1</h6>
+        <h6 class="subtitle2">Subtitle 2</h6>
+        <p class="body1">Body 1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.</p>
+        <p class="body2">Body 2. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.</p>
+        <div><span class="buttonText">Button text</span></div>
+        <div><span class="captionText">Caption text</span></div>
+        <div><span class="overlineText">Overline text</span></div>
     </div>
-    <% } %>
-      <% if(success && success.length > 0){ %>
-        <div class="alert alert-success" role="alert">
-          <%= success %>
+</div>
+
+
+<footer class="pt-4 my-md-5 pt-md-5 border-top mastfoot mt-auto">
+  <div class="container">
+        <div class="row">
+          <div class="col-12 col-md">
+            <img class="mb-2 footer-maven-icon" src="/images/LM-Icon-Blue.svg" alt="Little Maven Thumb Icon">
+            <small class="d-block mb-3 text-muted">&copy; 2017-2018 Maven Family Ltd.</small>
+          </div>
+
         </div>
-        <% } %>
+        </div>
+      </footer>
+
+    </body>
+</html>

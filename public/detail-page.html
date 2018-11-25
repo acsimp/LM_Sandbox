@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Little Maven</title>
+
+
+  <meta name="theme-color" content="#000000">
+  <!--
+      manifest.json provides metadata used when your web app is added to the
+      homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
+    -->
+  <link rel="manifest" href="/manifest.json">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+
+
+
+
+  <!-- fonts and icons -->
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
+  <link href="https://fonts.googleapis.com/css?family=Barlow:100,100i,300,300i,400,400i,500,500i|Playfair+Display" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+
+
+
+
+  <!--MCD core files-->
+  <!--<link rel="stylesheet" type="text/css" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">-->
+  <!--    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js" type="text/javascript" async></script>-->
+  <!--        not required-->
+  <!--        <script src="/js/ready.js"></script>-->
+  <!--        <link rel="stylesheet" type="text/css" href="/stylesheets/top-app-bar.css">-->
+
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript" async></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" type="text/css" href="../../stylesheets/main.css">
+  <link rel="stylesheet" type="text/css" href="../../stylesheets/detail.css">
+  <!--link a page specific stylesheet based on route attribute "page" e.g. res.render("login", {page: 'login'});-->
+
+
+</head>
+
+<body class="mt-5">
+
+  <header id="navbar">
+    <div class="branch-journeys-top"></div>
+    <div id="mobileMenuBG"></div>
+    <div class="mobileMenuOuter">
+      <div id="search" onclick="searchMenuFn()">
+        <!--<img src="baseline-search-24px.svg" alt="search" id="searchIcon">-->
+        <i class="material-icons" id="searchIcon">search</i>
+        <!--<img src="baseline-close-24px.svg" alt="close" class="displayNone" id="closeSearchIcon">-->
+        <i class="material-icons displayNone" id="closeSearchIcon">close</i>
+      </div>
+      <div id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <a id="navBrand" href="/"><img class="" src="/images/Little Maven Logo.svg" /></a>
+      <div class="mobileMenuInner">
+        <ul>
+          <li>
+            <a href="/places">DB Places</a>
+          </li>
+          <li>
+            <a href="/a-places/a-map">Add to DB</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- navbar search menu -->
+
+    <div id="searchMenuBG"></div>
+    <div class="" id="searchMenu">
+      <form>
+        <input type="text" name="search" placeholder="Search.." style="margin-top: 80px; margin-right: auto; margin-left: auto; display: block; width: 200px;">
+      </form>
+    </div>
+  </header>
+  <script src="/js/navbar.js"></script>
+
+
+
+
+
+
+
+
+
+
+  <section id="top">
+    <!--<div class="row">-->
+    <div id="banner">
+
+      <a id="improveBtn" class="lm-button" href="/places/<%= place._id %>/edit"><i class="fas fa-pen pr-1"></i>Improve this page</a>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8" id="main-content">
+          <div class="row">
+          <div class="col-md-4" id="profileImage">
+          <img id="placeImage" class="" src="https://scontent.xx.fbcdn.net/v/t31.0-8/11406711_102397983435360_7108971671760661987_o.jpg?_nc_cat=0&amp;oh=9d2a99d5cec2a48f054e6c234a6ebf1b&amp;oe=5C18C5C6">
+          </div>
+          
+          <div class="col-md-8" id="summary">
+            <h4 id="placeName">Mad Hatter's</h4>
+            <div id="starSummary">
+              <i class="material-icons md-30">star</i>
+              <i class="material-icons md-30">star</i>
+              <i class="material-icons md-30">star</i>
+              <i class="material-icons md-30">star</i>
+              <i class="material-icons md-30">star_half</i>
+            </div>
+            <a class="subtitle2" id="summaryReviewCount" href="#REVIEWS"><span property="count">20</span> Reviews </a>
+            <!--<p class="subtitle2" id="summaryReviewCount">20 reviews</p>-->
+            <p class="body2 sm-mb" id="categories">Coffee, Cafe, Gluten Free Options, Lunch ...</p>
+            <p class="body2 sm-mb p-500" id="goodForSummary" >
+              <img class="mb-2 footer-maven-icon" src="/images/LM-Icon-Blue.svg" alt="Little Maven Thumb Icon">
+              <!--<span id="forIcon"><i class="fas fa-check-circle summaryIcon"></i></span>-->
+              <span class="uppercase pl-2 pr-2">Food</span>+<span class="pr-2 pl-2 uppercase">Nappy Change</span>+<span class="pr-2 pl-2 uppercase">Play</span>
+            </p>
+            <hr style="width: 100%">
+            <p class="body2 sm-mb">
+              <span id="clockIcon"><i class="far fa-clock summaryIcon"></i></span>
+              <span class="uppercase pr-2">Open Now</span>|<span class="pr-2 pl-2">8:00 - 20:30</span>|<a href="#" class="pl-2" id="summaryHours">hours</a>
+            </p>
+            <p class="body2 sm-mb">
+              <span id="costIcon"><i class="fas fa-pound-sign summaryIcon"></i></span>
+              <span class="">££ - £££</span>
+            </p>
+            
+            <p class="body2 sm-mb" id="summaryLinks">
+              <span id="webIcon"><i class="fas fa-desktop summaryIcon"></i></span>
+              <a href="#" class="pr-2">Website</a>|<a href="#" class="pr-2 pl-2">Facebook</a>|<a href="#" class="pl-2">Email</a>
+            </p>
+            <p class="body2 sm-mb">
+              <span id="phoneIcon"><i class="fas fa-phone summaryIcon"></i></span>
+              <a href="tel:+441415555555">+44 (0) 141 555 5555</a>
+            </p>
+            <p class="body2">
+              <span id="locationIcon"><i class="fas fa-map-marker-alt summaryIcon"></i></span>
+              <span class="">20 High Street, Glasgow, G1 2PN</span>
+            </p>
+          </div>
+          </div>
+
+
+        </div>
+
+
+        <div class="col-md-4" id="second-content">
+          
+          <div id="" class="subtitle2">
+            <div class="placeBtnDiv">
+            <a target="_blank" href="https://maps.apple.com/?daddr=(55.8466225%2C%20-4.4176726)&dirflg=d" class="placeButton" id="directionsBtn"><span id="directionsIcon"><i class="fas fa-directions placeButtonIcon"></i></span>Directions</a>
+            </div>
+            <div class="placeBtnDiv">
+            <button class="placeButton" id="saveBtn"><span id="saveIcon"><i class="far fa-heart placeButtonIcon"></i></span>Save</button>
+            </div>
+            <div class="placeBtnDiv">
+            <button class="placeButton" id="shareBtn"><span id="shareIcon"><i class="fas fa-share placeButtonIcon"></i></span>Share</button>
+            </div>
+          </div>
+
+
+        </div>
+
+      </div>
+      <div class="row pt-3 mt-3">
+        <div class="col-md-8">
+
+          <div id="map">
+            <button id="mapScaleBtn" type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-sm btn-secondary"><i class="fas fa-expand pr-1"></i>Larger Map</button>
+          </div>
+
+        <div id="ratings">
+          
+          <h5 class="uppercase">Ratings</h5>
+          
+        </div>
+
+        </div><!--col-md-8-->
+        
+        <div class="col-md-4" id="second-content">
+
+
+        </div>
+        
+      </div>       <!--row-->
+    </div>
+
+
+    <div class="container">
+
+
+
+
+    </div>
+  </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <footer class="pt-4 my-md-5 pt-md-5 border-top mastfoot mt-auto">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-md">
+          <img class="mb-2 footer-maven-icon" src="/images/LM-Icon-Blue.svg" alt="Little Maven Thumb Icon">
+          <small class="d-block mb-3 text-muted">&copy; 2017-2018 Maven Family Ltd.</small>
+        </div>
+
+      </div>
+    </div>
+  </footer>
+
+</body>
+<script src="https://cdn.apple-mapkit.com/mk/5.x.x/mapkit.js"></script>
+
+<script>
+  var placeLat = 55.8466225;
+  var placeLng = -4.4176726;
+        var MarkerAnnotation = mapkit.MarkerAnnotation;
+        var place = new mapkit.Coordinate(placeLat, placeLng);
+
+  // Initialise map and fetch token 
+  mapkit.init({
+    authorizationCallback: function(done) {
+      fetch("/token")
+        .then(res => res.text())
+        .then(token => done(token)) /* If successful, return your token to MapKit JS */
+        .catch(error => { /* Handle error */
+          console.log("nae token")
+        });
+      // done("eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjI0OU5KQk4ySkoifQ.eyJpc3MiOiJGVVhRWjYyWjlNIiwiaWF0IjoxNTM0NjA4MDI4LjEzNSwiZXhwIjoxNTM0NjA5ODI4LjEzNX0.RlxNj23pp1Agx1qwfuHMcRCAgx5nFDXKpxmSLgEKuxOn_to3p-4LOH0uqNMACBY52WEOhxgW6byx8fDCY9E5kg"); //alternative to short term token fetched above
+    }
+
+  });
+  //let map = new mapkit.Map("map", { center: new mapkit.Coordinate(55.8642, -4.2518)  });
+
+  // var placeLat = 55.8466225;
+  // var placeLng = -4.4176726;
+
+  // // Set default region of map    
+  region = new mapkit.CoordinateRegion(
+    new mapkit.Coordinate(placeLat, placeLng), //Glasgow
+    new mapkit.CoordinateSpan(.005, .005)
+  );
+ 
+  
+  var map = new mapkit.Map("map", {
+        region: region,
+        // showsUserLocation: true,
+        showsUserLocationControl: true,
+        // tracksUserLocation: true,
+        showsMapTypeControl: false,
+        showsCompass: mapkit.FeatureVisibility.Hidden,
+        title: mapkit.FeatureVisibility.Visible,
+        isRotationEnabled: true,
+        isScrollEnabled: true,
+        isZoomEnabled: true,
+        showsScale: true,
+      });
+        
+        // Setting properties on creation:
+        var placeAnnotation = new MarkerAnnotation(place, { 
+          color: "#5960e7", 
+          title: "Had Hatter's", 
+          subtitle: "Cafe", 
+          // glyphText: "✈️", 
+          glyphImage: {
+            2: "images/LM-Icon-Blue.svg"
+          },
+          // glyphColor: "white",
+          // selected: "true"
+        });
+
+        // Setting properties after creation:
+        // var placeAnnotation = new MarkerAnnotation(place);
+        // placeAnnotation.color = "#5960e7"; 
+        // placeAnnotation.title = "Mad Hatter's";
+        // placeAnnotation.subtitle = "Cafe";
+        // placeAnnotation.selected = "true";
+        // placeAnnotation.glyphText = "";
+        
+        // Add and show both annotations on the map
+        map.showItems([placeAnnotation]);
+  
+</script>
+
+</html>

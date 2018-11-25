@@ -1,0 +1,13 @@
+.commentAuthor {
+    text-transform: capitalize;
+    font-weight: bold; 
+}
+
+#submittedBy{
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.deleteForm{
+    display: inline;
+}

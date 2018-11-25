@@ -1,0 +1,185 @@
+
+#top{
+    width:100%;
+}
+
+#banner{
+    width:100%;
+    background-color: var(--maven-blue);
+    /*background-color: var(--maven-grey);*/
+    background-color: #dddeee;
+    height: 12.5rem;
+}
+
+#improveBtn{
+    float:right;
+    margin-top:3rem;
+    font-size: 0.65rem;
+    background-color: var(--maven-light-blue);
+}
+
+#main-content{
+    background-color: white;
+    min-height:100px;
+    padding: 0 1rem;
+}
+#profileImage{
+    padding:0;
+}
+
+#placeImage{
+    margin-top:-5rem;
+    /*width:35%;*/
+    width:100%;
+    border: white 3px solid;
+    /*float: left;*/
+}
+
+#summary{
+    margin-top: -4.5rem;
+    /*margin-left: .75rem;*/
+    /*float:left;*/
+    /*width:62%;*/
+    width:100%;
+}
+                    @media (max-width: 768px){
+                        #summary{margin-top: 2rem; padding-left:2rem;}
+                        #placeImage{width:45%;}
+                        #profileImage{text-align: center;}
+                    }
+
+#placeName{
+    /*font-weight: 500;*/
+    /*color: white;*/
+}
+
+#starSummary{
+    color: var(--maven-blue);
+    /*color: white;*/
+    /*line-height: 0.5;*/
+    margin-top:-0.5rem;
+    float:left;
+}
+.material-icons.md-30 { 
+    font-size: 30px; 
+    letter-spacing: -0.3rem;
+}
+#summaryReviewCount{
+    color: inherit;
+    /*top: 0.5rem;*/
+    display:inline;
+    margin-left: 0.75rem;
+}
+#categories{
+    margin-top:8px;
+}
+.sm-mb{
+    margin-bottom:3px;
+}
+.p-500{
+    font-weight: 500;
+}
+.summaryIcon{
+    color: var(--maven-blue);
+    width: 20px;
+    text-align: center;
+}
+#goodForSummary{
+    /*border-bottom: solid 2px var(--maven-blue);*/
+}
+#clockIcon{
+    /*color: var(--maven-light-blue);*/
+}
+#summaryHours{
+   text-decoration: underline;
+   color: inherit;
+}
+#summaryHours:hover{
+   text-decoration: underline;
+   color: inherit;
+   font-weight: 500;
+}
+#summary a{
+   text-decoration: underline;
+   color: inherit;
+}
+#summary a:hover{
+   text-decoration: underline;
+   color: inherit;
+   font-weight: 500;
+}
+
+#summary hr{
+   margin-top: 0.75rem;
+   margin-bottom: 0.75rem;
+}
+
+#map{
+    width:100%;
+    height:14rem;
+    min-height:10rem;
+    background-color: #eee;
+    margin-bottom:1.5rem;
+    display:block;
+}
+#mapScaleBtn{
+    position: absolute;
+    z-index: 3;
+    top: 1rem;
+    left: 2rem;
+}
+#second-content{
+    /*background-color: #fffddd;*/
+    height:100px;
+    padding: 0 1rem;
+}
+
+.placeBtnDiv{
+    /*min-width: 5.5rem;*/
+    width:33%;
+    align-items: center;
+    text-align: center;
+    padding: 10px 4px;
+    border-radius: 6px;
+    /*border: solid 2px blue;*/
+    margin-top: 0.5rem;
+    float: left;
+}
+
+.placeButton{
+/*box-shadow: 0 2px 4px -1px rgba(0,0,0,.2), 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12);*/
+    background-color: transparent;
+    color: #666;
+    width:100%;
+    height:100%;
+    cursor: pointer;
+    letter-spacing: -0.5px;
+    text-decoration: none;
+    /*text-transform: uppercase;  */
+    text-align: center;
+    /*display: inline-flex;*/
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    /*min-width: 20px;*/
+    border: none;
+    outline: none;
+    user-select: none;
+    -webkit-appearance: none;
+    overflow: hidden;
+    /*vertical-align: middle;*/
+    /*padding: 10px 4px;*/
+}
+
+.placeButton:hover {
+   text-decoration: none;
+   color: #666;
+}
+/*.placeBtnDiv:hover {*/
+/*   background-color: var(--maven-grey);*/
+/*}*/
+
+.placeButtonIcon{
+    font-size: 2rem;
+    display: block;
+}

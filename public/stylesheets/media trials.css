@@ -1,0 +1,35 @@
+/*h5 { font-size: 1rem; }*/
+
+/*@media (min-width: 576px) {*/
+/*    h5 { font-size: 1rem; }*/
+/*}*/
+/*@media (min-width: 768px) {*/
+/*    h5 { font-size: 0.8rem; }*/
+/*}*/
+/*@media (min-width: 992px) {*/
+/*    h5 { font-size: 1rem; }*/
+/*}*/
+/*@media (min-width: 1200px) {*/
+/*    h5 { font-size: 1rem; }*/
+/*}*/
+/*====================================================*/
+/*h5 {*/
+/*  font-size: 1rem;*/
+/*}*/
+/*@include media-breakpoint-up(sm) {*/
+/*  h5 {*/
+/*    font-size: 2rem;*/
+/*  }*/
+/*}*/
+/*@include media-breakpoint-up(md) {*/
+/*  h5 {*/
+/*    font-size: .5rem;*/
+/*  }*/
+/*}*/
+/*@include media-breakpoint-up(lg) {*/
+/*  h5 {*/
+/*    font-size: 1rem;*/
+/*  }*/
+/*}*/
+
+
