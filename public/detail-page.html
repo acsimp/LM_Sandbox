@@ -175,7 +175,7 @@
         </div>
 
 
-        <div class="col-md-4" id="second-content">
+        <div class="col-md-4 second-content" id="action-icons">
           
           <div id="" class="subtitle2">
             <div class="placeBtnDiv">
@@ -194,23 +194,73 @@
 
       </div>
       <div class="row pt-3 mt-3">
-        <div class="col-md-8">
+        <div class="col-md-8 no-padding">
 
           <div id="map">
             <button id="mapScaleBtn" type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-sm btn-secondary"><i class="fas fa-expand pr-1"></i>Larger Map</button>
           </div>
 
-        <div id="ratings">
+        <div id="ratings" class="place-details">
           
           <h5 class="uppercase">Ratings</h5>
+          
+        </div>
+        
+        <div id="" class="place-details">
+          
+          <h5 class="uppercase">Heading</h5>
+          
+        </div>
+        <div id="" class="place-details">
+          
+          <h5 class="uppercase">Heading</h5>
+          
+        </div>
+        <div id="" class="place-details">
+          
+          <h5 class="uppercase">Heading</h5>
+          
+        </div>
+        <div id="location" class="place-details">
+          
+          <h5 class="uppercase">Location & Contact Info</h5>
+          
+          <table>
+  <tr>
+    <td>Address</td>
+    <td>100 High Street, Glasgow, G1 1RQ</td>
+  </tr>
+    <tr>
+    <td>Location</td>
+    <td>Glasgow, Scotland</td>
+  </tr>
+    <tr>
+    <td>Phone</td>
+    <td><a href="tel:+441415555555">+44 (0) 141 555 5555</a></td>
+  </tr>
+    <tr>
+    <td>Email</td>
+    <td>info@info.com</td>
+  </tr>
+    <tr>
+    <td>Website</td>
+    <td><a href="http://www.google.com" target="_blank">www.google.com</a></td>
+  </tr>
+
+
+</table>
           
         </div>
 
         </div><!--col-md-8-->
         
-        <div class="col-md-4" id="second-content">
-
-
+    
+ 
+        <div class="col-md-4" id="">
+          <div class="sticky-content"id="sticky-review">
+          <h5>Have you been here?</h5>
+          <h6> - help others with your experience</h6>
+        </div>
         </div>
         
       </div>       <!--row-->
@@ -254,6 +304,27 @@
       </div>
     </div>
   </footer>
+  
+  <section id="mobile-bottom-menu">
+    
+            <div class="mobile-placeBtnDiv">
+              <div class="circle"></div>
+            <a href="#sticky-review" class="placeButton" id="mobile-reviewBtn"><span id="reviewIcon"><i class="far fa-comments placeButtonIcon"></i></span>Review</a>
+            </div>
+            <div class="mobile-placeBtnDiv">
+              <div class="circle"></div>
+            <a target="_blank" href="https://maps.apple.com/?daddr=(55.8466225%2C%20-4.4176726)&dirflg=d" class="placeButton" id="mobile-directionsBtn"><span id="directionsIcon"><i class="fas fa-directions placeButtonIcon"></i></span>Directions</a>
+            </div>
+            <div class="mobile-placeBtnDiv">
+              <div class="circle"></div>
+            <button class="placeButton" id="mobile-saveBtn"><span id="saveIcon"><i class="far fa-heart placeButtonIcon"></i></span>Save</button>
+            </div>
+            <div class="mobile-placeBtnDiv">
+              <div class="circle"></div>
+            <button class="placeButton" id="mobile-shareBtn"><span id="shareIcon"><i class="fas fa-share placeButtonIcon"></i></span>Share</button>
+            </div>
+
+  </section>
 
 </body>
 <script src="https://cdn.apple-mapkit.com/mk/5.x.x/mapkit.js"></script>
@@ -271,16 +342,12 @@
         .then(res => res.text())
         .then(token => done(token)) /* If successful, return your token to MapKit JS */
         .catch(error => { /* Handle error */
-          console.log("nae token")
+          console.log("nae token");
         });
-      // done("eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjI0OU5KQk4ySkoifQ.eyJpc3MiOiJGVVhRWjYyWjlNIiwiaWF0IjoxNTM0NjA4MDI4LjEzNSwiZXhwIjoxNTM0NjA5ODI4LjEzNX0.RlxNj23pp1Agx1qwfuHMcRCAgx5nFDXKpxmSLgEKuxOn_to3p-4LOH0uqNMACBY52WEOhxgW6byx8fDCY9E5kg"); //alternative to short term token fetched above
     }
 
   });
-  //let map = new mapkit.Map("map", { center: new mapkit.Coordinate(55.8642, -4.2518)  });
 
-  // var placeLat = 55.8466225;
-  // var placeLng = -4.4176726;
 
   // // Set default region of map    
   region = new mapkit.CoordinateRegion(
