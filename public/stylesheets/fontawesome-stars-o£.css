@@ -17,27 +17,27 @@
 }
 .br-theme-cost .br-theme-fontawesome-stars-o .br-widget a.br-active:after {
   content: '\f154';
-  color: #50E3C2;
+  color: var(--maven-primary);
 }
 .br-theme-cost .br-theme-fontawesome-stars-o .br-widget a.br-selected:after {
   content: '\f154';
-  color: #50E3C2;
+  color: var(--maven-primary);
 }
 .br-theme-cost .br-theme-fontawesome-stars-o .br-widget a.br-fractional:after {
   content: '\f154';
-  color: #50E3C2;
+  color: var(--maven-primary);
 }
 .br-theme-cost .br-theme-fontawesome-stars-o .br-widget .br-current-rating {
   margin-left:55px;
 }
-                                        @media (max-width: 992px){
-                                          .br-theme-cost .br-theme-fontawesome-stars-o .br-widget .br-current-rating {
-                                          display: none;
+                                        /*@media (max-width: 992px){*/
+                                        /*  .br-theme-cost .br-theme-fontawesome-stars-o .br-widget .br-current-rating {*/
+                                        /*  display: none;*/
                                           /*display:inline;*/
                                           /*font-size: 0.75rem;*/
                                           /*margin-left:3px;*/
-                                        }
-                                        }
+                                        /*}*/
+                                        /*}*/
 .br-theme-cost .br-theme-fontawesome-stars-o .br-readonly a {
   cursor: default;
 }

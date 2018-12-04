@@ -35,7 +35,7 @@
   <link href="https://fonts.googleapis.com/css?family=Barlow:100,100i,300,300i,400,400i,500,500i|Playfair+Display" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-
+  <link href="https://fonts.googleapis.com/css?family=Domine:400,700" rel="stylesheet">
 
 
 
@@ -65,21 +65,6 @@
   <script src="js/jquery.barrating.min.js"></script>
   <!--<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">-->
 
-
-<script type="text/javascript">
-   $(function() {
-      $('#overall-sticky, #cost-sticky, #baby-change-sticky, #food-sticky, #play-sticky, #staff-sticky, #breastfeeding-sticky').barrating({
-        theme: 'fontawesome-stars-o'
-      });
-   });
-</script>
-<script>
-     $(function() {
-      $('#cost-sticky').barrating({
-        theme: 'fontawesome-stars-o£'
-      });
-   });
-</script>
 </head>
 
 <body class="mt-5">
@@ -101,7 +86,7 @@
         <span></span>
       </div>
 
-      <a id="navBrand" href="/"><img class="" src="/images/Little Maven Logo.svg" /></a>
+      <a id="navBrand" href="/"><img class="" src="/images/Little Maven Logo-Teal.svg" /></a>
       <div class="mobileMenuInner">
         <ul>
           <li>
@@ -158,11 +143,11 @@
               <i class="material-icons md-30">star</i>
               <i class="material-icons md-30">star_half</i>
             </div>
-            <a class="subtitle2" id="summaryReviewCount" href="#REVIEWS"><span property="count">20</span> Reviews </a>
+            <a class="subtitle2" id="summaryReviewCount" href="#reviews"><span property="count">20</span> Reviews </a>
             <!--<p class="subtitle2" id="summaryReviewCount">20 reviews</p>-->
             <p class="body2 sm-mb" id="categories">Coffee, Cafe, Gluten Free Options, Lunch ...</p>
             <p class="body2 sm-mb p-500" id="goodForSummary" >
-              <img class="mb-2 footer-maven-icon" src="/images/LM-Icon-Blue.svg" alt="Little Maven Thumb Icon">
+              <img class="mb-2 footer-maven-icon" src="/images/LM-Icon-Teal.svg" alt="Little Maven Thumb Icon">
               <!--<span id="forIcon"><i class="fas fa-check-circle summaryIcon"></i></span>-->
               <span class="uppercase pl-2 pr-2">Food</span>+<span class="pr-2 pl-2 uppercase">Nappy Change</span>+<span class="pr-2 pl-2 uppercase">Play</span>
             </p>
@@ -233,7 +218,7 @@
             
             
         <div id="reviews" class="place-details">
-          <h5 class="uppercase">Reviews</h5>
+          <h5 class="">Reviews</h5>
           <div class="row paper-box">
           
           <div class=" col-lg-3 col-md-6 col-6 order-1 " id="rating-summary-wrapper">
@@ -285,27 +270,27 @@
               <tr>
                 <td class="sub-rating-des body2">Baby Change</td>
                 <!--<td class="substars"><i class="material-icons sub-rating-stars">star star star star star_half</i>-->
-                <td class="subtitle2">4.5 <span class="body2">/ 5</span></td>
+                <td class="subtitle2"><span class="primary">4.5 </span><span class="body2">/ 5</span></td>
               </tr>
               <tr>
                 <td class="sub-rating-des body2">Food</td>
                 <!--<td class=""><i class="material-icons sub-rating-stars">star star star star star_half</i>-->
-                <td class="subtitle2">4.5 <span class="body2">/ 5</span></td>
+                <td class="subtitle2"><span class="primary">4.5 </span> <span class="body2">/ 5</span></td>
               </tr>
               <tr>
                 <td class="sub-rating-des body2">Play</td>
                 <!--<td class=""><i class="material-icons sub-rating-stars">star star star star star_half</i>-->
-                <td class="subtitle2">4.5 <span class="body2">/ 5</span></td>
+                <td class="subtitle2"><span class="primary">4.5 </span> <span class="body2">/ 5</span></td>
               </tr>
               <tr>
                 <td class="sub-rating-des body2">Staff</td>
                 <!--<td class=""><i class="material-icons sub-rating-stars">star star star star star_half</i>-->
-                <td class="subtitle2">4.5 <span class="body2">/ 5</span></td>
+                <td class="subtitle2"><span class="primary">4.5 </span> <span class="body2">/ 5</span></td>
               </tr>
               <tr>
                 <td class="sub-rating-des body2">Breastfeeding</td>
                 <!--<td class=""><i class="material-icons sub-rating-stars">star star star star star_half</i>-->
-                <td class="subtitle2">4.5 <span class="body2">/ 5</span></td>
+                <td class="subtitle2"><span class="primary">4.5 </span> <span class="body2">/ 5</span></td>
               </tr>
             </table>
             </div>
@@ -373,21 +358,162 @@
         
         
 
-        <div id="" class="place-details">
+        <div id="write-review-wrapper" class="place-details">
           
-          <h5 class="uppercase">Heading</h5>
-          
-        </div>
-        <div id="" class="place-details">
-          
-          <h5 class="uppercase">Heading</h5>
-          
-        </div>
-        <div id="" class="place-details">
-          
-          <h5 class="uppercase">Details</h5>
+          <h5 class="">Write a Review</h5>
           
           <div class="paper-box">
+            <div class="place-detail-container">
+            
+                    <form id="add-comment-sticky-form" action="/places/<%= place._id %>/comments" method="POST">
+        <table id="sticky-review-table">
+          <tr class="rate-overall">
+            <td>Overall</td>
+            <td><select id="overall-sticky">
+                    <option value=""></option>
+                    <option value="1">Terrible</option>
+                    <option value="2">Poor</option>
+                    <option value="3">Average</option>
+                    <option value="4">Very Good</option>
+                    <option value="5">Excellent</option>
+                  </select>
+                  </td>
+          </tr>
+          <tr class="br-theme-cost">
+            <td>Cost</td>
+            <td><select id="cost-sticky">
+                    <option value=""></option>
+                    <option value="1"><£10 pp</option>
+                    <option value="2">£10-£30 pp</option>
+                    <option value="3">£30-£60 pp</option>
+                    <option value="4">£60+ pp</option>
+                  </select>
+                  </td>
+
+          </tr>
+          <tr>
+            <td>Baby Change</td>
+            <td><select id="baby-change-sticky">
+                    <option value=""></option>
+                    <option value="1">Terrible</option>
+                    <option value="2">Poor</option>
+                    <option value="3">Average</option>
+                    <option value="4">Very Good</option>
+                    <option value="5">Excellent</option>
+                  </select>
+                  </td>
+          </tr>          
+          <tr>
+            <td>Food</td>
+            <td><select id="food-sticky">
+                    <option value=""></option>
+                    <option value="1">Terrible</option>
+                    <option value="2">Poor</option>
+                    <option value="3">Average</option>
+                    <option value="4">Very Good</option>
+                    <option value="5">Excellent</option>
+                  </select>
+                  </td>
+          </tr>
+          <tr>
+            <td>Play</td>
+            <td><select id="play-sticky">
+                    <option value=""></option>
+                    <option value="1">Terrible</option>
+                    <option value="2">Poor</option>
+                    <option value="3">Average</option>
+                    <option value="4">Very Good</option>
+                    <option value="5">Excellent</option>
+                  </select>
+                  </td>
+          </tr>
+            <td>Staff</td>
+            <td><select id="staff-sticky">
+                    <option value=""></option>
+                    <option value="1">Terrible</option>
+                    <option value="2">Poor</option>
+                    <option value="3">Average</option>
+                    <option value="4">Very Good</option>
+                    <option value="5">Excellent</option>
+                  </select>
+                  </td>
+          </tr>   
+            <td>Breastfeeding</td>
+            <td><select id="breastfeeding-sticky">
+                    <option value=""></option>
+                    <option value="1">Terrible</option>
+                    <option value="2">Poor</option>
+                    <option value="3">Average</option>
+                    <option value="4">Very Good</option>
+                    <option value="5">Excellent</option>
+                  </select>
+                  </td>
+          </tr>          
+</table>
+        <input id="sticky-review-title" class="form-control" type="text" placeholder="Title your review">
+        <textarea class="form-control" id="sticky-review-text" rows="4" placeholder="Tell others what you think about this place. Would you recommend it and why?"></textarea>
+        
+        <div class="button-right-wrapper">
+        <button type="submit" id="sticky-review-submit" class="buttonText lm-button">Submit</button>
+        </div>
+        </form>
+            
+            
+            </div>
+            </div>
+          
+        </div>
+        
+        
+        <div id="good-for-wrapper" class="place-details">
+          <h5 class="">Good For</h5>
+          <div class="paper-box">
+            <div class="place-detail-container">
+              <table>
+                <tr>
+                  <td>Description</td>
+                  <td>Description</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        
+        <div id="facilities-wrapper" class="place-details">
+          <h5 class="">Facilities</h5>
+          <div class="paper-box">
+            <div class="place-detail-container">
+              <table>
+                <tr>
+                  <td>Description</td>
+                  <td>Description</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>      
+        
+        <div id="accessibility-wrapper" class="place-details">
+          <h5 class="">Accessibility</h5>
+          <div class="paper-box">
+            <div class="place-detail-container">
+              <table>
+                <tr>
+                  <td>Description</td>
+                  <td>Description</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>        
+              
+              
+        <div id="" class="place-details">
+          
+          <h5 class="">Details</h5>
+          
+          <div class="paper-box">
+            <div class="place-detail-container">
           <table>
             <tr>
               <td>Opening Hours</td>
@@ -417,11 +543,14 @@
           
           </table>
           </div>
+          </div>
         </div>
+        
         <div id="location" class="place-details">
           
-          <h5 class="uppercase">Location & Contact Info</h5>
+          <h5 class="">Location & Contact Info</h5>
           <div class="paper-box">
+            <div class="place-detail-container">
 
           <table>
   <tr>
@@ -450,19 +579,21 @@
           
         </div>
         </div>
+        </div>
 
         </div><!--col-md-8-->
         
     
  
         <div class="col-md-4" id="">
-          <div class="sticky-content paper-box"id="sticky-review">
-          <h6 class="sticky-review-heading">Been Here?</h6>
-          <p class="subtitle2 sticky-review-subtitle"><i>What did you think?</i></p>
+          <div class="sticky-content" id="sticky-review">
+          <h5 class="sticky-review-heading ">Write a Review</h5>
+          <div id="sticky-review-box" class="">
+          <!--<p class="subtitle2 sticky-review-subtitle"><i>Write a Review</i></p>-->
         
         <form id="add-comment-sticky-form" action="/places/<%= place._id %>/comments" method="POST">
         <table id="sticky-review-table">
-          <tr>
+          <tr class="rate-overall">
             <td>Overall</td>
             <td><select id="overall-sticky">
                     <option value=""></option>
@@ -556,6 +687,7 @@
 
         </div>
         </div>
+        </div>
 
       </div>       <!--row-->
     </div>
@@ -591,7 +723,7 @@
     <div class="container">
       <div class="row">
         <div class="col-12 col-md">
-          <img class="mb-2 footer-maven-icon" src="/images/LM-Icon-Blue.svg" alt="Little Maven Thumb Icon">
+          <img class="mb-2 footer-maven-icon" src="/images/LM-Icon-Teal.svg" alt="Little Maven Thumb Icon">
           <small class="d-block mb-3 text-muted">&copy; 2017-2018 Maven Family Ltd.</small>
         </div>
 
@@ -603,7 +735,7 @@
             <div id="mobile-bottom-menu-buttons">
             <div class="mobile-placeBtnDiv">
               <div class="circle"></div>
-            <a href="#sticky-review" class="placeButton" id="mobile-reviewBtn"><span id="reviewIcon"><i class="far fa-comments placeButtonIcon"></i></span>Review</a>
+            <a href="#write-review-wrapper" class="placeButton" id="mobile-reviewBtn"><span id="reviewIcon"><i class="far fa-comments placeButtonIcon"></i></span>Review</a>
             </div>
             <div class="mobile-placeBtnDiv">
               <div class="circle"></div>
@@ -670,12 +802,12 @@
         
         // Setting properties on creation:
         var placeAnnotation = new MarkerAnnotation(place, { 
-          color: "#5960e7", 
+          color: "#00C4B3", 
           title: "Had Hatter's", 
           subtitle: "Cafe", 
           // glyphText: "✈️", 
           glyphImage: {
-            2: "images/LM-Icon-Blue.svg"
+            2: "images/LM-Icon-Teal.svg"
           },
           // glyphColor: "white",
           // selected: "true"
@@ -692,6 +824,19 @@
         // Add and show both annotations on the map
         map.showItems([placeAnnotation]);
   
+</script>
+
+<script type="text/javascript">
+   $(function() {
+      $('#overall-sticky, #cost-sticky, #baby-change-sticky, #food-sticky, #play-sticky, #staff-sticky, #breastfeeding-sticky').barrating({
+        theme: 'fontawesome-stars-o'
+      });
+   });
+     $(function() {
+      $('#cost-sticky').barrating({
+        theme: 'fontawesome-stars-o£'
+      });
+   });
 </script>
 
 </html>

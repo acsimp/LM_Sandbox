@@ -15,6 +15,9 @@ body {
 }
 
 :root {
+    --maven-primary: var(--monkey-teal);
+    --maven-secondary: var(--monkey-blue);
+    
     --maven-blue: #5960e7;
     --maven-green: #3cff8c;
     --maven-yellow: #ffff3c;
@@ -32,12 +35,24 @@ body {
     
     --maven-icon-grey: #757575;
     
+    --monkey-text:#b5ada5; /*brown*/
+    --monkey-teal:#00C4B3;
+    --monkey-blue:#0099d6;
+    --monkey-pink:#ed67bf;
+    --monkey-icon:#3c3c3b;
+    --monkey-off-white:#ededed;
+    
+    
     --thin: 100;
     --light: 300;
     --regular: 400;
     --medium: 500;
     --bold: 700;
     --black: 900;
+}
+
+.primary{
+    color: var(--maven-primary);
 }
 
 button:focus {outline:0;}
@@ -61,12 +76,13 @@ body{
     /*color: rgba(0,0,0,0.87);*/
     /*color: var(--maven-text1)!important;*/
     color: var(--maven-text2)!important;
+    /*color: var(--maven-text2)!important;*/
     /*color: red;*/
     background-color: var(--maven-off-white);
 }
 
 h1, h2, h3, h4, h5, h6 {
-    color: var(--maven-text1)!important;
+    color: var(--maven-text2)!important;
 }
 
 h1 {
@@ -74,48 +90,64 @@ h1 {
     font-size: 6rem;
     line-height: 6rem;
     letter-spacing: -1.5px;
+    /*font-family: 'Barlow', sans-serif;*/
+    font-family: 'Domine', serif;
 }
 h2 {
     font-weight: 300;
     font-size: 3.75rem;
     line-height: 3.75rem;
     letter-spacing: -0.5px;
+    /*font-family: 'Barlow', sans-serif;*/
+    font-family: 'Domine', serif;
 }
 h3 {
     font-weight: 400;
     font-size: 3rem;
     line-height: 3.125rem;
     letter-spacing: normal;
+    /*font-family: 'Barlow', sans-serif;*/
+    font-family: 'Domine', serif;
 }
 h4 {
     font-weight: 400;
     font-size: 2.125rem;
     line-height: 2.5rem;
     letter-spacing: 0.25px;
+    /*font-family: 'Barlow', sans-serif;*/
+    font-family: 'Domine', serif;
 }
 h5 {
     font-weight: 400;
     font-size: 1.5rem;
     line-height: 2rem;
     letter-spacing: normal;
+    /*font-family: 'Barlow', sans-serif;*/
+    font-family: 'Domine', serif;
 }
 h6 {
     font-weight: 500;
     font-size: 1.25rem;
     line-height: 2rem;
     letter-spacing: 0.25px;
+    /*font-family: 'Barlow', sans-serif;*/
+    font-family: 'Domine', serif;
 }
 .subtitle1 {
     font-weight: 400;
     font-size: 1rem;
     line-height: 1.75rem;
     letter-spacing: 0.15px;
+    /*font-family: 'Barlow', sans-serif;*/
+    font-family: 'Domine', serif;
 }
 .subtitle2 {
     font-weight: 500;
     font-size: 0.875rem;
     line-height: 1.375rem;
     letter-spacing: 0.1px;
+    /*font-family: 'Barlow', sans-serif;*/
+    font-family: 'Domine', serif;
 }
 .body1 {
     font-weight: 400;
@@ -214,7 +246,7 @@ h6 {
 
 .lm-button{
     box-shadow: 0 2px 4px -1px rgba(0,0,0,.2), 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12);
-    background-color: var(--maven-green, green);
+    background-color: var(--maven-secondary, green);
     color: #fff;
     border-radius: 4px;
     cursor: pointer;
@@ -246,7 +278,7 @@ h6 {
     color:white;
 }
 .lm-button:active {
-    color: var(--maven-green, green);
+    color: var(--maven-secondary, green);
     background-color: #fff;
 
 }
@@ -284,11 +316,11 @@ a {
 
 /* ------------------------ HEADER (Start) ------------------------ */
 
-.navbar {
-    box-shadow: 
-    0 2px 4px -1px rgba(0,0,0,.2), 
-    0 4px 5px 0 rgba(0,0,0,.14), 
-    0 1px 10px 0 rgba(0,0,0,.12);
+#navbar {
+    /*box-shadow: */
+    /*0 2px 4px -1px rgba(0,0,0,.2), */
+    /*0 4px 5px 0 rgba(0,0,0,.14), */
+    /*0 1px 10px 0 rgba(0,0,0,.12);*/
 }
 
 .avatar.avatar-xl {
