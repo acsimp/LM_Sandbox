@@ -21,8 +21,17 @@ body {
     --maven-pink: #ffd5cc;
     --maven-light-blue: #8ef7e5;
     --maven-grey: #d1d5cf;
+    
+    --maven-dark-grey: #333;
+    --maven-off-white: #fafafa;
+    --maven-off-white2: #f0f0f0;
+    
     --maven-text1: #202124;
     --maven-text2: #5f6368;
+    --maven-text3: #677483;
+    
+    --maven-icon-grey: #757575;
+    
     --thin: 100;
     --light: 300;
     --regular: 400;
@@ -53,6 +62,7 @@ body{
     /*color: var(--maven-text1)!important;*/
     color: var(--maven-text2)!important;
     /*color: red;*/
+    background-color: var(--maven-off-white);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -209,8 +219,8 @@ h6 {
     border-radius: 4px;
     cursor: pointer;
     padding: 0 16px;
-    margin: 8px 16px;
-    height: 32px;
+    /*margin: 8px 16px;*/
+    /*height: 32px;*/
     font-size: .8125rem;
     transition: box-shadow .28s cubic-bezier(.4,0,.2,1),-webkit-box-shadow .28s cubic-bezier(.4,0,.2,1);
     font-weight: 500;
@@ -251,6 +261,23 @@ a {
     background: var(--maven-pink);
 }
 
+@media (min-width: 768px){
+.container {
+    max-width: 850px;
+}}
+@media (min-width: 992px) {
+.container {
+    max-width: 1000px;
+}
+}
+
+@media (min-width: 1200px){
+.container {
+    max-width: 1140px;
+}
+
+    
+}
 
  /* ------------- CORE (End) ------------- */
 
@@ -464,7 +491,7 @@ footer {
 }
 
 .displayNone {
-  display:none;
+  display:none!important;
 }
 
 .no-padding{

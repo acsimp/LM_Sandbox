@@ -49,18 +49,37 @@
 
 
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript" async></script>
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  
   <!-- Stylesheets -->
   <link rel="stylesheet" type="text/css" href="../../stylesheets/main.css">
   <link rel="stylesheet" type="text/css" href="../../stylesheets/detail.css">
   <!--link a page specific stylesheet based on route attribute "page" e.g. res.render("login", {page: 'login'});-->
+  
+  <link rel="stylesheet" href="stylesheets/fontawesome-stars-o.css">
+  <link rel="stylesheet" href="stylesheets/fontawesome-stars-o£.css">  
+
+  <script src="js/jquery.barrating.min.js"></script>
+  <!--<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">-->
 
 
+<script type="text/javascript">
+   $(function() {
+      $('#overall-sticky, #cost-sticky, #baby-change-sticky, #food-sticky, #play-sticky, #staff-sticky, #breastfeeding-sticky').barrating({
+        theme: 'fontawesome-stars-o'
+      });
+   });
+</script>
+<script>
+     $(function() {
+      $('#cost-sticky').barrating({
+        theme: 'fontawesome-stars-o£'
+      });
+   });
+</script>
 </head>
 
 <body class="mt-5">
@@ -118,8 +137,9 @@
   <section id="top">
     <!--<div class="row">-->
     <div id="banner">
-
+      <div class="container">
       <a id="improveBtn" class="lm-button" href="/places/<%= place._id %>/edit"><i class="fas fa-pen pr-1"></i>Improve this page</a>
+    </div>
     </div>
     <div class="container">
       <div class="row">
@@ -199,13 +219,160 @@
           <div id="map">
             <button id="mapScaleBtn" type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-sm btn-secondary"><i class="fas fa-expand pr-1"></i>Larger Map</button>
           </div>
-
-        <div id="ratings" class="place-details">
           
-          <h5 class="uppercase">Ratings</h5>
           
+          </div>
+          </div>
+          </div>
+      </section> <!--top-->    
+      
+          <section id="middle">
+          <div class="container">
+            <div class="row">
+          <div class="col-md-8">
+            
+            
+        <div id="reviews" class="place-details">
+          <h5 class="uppercase">Reviews</h5>
+          <div class="row paper-box">
+          
+          <div class=" col-lg-3 col-md-6 col-6 order-1 " id="rating-summary-wrapper">
+          
+          <div id="rating-summary">
+          <h2 id="rating-overall-avg">4.5</h2>
+            <div id="overallStarAvg">
+              <i class="material-icons star-size">star star star star star_half</i>
+            </div>
+            <span class="captionText" id="ratingReviewCount">20 Reviews</span>
+            </div>
+            </div>
+            
+            <div class=" col-lg-6 col-md-12 col-12 order-3 order-lg-2" id="ratebar-wrapper">
+            <div class="ratebar-wrap">
+              <table class="table">
+              <tr>
+                <td class="rating-des body2">Excellent</td>
+                <td class=""><div class="rating-bar"><div class="rate rate-5" style="width:80%"></div></div></td>
+                <td class="rating-bar-percent">70%</th>
+              </tr>
+              <tr>
+                <td class="rating-des body2">Very Good</td>
+                <td class=""><div class="rating-bar"><div class="rate rate-4" style="width:60%"></div></div></td>
+                <td class="rating-bar-percent">60%</td>
+              </tr>
+              <tr>
+                <td class="rating-des body2">Average</td>
+                <td class=""><div class="rating-bar"><div class="rate rate-3" style="width:50%"></div></div></td>
+                <td class="rating-bar-percent">50%</td>
+              </tr>
+              <tr>
+                <td class="rating-des body2">Poor</td>
+                <td class=""><div class="rating-bar"><div class="rate rate-2" style="width:20%"></div></div></td>
+                <td class="rating-bar-percent">20%</td>
+              </tr>
+              <tr>
+                <td class="rating-des body2">Terrible</td>
+                <td class=""><div class="rating-bar"><div class="rate rate-1" style="width:32%"></div></div></td>
+                <td class="rating-bar-percent">32%</td>
+              </tr>
+            </table></div>
+            
+            
+          </div>
+          <div class=" col-lg-3 col-md-6 col-6 order-2 order-lg-3" id="sub-ratings">
+            <div class="substar-wrap">
+            <table class="table">
+              <tr>
+                <td class="sub-rating-des body2">Baby Change</td>
+                <!--<td class="substars"><i class="material-icons sub-rating-stars">star star star star star_half</i>-->
+                <td class="subtitle2">4.5 <span class="body2">/ 5</span></td>
+              </tr>
+              <tr>
+                <td class="sub-rating-des body2">Food</td>
+                <!--<td class=""><i class="material-icons sub-rating-stars">star star star star star_half</i>-->
+                <td class="subtitle2">4.5 <span class="body2">/ 5</span></td>
+              </tr>
+              <tr>
+                <td class="sub-rating-des body2">Play</td>
+                <!--<td class=""><i class="material-icons sub-rating-stars">star star star star star_half</i>-->
+                <td class="subtitle2">4.5 <span class="body2">/ 5</span></td>
+              </tr>
+              <tr>
+                <td class="sub-rating-des body2">Staff</td>
+                <!--<td class=""><i class="material-icons sub-rating-stars">star star star star star_half</i>-->
+                <td class="subtitle2">4.5 <span class="body2">/ 5</span></td>
+              </tr>
+              <tr>
+                <td class="sub-rating-des body2">Breastfeeding</td>
+                <!--<td class=""><i class="material-icons sub-rating-stars">star star star star star_half</i>-->
+                <td class="subtitle2">4.5 <span class="body2">/ 5</span></td>
+              </tr>
+            </table>
+            </div>
+            
+            </div>
         </div>
         
+        <div class="review-wrapper paper-box">
+          
+          <div class="">
+            <p class="review-total"><b>1</b> - <b>3</b> of 3 reviews</p>
+          </div>
+          
+          <div class="review">
+          <div class="flex-container">
+            <div class="flex-child"><figure class="review-avatar" data-initial="AS"></figure></div>
+            <div class="flex-child reviewer">
+              <a class="subtitle2" href="" id="reviewer-username">
+                <span id="">Andrew Simpson</span>
+              </a>
+              <span class="reviewer-stars"><i class="material-icons stars">star star star star star_half</i><span class="middotDivider"></span>Oct 18</span>
+            </div>
+            </div>
+            <div class="review-text">
+              <p class="subtitle2 review-title">This Is Awesome!</p>
+              <p class="body2">I went to this place today to have brunch with my family. The staff was really great at accommodating our needs and... <a href="#" class="more-text-link" >More</a></p>
+            </div>
+            </div>
+            
+            <div class="review">
+          <div class="flex-container">
+            <div class="flex-child"><figure class="review-avatar" data-initial="AS"></figure></div>
+            <div class="flex-child reviewer">
+              <a class="subtitle2" href="" id="reviewer-username">
+                <span id="">Andrew Simpson</span>
+              </a>
+              <span class="reviewer-stars"><i class="material-icons stars">star star star star star_half</i><span class="middotDivider"></span>Oct 18</span>
+            </div>
+            </div>
+            <div class="review-text">
+              <p class="subtitle2 review-title">This Is Awesome!</p>
+              <p class="body2">I went to this place today to have brunch with my family. The staff was really great at accommodating our needs and... <a href="#" class="more-text-link" >More</a></p>
+            </div>
+            </div>
+            
+            <div class="review">
+          <div class="flex-container">
+            <div class="flex-child"><figure class="review-avatar" data-initial="AS"></figure></div>
+            <div class="flex-child reviewer">
+              <a class="subtitle2" href="" id="reviewer-username">
+                <span id="">Andrew Simpson</span>
+              </a>
+              <span class="reviewer-stars"><i class="material-icons stars">star star star star star_half</i><span class="middotDivider"></span>Oct 18</span>
+            </div>
+            </div>
+            <div class="review-text">
+              <p class="subtitle2 review-title">This Is Awesome!</p>
+              <p class="body2">I went to this place today to have brunch with my family. The staff was really great at accommodating our needs and... <a href="#" class="more-text-link" >More</a></p>
+            </div>
+            </div>
+            
+          </div>
+          
+                  </div>
+        
+        
+
         <div id="" class="place-details">
           
           <h5 class="uppercase">Heading</h5>
@@ -218,13 +385,44 @@
         </div>
         <div id="" class="place-details">
           
-          <h5 class="uppercase">Heading</h5>
+          <h5 class="uppercase">Details</h5>
           
+          <div class="paper-box">
+          <table>
+            <tr>
+              <td>Opening Hours</td>
+            <td>
+                <div><span class="day">Monday</span><span class="hours">09:00 - 17:00</span></div>
+                <div><span class="day">Tuesday</span><span class="hours">09:00 - 17:00</span></div>
+                <div><span class="day">Wednesday</span><span class="hours">09:00 - 17:00</span></div>
+                <div><span class="day">Thursday</span><span class="hours">09:00 - 17:00</span></div>
+                <div><span class="day">Friday</span><span class="hours">09:00 - 17:00</span></div>
+                <div><span class="day">Saturday</span><span class="hours">09:00 - 17:00</span></div>
+                <div><span class="day">Sunday</span><span class="hours">09:00 - 17:00</span></div>
+              </td>
+            </tr>
+            <tr>
+              <td>Cuisine</td>
+              <td>Cafe, British, Vegetarian Friendly, Vegan Options, Gluten Free Options</td>
+            </tr>
+            <tr>
+              <td>Meals</td>
+              <td>Breakfast, Lunch, Brunch</td>
+            </tr>
+            <tr>
+              <td>Description</td>
+              <td>We are Paisley's premier family friendly Coffee House serving quality homemade soups, breakfast, lunch and Afternoon Tea alongside a selection of scrummy home made cakes! We also provide a corkage service for a small fee. We are available for function hire for Baby Showers, Hen Parties or any other party! We take day and evening bookings, just give us a wee call or email for more information information.</td>
+            </tr>
+          
+          
+          </table>
+          </div>
         </div>
         <div id="location" class="place-details">
           
           <h5 class="uppercase">Location & Contact Info</h5>
-          
+          <div class="paper-box">
+
           <table>
   <tr>
     <td>Address</td>
@@ -251,18 +449,114 @@
 </table>
           
         </div>
+        </div>
 
         </div><!--col-md-8-->
         
     
  
         <div class="col-md-4" id="">
-          <div class="sticky-content"id="sticky-review">
-          <h5>Have you been here?</h5>
-          <h6> - help others with your experience</h6>
-        </div>
-        </div>
+          <div class="sticky-content paper-box"id="sticky-review">
+          <h6 class="sticky-review-heading">Been Here?</h6>
+          <p class="subtitle2 sticky-review-subtitle"><i>What did you think?</i></p>
         
+        <form id="add-comment-sticky-form" action="/places/<%= place._id %>/comments" method="POST">
+        <table id="sticky-review-table">
+          <tr>
+            <td>Overall</td>
+            <td><select id="overall-sticky">
+                    <option value=""></option>
+                    <option value="1">Terrible</option>
+                    <option value="2">Poor</option>
+                    <option value="3">Average</option>
+                    <option value="4">Very Good</option>
+                    <option value="5">Excellent</option>
+                  </select>
+                  </td>
+          </tr>
+          <tr class="br-theme-cost">
+            <td>Cost</td>
+            <td><select id="cost-sticky">
+                    <option value=""></option>
+                    <option value="1"><£10 pp</option>
+                    <option value="2">£10-£30 pp</option>
+                    <option value="3">£30-£60 pp</option>
+                    <option value="4">£60+ pp</option>
+                  </select>
+                  </td>
+
+          </tr>
+          <tr>
+            <td>Baby Change</td>
+            <td><select id="baby-change-sticky">
+                    <option value=""></option>
+                    <option value="1">Terrible</option>
+                    <option value="2">Poor</option>
+                    <option value="3">Average</option>
+                    <option value="4">Very Good</option>
+                    <option value="5">Excellent</option>
+                  </select>
+                  </td>
+          </tr>          
+          <tr>
+            <td>Food</td>
+            <td><select id="food-sticky">
+                    <option value=""></option>
+                    <option value="1">Terrible</option>
+                    <option value="2">Poor</option>
+                    <option value="3">Average</option>
+                    <option value="4">Very Good</option>
+                    <option value="5">Excellent</option>
+                  </select>
+                  </td>
+          </tr>
+          <tr>
+            <td>Play</td>
+            <td><select id="play-sticky">
+                    <option value=""></option>
+                    <option value="1">Terrible</option>
+                    <option value="2">Poor</option>
+                    <option value="3">Average</option>
+                    <option value="4">Very Good</option>
+                    <option value="5">Excellent</option>
+                  </select>
+                  </td>
+          </tr>
+            <td>Staff</td>
+            <td><select id="staff-sticky">
+                    <option value=""></option>
+                    <option value="1">Terrible</option>
+                    <option value="2">Poor</option>
+                    <option value="3">Average</option>
+                    <option value="4">Very Good</option>
+                    <option value="5">Excellent</option>
+                  </select>
+                  </td>
+          </tr>   
+            <td>Breastfeeding</td>
+            <td><select id="breastfeeding-sticky">
+                    <option value=""></option>
+                    <option value="1">Terrible</option>
+                    <option value="2">Poor</option>
+                    <option value="3">Average</option>
+                    <option value="4">Very Good</option>
+                    <option value="5">Excellent</option>
+                  </select>
+                  </td>
+          </tr>          
+</table>
+        <input id="sticky-review-title" class="form-control" type="text" placeholder="Title your review">
+        <textarea class="form-control" id="sticky-review-text" rows="4" placeholder="Tell others what you think about this place. Would you recommend it and why?"></textarea>
+        
+        <div class="button-right-wrapper">
+        <button type="submit" id="sticky-review-submit" class="buttonText lm-button">Submit</button>
+        </div>
+        </form>
+          
+
+        </div>
+        </div>
+
       </div>       <!--row-->
     </div>
 
@@ -306,7 +600,7 @@
   </footer>
   
   <section id="mobile-bottom-menu">
-    
+            <div id="mobile-bottom-menu-buttons">
             <div class="mobile-placeBtnDiv">
               <div class="circle"></div>
             <a href="#sticky-review" class="placeButton" id="mobile-reviewBtn"><span id="reviewIcon"><i class="far fa-comments placeButtonIcon"></i></span>Review</a>
@@ -323,7 +617,11 @@
               <div class="circle"></div>
             <button class="placeButton" id="mobile-shareBtn"><span id="shareIcon"><i class="fas fa-share placeButtonIcon"></i></span>Share</button>
             </div>
-
+            </div>
+            <div id="mobile-improve-btn">
+                    <a id="" class="" href="#"><i class="fas fa-pen pr-1"></i>Improve this page</a>
+                    <!--<a id="" class="" href="/places/<%= place._id %>/edit"><i class="fas fa-pen pr-1"></i>Improve this page</a>-->
+            </div>
   </section>
 
 </body>
