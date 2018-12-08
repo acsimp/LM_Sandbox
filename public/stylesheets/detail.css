@@ -52,6 +52,7 @@
                                 }
                                 #banner{
                                     height: 8.5rem;
+                                    background-color: var(--maven-primary);
                                 }
                             }
 
@@ -222,7 +223,7 @@
      0 2px 5px -3px rgba(0,0,0,.2), 
      0 2px 10px 1px rgba(0,0,0,.10), 
      0 6px 14px 2px rgba(0,0,0,.08);
-    border-radius: 3px;
+    border-radius: 10px;
     background-color: white;
     padding: 1rem 1rem;
 }
@@ -490,7 +491,7 @@ td, th {
 
 .place-details td:nth-child(1) {
     text-align: right;
-    width: 5rem;
+    width: 5.5rem;
     /*background-color:yellow;*/
 }
 .ratebar-wrap td:nth-child(1) {
@@ -680,6 +681,70 @@ td, th {
     padding-left:20px;
     padding-right:20px;
 }
+.details-list{
+  -webkit-column-count: 2; /* Chrome, Safari, Opera */
+  -moz-column-count: 2; /* Firefox */
+  column-count: 2;
+}
+ul {
+    display: block;
+    list-style-type: none;
+    padding-left: 0px;
+    margin-bottom: 0px;
+}
+
+                                        @media (max-width: 768px){
+                                            .details-list{
+                                              -webkit-column-count: 1; /* Chrome, Safari, Opera */
+                                              -moz-column-count: 1; /* Firefox */
+                                              column-count: 1;
+                                            }
+                                        }
+
+.tick li:before {
+    font: normal normal normal 18px/1 "Font Awesome 5 Free";
+    font-size: 1em;
+    margin-right: 5px;
+    content: '\f00c';
+    font-weight: 900;
+    color: var(--maven-primary);
+}
+.circle-list li:before {
+    font: normal normal normal 18px/1 "Font Awesome 5 Free";
+    font-size: .5em;
+    margin-right: 5px;
+    content: '\f111';
+    font-weight: 300;
+    color: var(--maven-primary);
+    padding-left: 0.325rem;
+    padding-right: 0.175rem;
+    vertical-align: middle;
+}
+
+.exclamation{
+    /*padding-left:1.35rem;*/
+    /*text-decoration: underline;*/
+    margin-top:0px;
+}
+.exclamation:before {
+    font: normal normal normal 18px/1 "Font Awesome 5 Free";
+    font-size: 0.8em;
+    margin-right: 5px;
+    content: '\f12a';
+    font-weight: 900;
+    color: var(--maven-primary);
+    padding-left: 0.45rem;
+    padding-right: 0.25rem;
+}
+.external-link:after {
+    font: normal normal normal 18px/1 "Font Awesome 5 Free";
+    font-size: .65em;
+    margin-left: 5px;
+    content: '\f35d';
+    font-weight: 900;
+    vertical-align: super;
+}
+
 
 .rate-overall{
     height:45px;

@@ -37,6 +37,41 @@
                     <% if (typeof place.apple_id!='undefined' && place.apple_id) { %>
                       <p>apple_id: <%= place.apple_id %></p> <% } %>
                       
+                      <p>loop through array test</p>
+                      
+                      create a table
+                      initiate array of objects
+                      for each array entry
+                      create a new row
+                      put name in first cell
+                      then check to see if it exists in db results - put it in second cell or make it empty
+                      then check facebook and put it in the second cell or leave it empty
+                      close row
+                      end loop
+                      close table
+                      
+                      <% let details = [{x: "name", y: place.name, z: fb_place.name}];%>
+
+                      <table>
+                        
+                          <% for (var i = 0; i < details.length; i++){ %>
+                            <tr>
+                              <td>
+                                <p><%= details[i].x; %></p>
+                                
+                              </td>
+                              <td>
+                                <% var item = details[i].y; %>
+                                <% console.log(item);%>
+                                
+                                <p><%= typeof item !='undefined' ? item : '' %></p>
+                              </td>
+                              <td><p><%=details[i].z%></p></td>
+                            </tr>
+                          <% }; %>
+                        
+                      </table>
+                      
                       <div id="placesArray"></div>
                       <!--<textarea name="" id="myTextarea" cols="150" rows="10"><%=JSON.stringify(place, undefined, 4)%></textarea>-->
 

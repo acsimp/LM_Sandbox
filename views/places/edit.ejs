@@ -60,11 +60,7 @@
                          <h4 class="text-uppercase text-info">Services</h4>
                          <!--<h6 class="">Baby Change:</h6>-->
                           <div class="items">
-                                <input class="checkbox" id="food_service" name="food_service" value="yes" type="checkbox" <% if (place.service.food) { %> checked <% } %>>
-                                <label class="checkbox_label" for="food_service">Food</label>
-                                
-                                <input class="checkbox" id="nappy_change_facilities" name="nappy_change_facilities" value="yes" type="checkbox" <% if (place.service.nappy_change) { %> checked <% } %>>
-                                <label class="checkbox_label" for="nappy_change_facilities">Nappy Change Facilities</label>
+
                             </div> 
                     </div>
                 </div>
@@ -341,6 +337,12 @@
                                 <input class="checkbox" id="eggs" name="eggs" value="yes" type="checkbox" <% if (place.allergy.eggs) { %> checked <% } %>>
                                 <label class="checkbox_label" for="eggs">Eggs</label>
                             </div> 
+                            <table>
+                                <tr>
+                                    <th class="label"><label class="label" for="allergy_notes">Allergy Notes</label></th>
+                                    <th class="input"><input class="form-control" type="text" id="allergy_notes" name="allergy_notes" placeholder="" value="<%= place.allergy.special_notes %>"></th>
+                                </tr>
+                            </table>     
                     </div>
                 </div>
             </div>  
@@ -510,6 +512,9 @@
                             
                             <input class="checkbox" id="disability_braille" name="disability_braille" value="yes" type="checkbox" <% if (place.disability.braille) { %> checked <% } %>>
                             <label class="checkbox_label" for="disability_braille">Braille</label>
+                            
+                            <input class="checkbox" id="disability_autism" name="disability_autism" value="yes" type="checkbox" <% if (place.disability.autism) { %> checked <% } %>>
+                            <label class="checkbox_label" for="disability_autism">Autism Friendly</label>
                           </div>
                     </div>
                 </div>
@@ -532,6 +537,12 @@
                             
                             <input class="checkbox" id="good_for_supervised_visits" name="good_for_supervised_visits" value="yes" type="checkbox" <% if (place.good_for.supervised_visits) { %> checked <% } %>>
                             <label class="checkbox_label" for="good_for_supervised_visits">Supervised Visits</label>
+
+                            <input class="checkbox" id="good_for_food_service" name="good_for_food_service" value="yes" type="checkbox" <% if (place.good_for.food) { %> checked <% } %>>
+                            <label class="checkbox_label" for="good_for_food_service">Food</label>
+                            
+                            <input class="checkbox" id="good_for_nappy_change_facilities" name="good_for_nappy_change_facilities" value="yes" type="checkbox" <% if (place.good_for.nappy_change) { %> checked <% } %>>
+                            <label class="checkbox_label" for="good_for_nappy_change_facilities">Nappy Change Facilities</label>                            
                           </div>
                           <h6 class="">Age Groups:</h6>
                           <div class="items">

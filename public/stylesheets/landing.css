@@ -9,8 +9,8 @@
   padding-top: 40vh;
 }
 
-#landing-header h1 {
-  color: #fff;
+#landing-header h3 {
+  color: #fff!important;
 }
 
 .slideshow { 

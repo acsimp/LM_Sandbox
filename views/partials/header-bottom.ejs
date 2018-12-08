@@ -1,0 +1,81 @@
+</head>
+
+<body class="mt-5">
+
+  <header id="navbar">
+
+    <div class="branch-journeys-top"></div>
+
+    <div id="mobileMenuBG"></div>
+    <div class="mobileMenuOuter">
+      <div id="search" onclick="searchMenuFn()">
+        <!--<img src="baseline-search-24px.svg" alt="search" id="searchIcon">-->
+        <i class="material-icons" id="searchIcon">search</i>
+        <!--<img src="baseline-close-24px.svg" alt="close" class="displayNone" id="closeSearchIcon">-->
+        <i class="material-icons displayNone" id="closeSearchIcon">close</i>
+
+      </div>
+      <div id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <a id="navBrand" href="/"><img class="" src="/images/Little Maven Logo-White.svg" /></a>
+
+      <div class="mobileMenuInner">
+        <ul>
+          <li>
+            <a href="/places">DB Places</a>
+          </li>
+          <li>
+            <a href="/a-places/a-map">Add to DB</a>
+          </li>
+          <% if(!currentUser){ %>
+            <li>
+              <a class="<%= typeof page !== 'undefined' && page === 'register' ? 'active' : '' %>" href="/register">Sign Up</a>
+            </li>
+            <li>
+              <a class="<%= typeof page !== 'undefined' && page === 'login' ? 'active' : '' %> " href="/login">Login</a>
+            </li>
+            <% }else{ %>
+              <li>
+                <a class="" href="/users/<%= currentUser._id %>"><span id="username"> <%= currentUser.firstname %></span></a>
+                <!--<a class="" href="/users/<%= //currentUser._id %>"><figure class="avatar avatar" data-initial="A"></figure> <span id="username"> <%= //currentUser.username %></span></a>-->
+              </li>
+              <li>
+                <a class="" href="/logout">Logout</a>
+              </li>
+              <% } %>
+        </ul>
+
+      </div>
+    </div>
+
+    <!-- navbar search menu -->
+
+    <div id="searchMenuBG"></div>
+    <div class="" id="searchMenu">
+      <form>
+        <input type="text" name="search" placeholder="Search.." style="margin-top: 80px; margin-right: auto; margin-left: auto; display: block; width: 200px;">
+      </form>
+    </div>
+
+
+  </header>
+
+
+  <script src="/js/navbar.js"></script>
+
+  <!-- flash messages -->
+  <% if(error && error.length > 0){ %>
+    <div class="alert alert-danger" role="alert">
+      <%= error %>
+    </div>
+    <% } %>
+      <% if(success && success.length > 0){ %>
+        <div class="alert alert-success" role="alert">
+          <%= success %>
+        </div>
+        <% } %>

@@ -648,7 +648,7 @@ router.get("/:id", function(req, res) {
             // res.redirect("/places");
             console.log("*place found but it has no fb_id");
             var fb_place = {};
-            res.render("places/show", { place: foundPlace, fb_place: fb_place, page: 'place' });
+            res.render("places/detail", { place: foundPlace, fb_place: fb_place, page: 'place' });
             console.log(foundPlace.name + " - nae fb_id!");
         }
         else if (typeof foundPlace != 'undefined' && typeof foundPlace.fb_id != 'undefined') {
@@ -682,13 +682,13 @@ router.get("/:id", function(req, res) {
                     //res.json(foundPlace);
                     //render show template with that place
                     // console.log(foundPlace.ratings);
-                    res.render("places/show", { place: foundPlace, fb_place: fb_place, page: 'place' });
+                    res.render("places/detail", { place: foundPlace, fb_place: fb_place, page: 'place' });
                     console.log(foundPlace.name);
                 })
                 .catch(function(err) {
                     // API call failed...
                     var fb_place = {};
-                    res.render("places/show", { place: foundPlace, fb_place: fb_place, page: 'place' });
+                    res.render("places/detail", { place: foundPlace, fb_place: fb_place, page: 'place' });
                     // res.status(err).send("failed to return response - ");
                     console.log("**********ERROR: " + err.message);
                 });
@@ -809,6 +809,7 @@ router.put("/:id", middleware.checkPlaceOwnership, function(req, res) {
         nut: req.body.nut,
         dairy: req.body.dairy,
         eggs: req.body.eggs,
+        special_notes: req.body.allergy_notes
     };
     var lots_of_space = req.body.lots_of_space;
     var group_friendly = req.body.group_friendly;
@@ -855,7 +856,7 @@ router.put("/:id", middleware.checkPlaceOwnership, function(req, res) {
         restrictions: req.body.dog_restrictions,
     };
     var wifi = req.body.wifi;
-    var other_facilities = req.body.other_facilities;
+    var other_facilities = req.body.other_facilities.split(', ');
     var disability = {
         friendly: req.body.disability_friendly,
         access: req.body.disability_access,
@@ -865,12 +866,15 @@ router.put("/:id", middleware.checkPlaceOwnership, function(req, res) {
         induction_loop: req.body.disability_induction_loop,
         ir_induction_loop: req.body.disability_ir_induction_loop,
         braille: req.body.disability_braille,
+        autism: req.body.disability_autism,
     };
     var good_for = {
         play: req.body.good_for_play,
         party: req.body.good_for_party,
         large_groups: req.body.good_for_large_groups,
         supervised_visits: req.body.good_for_supervised_visits,
+        food: req.body.good_for_food_service,
+        nappy_change: req.body.good_for_nappy_change_facilities,
         age_goup: {
             newborn: req.body.age_group_newborn,
             baby: req.body.age_group_baby,

@@ -19,10 +19,6 @@ var placeSchema = new mongoose.Schema({
         price: Number, // 1-4, relative, ££££
         slug: String,
         distance: Number,
-        service: {
-             food: { type: Boolean },
-             nappy_change: { type: Boolean },
-            },
         // free_entry: Boolean,
     
     // Location ------------------------------------------
@@ -149,6 +145,7 @@ var placeSchema = new mongoose.Schema({
              nut: Boolean,
              dairy: Boolean,
              eggs: Boolean,
+             special_notes: String,
         },
         healthy_options:  Boolean,
         organic_options: Boolean,
@@ -247,8 +244,7 @@ var placeSchema = new mongoose.Schema({
              induction_loop: Boolean,
              ir_induction_loop: Boolean,
              braille: Boolean,
-            // autism friendly?
-            
+             autism: Boolean,
         },
         
     // Staff Attitude
@@ -302,6 +298,8 @@ var placeSchema = new mongoose.Schema({
             party: Boolean,
             large_groups: Boolean,
             supervised_visits: Boolean,
+            food: { type: Boolean },
+            nappy_change: { type: Boolean },            
             age_goup: {
                 newborn: Boolean, // 0-1 mo
                 baby: Boolean, // <1 yr

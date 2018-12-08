@@ -1,0 +1,1084 @@
+<% include ../partials/header-top %>
+
+    <title><%= place.name %> - Little Maven</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/detail.css">
+    <link rel="stylesheet" href="/stylesheets/fontawesome-stars-o.css">
+    <link rel="stylesheet" href="/stylesheets/fontawesome-stars-o£.css">  
+    <script src="/js/jquery.barrating.min.js"></script>
+
+<% include ../partials/header-bottom %>
+
+
+<section id="top">
+    <!--<div class="row">-->
+    <div id="banner">
+      <div class="container">
+      <a id="improveBtn" class="lm-button" href="/places/<%= place._id %>/edit"><i class="fas fa-pen pr-1"></i>Improve this page</a>
+    </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8" id="main-content">
+          <div class="row">
+          <div class="col-md-4" id="profileImage">
+          <img id="placeImage" class="" src="<%= typeof place.images.card_img !='undefined' ? place.images.card_img : 'https://www.rspcansw.org.au/wp-content/themes/noPhotoFound.png' %>">
+          </div>
+          
+          <div class="col-md-8" id="summary">
+            <h4 id="placeName"><%= typeof place.name !='undefined' ? place.name : '*No Name*' %></h4>
+            <div id="starSummary">
+              <i class="material-icons md-30">star</i>
+              <i class="material-icons md-30">star</i>
+              <i class="material-icons md-30">star</i>
+              <i class="material-icons md-30">star</i>
+              <i class="material-icons md-30">star_half</i>
+            </div>
+            
+            <a class="subtitle2" id="summaryReviewCount" href="#reviews"><span property="count">
+                <% if(typeof place.ratings.overall.count!='undefined' && place.ratings.overall.count > 0) { %>
+                  <%= place.ratings.overall.count %> 
+                  <% } else { %>
+                  0
+                  <% } %>
+                </span>Reviews </a>
+            
+            
+            <!--<p class="subtitle2" id="summaryReviewCount">20 reviews</p>-->
+            <% var categories = ""; %>
+            <% if (typeof fb_place.category_list !='undefined' && fb_place.category_list !=''){ %>
+            <% for (var i = 0; i < fb_place.category_list.length; i++){%>
+                <% categories += fb_place.category_list[i].name;%>
+                <% i<(fb_place.category_list.length-1) ? categories += ", " : '';%>
+            <% }; %>
+            <% } %>
+            <p class="body2 sm-mb" id="categories"><%= typeof place.category !='undefined' && place.category !='' ? 
+            place.category : (typeof fb_place.category_list !='undefined' && fb_place.category_list !='' ? categories.substring(0, 70) + " ..." : '*no record') %></p>
+            </p>
+            
+            
+            <p class="body2 sm-mb p-500" id="goodForSummary" >
+              <img class="mb-2 footer-maven-icon" src="/images/LM-Icon-Teal.svg" alt="Little Maven Thumb Icon">
+              <!--<span id="forIcon"><i class="fas fa-check-circle summaryIcon"></i></span>-->
+              <span class="uppercase pl-2 pr-2">Food</span>+<span class="pr-2 pl-2 uppercase">Nappy Change</span>+<span class="pr-2 pl-2 uppercase">Play</span>
+            </p>
+            <hr style="width: 100%">
+            <p class="body2 sm-mb">
+              <span id="clockIcon"><i class="far fa-clock summaryIcon"></i></span>
+              <span class="uppercase pr-2">Open Now</span>|<span class="pr-2 pl-2">8:00 - 20:30</span>|<a href="#" class="pl-2" id="summaryHours">hours</a>
+            </p>
+            <p class="body2 sm-mb">
+              <span id="costIcon"><i class="fas fa-pound-sign summaryIcon"></i></span>
+              <span class="">££ - £££</span>
+            </p>
+            
+            <p class="body2 sm-mb" id="summaryLinks">
+              <span id="webIcon"><i class="fas fa-desktop summaryIcon"></i></span>
+              
+              <% if( typeof place.website !='undefined' && place.website !=''){ %>
+                <a href="<%= place.website %>" class="pl-2 external-link" target="_blank">Website</a>
+              <% } else if( typeof fb_place.website !='undefined' && fb_place.website !=''){ %>
+                <a href="<%= fb_place.website %>" class="pr-2 external-link" target="_blank">Website</a>|
+              <% } %>
+              
+              <% if( typeof fb_place.link !='undefined' && fb_place.link !=''){ %>
+                <a href="<%= fb_place.link %>" class="pr-2 pl-2 external-link" target="_blank">Facebook</a>|
+              <% } %>
+              
+              <% if( typeof place.email !='undefined' && place.email !=''){ %>
+                <a href="mailto:<%= place.email %>" class="pl-2 external-link" target="_top">Email</a>
+              <% } else if( typeof fb_place.emails !='undefined' && fb_place.emails !=''){ %>
+                <a href="mailto:<%= fb_place.emails[0].value %>" class="pl-2" target="_top">Email</a>
+              <% } %>
+            </p>
+            <p class="body2 sm-mb">
+              <span id="phoneIcon"><i class="fas fa-phone summaryIcon"></i></span>
+              <% if( typeof place.phone !='undefined' && place.phone !=''){ %>
+                <a href="tel:<%= place.phone %>"><%= place.phone %></a>
+              <% } else if( typeof fb_place.phone !='undefined' && fb_place.phone !=''){ %>
+                <a href="tel:<%= fb_place.phone %>"><%= fb_place.phone %></a>
+              <% } %>
+            </p>
+            <p class="body2">
+              <span id="locationIcon"><i class="fas fa-map-marker-alt summaryIcon"></i></span>
+              <% if( typeof place.single_line_address !='undefined' && place.single_line_address !=''){ %>
+                <span class=""><%= place.single_line_address %></span>
+              <% } else if( typeof fb_place.single_line_address !='undefined' && fb_place.single_line_address !=''){ %>
+                <span class=""><%= fb_place.single_line_address %></span>
+              <% } %>
+            </p>
+          </div>
+          </div>
+
+
+        </div>
+
+
+        <div class="col-md-4 second-content" id="action-icons">
+          
+          <div id="" class="subtitle2">
+            <% if( typeof place.location.coordinates !='undefined' && place.location.coordinates !=''){ %>
+            <div class="placeBtnDiv">
+            <a target="_blank" href="https://maps.apple.com/?daddr=(<%= place.location.coordinates[1] + ", " + place.location.coordinates[0]%>)&dirflg=d" class="placeButton" id="directionsBtn"><span id="directionsIcon"><i class="fas fa-directions placeButtonIcon"></i></span>Directions</a>
+            </div>
+            <% } %>
+            <!--<div class="placeBtnDiv">-->
+            <!--<button class="placeButton" id="saveBtn"><span id="saveIcon"><i class="far fa-heart placeButtonIcon"></i></span>Save</button>-->
+            <!--</div>-->
+            <!--<div class="placeBtnDiv">-->
+            <!--<button class="placeButton" id="shareBtn"><span id="shareIcon"><i class="fas fa-share placeButtonIcon"></i></span>Share</button>-->
+            <!--</div>-->
+          </div>
+
+
+        </div>
+
+      </div>
+      <div class="row pt-3 mt-3">
+        <div class="col-md-8 no-padding">
+
+          <div id="map">
+            <button id="mapScaleBtn" type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-sm btn-secondary"><i class="fas fa-expand pr-1"></i>Larger Map</button>
+          </div>
+          
+          
+          </div>
+          </div>
+          </div>
+      </section> <!--top-->    
+      
+          <section id="middle">
+          <div class="container">
+            <div class="row">
+          <div class="col-md-8">
+            
+            
+        <div id="reviews" class="place-details">
+          <h5 class="">Reviews</h5>
+          <div class="row paper-box">
+          
+          <div class=" col-lg-3 col-md-6 col-6 order-1 " id="rating-summary-wrapper">
+          
+          <div id="rating-summary">
+          <h2 id="rating-overall-avg">4.5</h2>
+            <div id="overallStarAvg">
+              <i class="material-icons star-size">star star star star star_half</i>
+            </div>
+            <span class="captionText" id="ratingReviewCount">20 Reviews</span>
+            </div>
+            </div>
+            
+            <div class=" col-lg-6 col-md-12 col-12 order-3 order-lg-2" id="ratebar-wrapper">
+            <div class="ratebar-wrap">
+              <table class="table">
+              <tr>
+                <td class="rating-des body2">Excellent</td>
+                <td class=""><div class="rating-bar"><div class="rate rate-5" style="width:80%"></div></div></td>
+                <td class="rating-bar-percent">70%</th>
+              </tr>
+              <tr>
+                <td class="rating-des body2">Very Good</td>
+                <td class=""><div class="rating-bar"><div class="rate rate-4" style="width:60%"></div></div></td>
+                <td class="rating-bar-percent">60%</td>
+              </tr>
+              <tr>
+                <td class="rating-des body2">Average</td>
+                <td class=""><div class="rating-bar"><div class="rate rate-3" style="width:50%"></div></div></td>
+                <td class="rating-bar-percent">50%</td>
+              </tr>
+              <tr>
+                <td class="rating-des body2">Poor</td>
+                <td class=""><div class="rating-bar"><div class="rate rate-2" style="width:20%"></div></div></td>
+                <td class="rating-bar-percent">20%</td>
+              </tr>
+              <tr>
+                <td class="rating-des body2">Terrible</td>
+                <td class=""><div class="rating-bar"><div class="rate rate-1" style="width:32%"></div></div></td>
+                <td class="rating-bar-percent">32%</td>
+              </tr>
+            </table></div>
+            
+            
+          </div>
+          <div class=" col-lg-3 col-md-6 col-6 order-2 order-lg-3" id="sub-ratings">
+            <div class="substar-wrap">
+            <table class="table">
+              <tr>
+                <td class="sub-rating-des body2">Baby Change</td>
+                <!--<td class="substars"><i class="material-icons sub-rating-stars">star star star star star_half</i>-->
+                <td class="subtitle2"><span class="primary">4.5 </span><span class="body2">/ 5</span></td>
+              </tr>
+              <tr>
+                <td class="sub-rating-des body2">Food For Kids</td>
+                <!--<td class=""><i class="material-icons sub-rating-stars">star star star star star_half</i>-->
+                <td class="subtitle2"><span class="primary">4.5 </span> <span class="body2">/ 5</span></td>
+              </tr>
+              <tr>
+                <td class="sub-rating-des body2">Play</td>
+                <!--<td class=""><i class="material-icons sub-rating-stars">star star star star star_half</i>-->
+                <td class="subtitle2"><span class="primary">4.5 </span> <span class="body2">/ 5</span></td>
+              </tr>
+              <tr>
+                <td class="sub-rating-des body2">Staff w/ Kids</td>
+                <!--<td class=""><i class="material-icons sub-rating-stars">star star star star star_half</i>-->
+                <td class="subtitle2"><span class="primary">4.5 </span> <span class="body2">/ 5</span></td>
+              </tr>
+              <tr>
+                <td class="sub-rating-des body2">Breastfeeding</td>
+                <!--<td class=""><i class="material-icons sub-rating-stars">star star star star star_half</i>-->
+                <td class="subtitle2"><span class="primary">4.5 </span> <span class="body2">/ 5</span></td>
+              </tr>
+            </table>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="review-wrapper paper-box">
+          
+          <div class="">
+            <p class="review-total"><b>1</b> - <b>3</b> of 3 reviews</p>
+          </div>
+          
+          <div class="review">
+          <div class="flex-container">
+            <div class="flex-child"><figure class="review-avatar" data-initial="AS"></figure></div>
+            <div class="flex-child reviewer">
+              <a class="subtitle2" href="" id="reviewer-username">
+                <span id="">Andrew Simpson</span>
+              </a>
+              <span class="reviewer-stars"><i class="material-icons stars">star star star star star_half</i><span class="middotDivider"></span>Oct 18</span>
+            </div>
+            </div>
+            <div class="review-text">
+              <p class="subtitle2 review-title">This Is Awesome!</p>
+              <p class="body2">I went to this place today to have brunch with my family. The staff was really great at accommodating our needs and... <a href="#" class="more-text-link" >More</a></p>
+            </div>
+            </div>
+            
+            <div class="review">
+          <div class="flex-container">
+            <div class="flex-child"><figure class="review-avatar" data-initial="AS"></figure></div>
+            <div class="flex-child reviewer">
+              <a class="subtitle2" href="" id="reviewer-username">
+                <span id="">Andrew Simpson</span>
+              </a>
+              <span class="reviewer-stars"><i class="material-icons stars">star star star star star_half</i><span class="middotDivider"></span>Oct 18</span>
+            </div>
+            </div>
+            <div class="review-text">
+              <p class="subtitle2 review-title">This Is Awesome!</p>
+              <p class="body2">I went to this place today to have brunch with my family. The staff was really great at accommodating our needs and... <a href="#" class="more-text-link" >More</a></p>
+            </div>
+            </div>
+            
+            <div class="review">
+          <div class="flex-container">
+            <div class="flex-child"><figure class="review-avatar" data-initial="AS"></figure></div>
+            <div class="flex-child reviewer">
+              <a class="subtitle2" href="" id="reviewer-username">
+                <span id="">Andrew Simpson</span>
+              </a>
+              <span class="reviewer-stars"><i class="material-icons stars">star star star star star_half</i><span class="middotDivider"></span>Oct 18</span>
+            </div>
+            </div>
+            <div class="review-text">
+              <p class="subtitle2 review-title">This Is Awesome!</p>
+              <p class="body2">I went to this place today to have brunch with my family. The staff was really great at accommodating our needs and... <a href="#" class="more-text-link" >More</a></p>
+            </div>
+            </div>
+            
+          </div>
+          
+                  </div>
+        
+        
+
+        <div id="write-review-wrapper" class="place-details">
+          
+          <h5 class="">Write a Review</h5>
+          
+          <div class="paper-box">
+            <div class="place-detail-container">
+            
+                    <form id="add-comment-sticky-form" action="/places/<%= place._id %>/comments" method="POST">
+        <table id="sticky-review-table">
+          <tr class="rate-overall">
+            <td>Overall</td>
+            <td><select id="overall-sticky">
+                    <option value=""></option>
+                    <option value="1">Terrible</option>
+                    <option value="2">Poor</option>
+                    <option value="3">Average</option>
+                    <option value="4">Very Good</option>
+                    <option value="5">Excellent</option>
+                  </select>
+                  </td>
+          </tr>
+          <tr class="br-theme-cost">
+            <td>Cost</td>
+            <td><select id="cost-sticky">
+                    <option value=""></option>
+                    <option value="1"><£10 pp</option>
+                    <option value="2">£10-£30 pp</option>
+                    <option value="3">£30-£60 pp</option>
+                    <option value="4">£60+ pp</option>
+                  </select>
+                  </td>
+
+          </tr>
+          <tr>
+            <td>Baby Change</td>
+            <td><select id="baby-change-sticky">
+                    <option value=""></option>
+                    <option value="1">Terrible</option>
+                    <option value="2">Poor</option>
+                    <option value="3">Average</option>
+                    <option value="4">Very Good</option>
+                    <option value="5">Excellent</option>
+                  </select>
+                  </td>
+          </tr>          
+          <tr>
+            <td>Food For Kids</td>
+            <td><select id="food-sticky">
+                    <option value=""></option>
+                    <option value="1">Terrible</option>
+                    <option value="2">Poor</option>
+                    <option value="3">Average</option>
+                    <option value="4">Very Good</option>
+                    <option value="5">Excellent</option>
+                  </select>
+                  </td>
+          </tr>
+          <tr>
+            <td>Play</td>
+            <td><select id="play-sticky">
+                    <option value=""></option>
+                    <option value="1">Terrible</option>
+                    <option value="2">Poor</option>
+                    <option value="3">Average</option>
+                    <option value="4">Very Good</option>
+                    <option value="5">Excellent</option>
+                  </select>
+                  </td>
+          </tr>
+            <td>Staff w/ Kids</td>
+            <td><select id="staff-sticky">
+                    <option value=""></option>
+                    <option value="1">Terrible</option>
+                    <option value="2">Poor</option>
+                    <option value="3">Average</option>
+                    <option value="4">Very Good</option>
+                    <option value="5">Excellent</option>
+                  </select>
+                  </td>
+          </tr>   
+            <td>Breastfeeding</td>
+            <td><select id="breastfeeding-sticky">
+                    <option value=""></option>
+                    <option value="1">Terrible</option>
+                    <option value="2">Poor</option>
+                    <option value="3">Average</option>
+                    <option value="4">Very Good</option>
+                    <option value="5">Excellent</option>
+                  </select>
+                  </td>
+          </tr>          
+</table>
+        <input id="sticky-review-title" class="form-control" type="text" placeholder="Title your review">
+        <textarea class="form-control" id="sticky-review-text" rows="4" placeholder="Tell others what you think about this place. Would you recommend it and why?"></textarea>
+        
+        <div class="button-right-wrapper">
+        <button type="submit" id="sticky-review-submit" class="buttonText lm-button">Submit</button>
+        </div>
+        </form>
+            
+            
+            </div>
+            </div>
+          
+        </div>
+        
+        
+        <div id="good-for-wrapper" class="place-details">
+          <h5 class="">Good For</h5>
+          <div class="paper-box">
+            <div class="place-detail-container">
+              <table>
+                <tr>
+                  <tr>
+                  <td>Good For</td>
+                  <td><div class="details-list">
+                    <ul class="tick">
+                      <% if(place.good_for.food){ %> <li>Food</li> <% } %>
+                      <% if(place.good_for.play){ %> <li>Play</li> <% } %>
+                      <% if(place.good_for.nappy_change){ %> <li>Nappy Changing</li> <% } %>
+                      <% if(place.good_for.parties){ %> <li>Parties</li> <% } %>
+                      <% if(place.good_for.large_groups){ %> <li>Large Groups</li> <% } %>
+                      <% if(place.good_for.supervised_visits){ %> <li>Supervised Visits</li> <% } %>
+                      <% if(place.good_for.age_goup.newborn){ %> <li>Newborns (0-1 mo)</li> <% } %>
+                      <% if(place.good_for.age_goup.baby){ %> <li>Babies (<1 yr)</li> <% } %>
+                      <% if(place.good_for.age_goup.toddler){ %> <li>Toddlers (1-3 years)</li> <% } %>
+                      <% if(place.good_for.age_goup.pre_school){ %> <li>Pre-School (3-5 yrs)</li> <% } %>
+                      <% if(place.good_for.age_goup.school){ %> <li>School Age (5+ yrs)</li> <% } %>
+                      </ul>
+                      </div>
+                  </td>
+                </tr>
+                  <td>Breastfeeding</td>
+                  <td><div class="details-list">
+                    <ul class="tick">
+                      <% if(place.breastfeeding.friendly){ %> <li>Friendly</li> <% } %>
+                      <% if(place.breastfeeding.discreet){ %> <li>Discreet</li> <% } %>
+                      <% if(place.breastfeeding.no_purchase_req){ %> <li>No Purchase Required</li> <% } %>
+                      <% if(place.breastfeeding.feeding_room){ %> <li>Dedicated Feeding Room</li> <% } %>
+                      </ul>
+                      </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Buggies</td>
+                  <td><div class="details-list">
+                    <ul class="tick">
+                      <% if(place.buggy.access){ %> <li>Good Access</li> <% } %>
+                      <% if(place.buggy.space_for){ %> <li>Plenty of Space</li> <% } %>
+                      <% if(place.buggy.store){ %> <li>Onsite Buggy Store</li> <% } %>
+                      </ul>
+                      </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>BYO Infant Food</td>
+                  <td><div class="details-list">
+                    <ul class="tick">
+                      <% if(place.BYO_infant_food.allowed){ %> <li>Allowed</li> <% } %>
+                      <% if(place.BYO_infant_food.microwave){ %> <li>Microwave</li> <% } %>
+                      <% if(place.BYO_infant_food.bottle_warmer){ %> <li>Bottle Warmer</li> <% } %>
+                      </ul>
+                      </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Play</td>
+                  <td><div class="details-list">
+                    <ul class="tick">
+                      <% if(place.play.indoor){ %> <li>Indoor</li> <% } %>
+                      <% if(place.play.outdoor){ %> <li>Outdoor</li> <% } %>
+                      <% if(place.play.toys){ %> <li>Toy Box</li> <% } %>
+                      <% if(place.play.soft){ %> <li>Soft Play</li> <% } %>
+                      <% if(place.play.creche){ %> <li>Creche</li> <% } %>
+                      </ul>
+                      </div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        
+        <div id="facilities-wrapper" class="place-details">
+          <h5 class="">Facilities</h5>
+          <div class="paper-box">
+            <div class="place-detail-container">
+              <table>
+                <tr>
+                  <td>Parking</td>
+                  <td><div class="details-list">
+                    <ul class="tick">
+                      <% if(place.parking.onsite){ %> <li>Onsite Parking</li> <% } %>
+                      <% if(place.parking.nearby){ %> <li>Nearby Parking</li> <% } %>
+                      <% if(place.parking.free){ %> <li>Free Parking</li> <% } %>
+                      <% if(place.parking.parent_and_child){ %> <li>Parent & Child Spaces</li> <% } %>
+                      <% if(place.disability.parking){ %> <li>Disabled Spaces</li> <% } %>
+                      <% if(place.close_transport){ %> <li>Local Transport Links</li> <% } %>
+                      </ul>
+                      </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Baby Changing</td>
+                  <td><div class="details-list">
+                    <ul class="tick">
+                      <% if(place.baby_change.ladies){ %> <li>Ladies</li> <% } %>
+                      <% if(place.baby_change.gents){ %> <li>Gents</li> <% } %>
+                      <% if(place.baby_change.disabled){ %> <li>Disabled</li> <% } %>
+                      <% if(place.baby_change.room){ %> <li>Changing Room</li> <% } %>
+                      <% if(place.baby_change.free_nappy){ %> <li>Free Nappies</li> <% } %>
+                      </ul>
+                      </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Equipment</td>
+                  <td><div class="details-list">
+                    <ul class="tick">
+                      <% if(place.highchairs.available){ %> <li>Highchairs Available</li> <% } %>
+                      <% if(place.highchairs.lots){ %> <li>Lots of Highchairs</li> <% } %>
+                      <% if(place.kids_menu){ %> <li>Kid's Menu</li> <% } %>
+                      <% if(place.kids_utensils){ %> <li>Kid's Utensils</li> <% } %>
+                      </ul>
+                      </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Seating</td>
+                  <td><div class="details-list">
+                    <ul class="tick">
+                      <% if(place.seating.indoor){ %> <li>Indoor</li> <% } %>
+                      <% if(place.seating.outdoor){ %> <li>Outdoor</li> <% } %>
+                      <% if(place.seating.picnic){ %> <li>Picnic</li> <% } %>
+                      <% if(place.seating.party_size){ %> <li>Party Size</li> <% } %>
+                      <% if(place.seating.fifty_plus_seats){ %> <li>50+ seats</li> <% } %>
+                      </ul>
+                      </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Size</td>
+                  <td><div class="details-list">
+                    <ul class="tick">
+                      <% if(place.lots_of_space){ %> <li>Lots of Space</li> <% } %>
+                      <% if(place.group_friendly){ %> <li>Group Friendly</li> <% } %>
+                      <% if(place.large_group_space){ %> <li>Large Group Space</li> <% } %>
+                      </ul>
+                      </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Dogs</td>
+                  <td><div class="details-list">
+                    <ul class="tick">
+                      <% if(place.dog.friendly){ %> <li>Dog Friendly</li> <% } %>
+                      <% if(place.dog.water){ %> <li>Water</li> <% } %>
+                      <% if(place.dog.inside){ %> <li>Allowed Inside</li> <% } %>
+                      <% if(place.dog.outside){ %> <li>Allowed Outside</li> <% } %>
+                      <% if(place.dog.good_walks){ %> <li>Good Walks Nearby</li> <% } %>
+                      <% if(place.dog.restricted){ %> <li>Restrictions Apply</li> <% } %>
+                      </ul>
+                      </div>
+                      <% if( typeof place.dog.restrictions !='undefined' && place.dog.restrictions !=''){ %>
+                        <span class="exclamation">Restrictions</span><span>: <%= place.dog.restrictions %></span>
+                      <% } %>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Services</td>
+                  <td>
+                    <div class="details-list">
+                      <ul class="tick">
+                    <% if(place.reservations){ %> <li>Takes Bookings</li> <% } %>
+                    <% if(place.licenced){ %> <li>Is licenced</li> <% } %>
+                    <% if(place.work_friendly){ %> <li>Is work friendly</li> <% } %>
+                    <% if(place.onsite_cafe_restaurant){ %> <li>Onsite Food Service</li> <% } %>
+                    <% if(place.table_service){ %> <li>Table Service</li> <% } %>
+                    <% if(place.delivery){ %> <li>Delivery</li> <% } %>
+                    <% if(place.pickup){ %> <li>Collection</li> <% } %>
+                    <% if(place.takeout){ %> <li>Takeout</li> <% } %>
+                    <% if(place.walk_ins){ %> <li>Welcomes Walk-ins</li> <% } %>
+                    <% if(place.walk_ins_only){ %> <li>Is Walk-ins Only</li> <% } %>
+                    <% if(place.customer_toilets){ %> <li>Customer Toilets</li> <% } %>
+                    <% if(place.gift_vouchers){ %> <li>Gift Vouchers</li> <% } %>
+                    <% if(place.venue_hire){ %> <li>Venue Hire</li> <% } %>
+                    </ul>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Other Facilities</td>
+                  <td>
+                    <div class="details-list">
+                      <ul class="tick">
+                    <% if(place.wifi){ %> <li>Wifi</li> <% } %>
+                    <% if( typeof place.other_facilities !='undefined' && place.other_facilities.length >0){ %>
+                    <% for (var i = 0; i < place.other_facilities.length; i++){%>
+                    <li class="capitalize"><%= place.other_facilities[i] %></li>
+                    <% } %>
+                    <% } %>
+                    </ul>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Main Menu</td>
+                  <td><% if(typeof place.menu_link !='undefined' && place.menu_link !=''){ %> <a href="place.menu_link" class="external-link" target="_blank"><%= place.menu_link.substring(0, 25) %><% if(place.menu_link.length > 25) { %>...<% } %></a> <% } else { %>: *no record* <% } %></td>
+                </tr>
+                <tr>
+                  <td>Kid's Menu</td>
+                  <td><% if(typeof place.kids_menu_link !='undefined' && place.kids_menu_link !=''){ %> <a href="place.kids_menu_link" class="external-link" target="_blank"><%= place.kids_menu_link.substring(0, 25) %><% if(place.kids_menu_link.length > 25) { %>...<% } %></a> <% } else { %>: *no record* <% } %></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>      
+        
+        <div id="accessibility-wrapper" class="place-details">
+          <h5 class="">Accessibility</h5>
+          <div class="paper-box">
+            <div class="place-detail-container">
+              <table>
+                <tr>
+                  <td>Disabled Access</td>
+                  <td><div class="details-list">
+                      <ul class="tick">
+                    <% if(place.disability.friendly){ %> <li>Friendly</li> <% } %>
+                    <% if(place.disability.access){ %> <li>Good Access</li> <% } %>
+                    <% if(place.disability.spacious){ %> <li>Is Spacious</li> <% } %>
+                    <% if(place.disability.parking){ %> <li>Disabled Parking Spaces</li> <% } %>
+                    <% if(place.disability.toilet){ %> <li>Disabled Toilet</li> <% } %>
+                    <% if(place.disability.induction_loop){ %> <li>Induction Loop</li> <% } %>
+                    <% if(place.disability.ir_induction_loop){ %> <li>IR Induction Loop</li> <% } %>
+                    <% if(place.disability.braille){ %> <li>Braille</li> <% } %>
+                    <% if(place.disability.autism){ %> <li>Autism Friendly</li> <% } %>
+                    </ul>
+                    </div>
+                    </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>    
+        
+              
+              
+        <div id="" class="place-details">
+          
+          <h5 class="">Details</h5>
+          
+          <div class="paper-box">
+            <div class="place-detail-container">
+          <table>
+            <tr>
+              <td>Opening Hours</td>
+            <td>
+                <div><span class="day">Monday</span><span class="hours">09:00 - 17:00</span></div>
+                <div><span class="day">Tuesday</span><span class="hours">09:00 - 17:00</span></div>
+                <div><span class="day">Wednesday</span><span class="hours">09:00 - 17:00</span></div>
+                <div><span class="day">Thursday</span><span class="hours">09:00 - 17:00</span></div>
+                <div><span class="day">Friday</span><span class="hours">09:00 - 17:00</span></div>
+                <div><span class="day">Saturday</span><span class="hours">09:00 - 17:00</span></div>
+                <div><span class="day">Sunday</span><span class="hours">09:00 - 17:00</span></div>
+              </td>
+            </tr>
+            <tr>
+              <td>Categories</td>
+              <td>
+                <div class="details-list">
+                      <ul class="circle-list">
+                    <% if( typeof place.category !='undefined' && place.category[0] != ''){ %>
+                    <% for (var i = 0; i < place.category.length; i++){%>
+                    <li class="capitalize"><%= place.category[i] %></li>
+                    <% } %>
+                    <% } else { %>
+                    <i>*no record*</i>
+                    <% } %>
+                    </ul>
+                    </div>
+                    
+              </td>
+            </tr>
+            <tr>
+              <td>Cuisines</td>
+              <td>
+                <div class="details-list">
+                      <ul class="circle-list">
+                    <% if( typeof place.cuisine !='undefined' && place.cuisine[0] != ''){ %>
+                    <% for (var i = 0; i < place.cuisine.length; i++){%>
+                    <li class="capitalize"><%= place.cuisine[i] %></li>
+                    <% } %>
+                    <% } else { %>
+                    <i>*no record*</i>
+                    <% } %>
+                    </ul>
+                    </div>
+                    
+              </td>
+            </tr>
+            <tr>
+              <td>Meals</td>
+              <td>
+                <div class="details-list">
+                <ul class="circle-list">
+                <% if( typeof place.meal_type !='undefined' && place.meal_type !=''){ %>
+                <% if(place.meal_type.breakfast){ %> <li>Breakfast</li> <% } %>
+                <% if(place.meal_type.lunch){ %> <li>lunch</li> <% } %>
+                <% if(place.meal_type.dinner){ %> <li>dinner</li> <% } %>
+                <% if(place.meal_type.coffee){ %> <li>coffee</li> <% } %>
+                <% if(place.meal_type.drinks){ %> <li>drinks</li> <% } %>
+                <% if(place.meal_type.treats){ %> <li>treats</li> <% } %>
+                <% } else { %>
+                    <i>*no record*</i>
+                <% } %>
+                </ul>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>Food Options</td>
+              <td>
+                <div class="details-list">
+                <ul class="circle-list">
+                <% if(place.vegetarian_options){ %> <li>Vegetarian Options</li> <% } %>
+                <% if(place.vegan_options){ %> <li>Vegan Options</li> <% } %>
+                <% if(place.healthy_options){ %> <li>Health Options</li> <% } %>
+                <% if(place.organic_options){ %> <li>Organic Options</li> <% } %>
+                <% if(place.halal_options){ %> <li>Halal Options</li> <% } %>
+                </ul>
+                </div>
+                <% if( typeof place.special_notes !='undefined' && place.special_notes !=''){ %>
+                        <span class="exclamation">Special Notes</span><span>: <%= place.special_notes %></span>
+                      <% } %>
+              </td>
+            </tr>
+            <tr>
+              <td>Allergies</td>
+              <td>
+                <div class="details-list">
+                <ul class="circle-list">
+                <% if(place.allergy.friendly){ %> <li>Allergy Friendly</li> <% } %>
+                <% if(place.allergy.gluten){ %> <li>Gluten Free Options</li> <% } %>
+                <% if(place.allergy.nut){ %> <li>Nut Free Options</li> <% } %>
+                <% if(place.allergy.dairy){ %> <li>Dairy Free Options</li> <% } %>
+                <% if(place.allergy.eggs){ %> <li>Egg Free Options</li> <% } %>
+                </ul>
+                </div>
+                <% if( typeof place.allergy.special_notes !='undefined' && place.allergy.special_notes !=''){ %>
+                        <span class="exclamation">Allergy Notes</span><span>: <%= place.allergy.special_notes %></span>
+                      <% } %>
+              </td>
+            </tr>
+            <tr>
+              <td>Flags</td>
+              <td>
+                <div class="details-list">
+                <ul class="circle-list">
+                <% if(place.permanently_closed){ %> <li>Permanently Closed</li> <% } %>
+                <% if(place.temporarily_closed){ %> <li>Temporarily Closed</li> <% } %>
+                <% if(place.kid_friendly){ %> <li>Child Friendly</li> <% } %>
+                <% if(place.not_for_kids){ %> <li>Not For Children</li> <% } %>
+                <% if(place.verified_by_owner){ %> <li>Verified By Owner</li> <% } %>
+                <% if(place.kid_restrictions){ %> <li>Has Child Restricitons</li> <% } %>
+                </ul>
+                </div>
+                <% if( typeof place.kid_restrictions !='undefined' && place.kid_restrictions !=''){ %>
+                        <span class="exclamation">Restrictions</span><span>: <%= place.kid_restrictions %></span>
+                      <% } %>
+              </td>
+            </tr>
+            <tr>
+              <td>Description</td>
+              <td>
+                <% if( typeof place.description !='undefined' && place.description !=''){ %>
+                      <span class=""><%= place.description %></span>
+                    <% } else if( typeof fb_place.description !='undefined' && fb_place.description !=''){ %>
+                      <span class=""><%= fb_place.description %></span>
+                    <% } else { %>
+                    <i>*no record*</i>
+                    <% } %>
+              </td>
+            </tr>
+            <tr>
+              <td>Cost</td>
+              <td>Cost...
+              </td>
+            </tr>
+          
+          
+          </table>
+          </div>
+          </div>
+        </div>
+        
+        <div id="location" class="place-details">
+          
+          <h5 class="">Location & Contact Info</h5>
+          <div class="paper-box">
+            <div class="place-detail-container">
+
+          <table>
+  <tr>
+    <td>Address</td>
+    <td><% if( typeof place.single_line_address !='undefined' && place.single_line_address !=''){ %>
+                <span class=""><%= place.single_line_address %></span>
+              <% } else if( typeof fb_place.single_line_address !='undefined' && fb_place.single_line_address !=''){ %>
+                <span class=""><%= fb_place.single_line_address %></span>
+              <% } else { %>
+              <i>*no record*</i>
+              <% } %>
+    </td><tr>
+    <tr>
+    <td>Phone</td>
+    <td><% if( typeof place.phone !='undefined' && place.phone !=''){ %>
+                <a href="tel:<%= place.phone %>"><%= place.phone %></a>
+              <% } else if( typeof fb_place.phone !='undefined' && fb_place.phone !=''){ %>
+                <a href="tel:<%= fb_place.phone %>"><%= fb_place.phone %></a>
+              <% } else { %>
+              <i>*no record*</i>
+              <% } %>
+    </td></tr>
+    <tr>
+    <td>Email</td>
+    <td> <% if( typeof place.email !='undefined' && place.email !=''){ %>
+                <a href="mailto:<%= place.email %>" class="" target="_top"><%= place.email %></a>
+              <% } else if( typeof fb_place.emails !='undefined' && fb_place.emails !=''){ %>
+                <a href="mailto:<%= fb_place.emails[0].value %>" class="" target="_top"><%= fb_place.emails[0].value.substring(0, 25) %><% if(fb_place.emails[0].value.length > 25) { %>...<% } %></a>
+              <% } else { %>
+              <i>*no record*</i>
+              <% } %>
+    </td></tr>
+    <tr>
+    <td>Website</td>
+    <td><% if( typeof place.website !='undefined' && place.website !=''){ %>
+                <a href="<%= place.website %>" class="external-link" target="_blank"><%= place.website.substring(0, 25) %><% if(place.website.length > 25) { %>...<% } %></a>
+              <% } else if( typeof fb_place.website !='undefined' && fb_place.website !=''){ %>
+                <a href="<%= fb_place.website %>" class="external-link" target="_blank"><%= fb_place.website.substring(0, 25) %><% if(fb_place.website.length > 25) { %>...<% } %></a>
+              <% } else { %>
+              <i>*no record*</i>
+              <% } %>
+    </td></tr>
+    <tr>
+    <td>Facebook</td>
+    <td><% if( typeof fb_place.link !='undefined' && fb_place.link !=''){ %>
+    <a href="<%= fb_place.link %>" class="external-link" target="_blank"><%= fb_place.link.substring(0, 25) %><% if(fb_place.link.length > 25) { %>...<% } %></a>
+              <% } else { %>
+              <i>*no record*</i>
+              <% } %>
+    </td></tr>          
+</table>
+          
+        </div>
+        </div>
+        </div>
+
+        </div><!--col-md-8-->
+        
+    
+ 
+        <div class="col-md-4" id="">
+          <div class="sticky-content" id="sticky-review">
+          <h5 class="sticky-review-heading ">Write a Review</h5>
+          <div id="sticky-review-box" class="">
+          <!--<p class="subtitle2 sticky-review-subtitle"><i>Write a Review</i></p>-->
+        
+        <form id="add-comment-sticky-form" action="/places/<%= place._id %>/comments" method="POST">
+        <table id="sticky-review-table">
+          <tr class="rate-overall">
+            <td>Overall</td>
+            <td><select id="overall-sticky">
+                    <option value=""></option>
+                    <option value="1">Terrible</option>
+                    <option value="2">Poor</option>
+                    <option value="3">Average</option>
+                    <option value="4">Very Good</option>
+                    <option value="5">Excellent</option>
+                  </select>
+                  </td>
+          </tr>
+          <tr class="br-theme-cost">
+            <td>Cost</td>
+            <td><select id="cost-sticky">
+                    <option value=""></option>
+                    <option value="1"><£10 pp</option>
+                    <option value="2">£10-£30 pp</option>
+                    <option value="3">£30-£60 pp</option>
+                    <option value="4">£60+ pp</option>
+                  </select>
+                  </td>
+
+          </tr>
+          <tr>
+            <td>Baby Change</td>
+            <td><select id="baby-change-sticky">
+                    <option value=""></option>
+                    <option value="1">Terrible</option>
+                    <option value="2">Poor</option>
+                    <option value="3">Average</option>
+                    <option value="4">Very Good</option>
+                    <option value="5">Excellent</option>
+                  </select>
+                  </td>
+          </tr>          
+          <tr>
+            <td>Food For Kids</td>
+            <td><select id="food-sticky">
+                    <option value=""></option>
+                    <option value="1">Terrible</option>
+                    <option value="2">Poor</option>
+                    <option value="3">Average</option>
+                    <option value="4">Very Good</option>
+                    <option value="5">Excellent</option>
+                  </select>
+                  </td>
+          </tr>
+          <tr>
+            <td>Play</td>
+            <td><select id="play-sticky">
+                    <option value=""></option>
+                    <option value="1">Terrible</option>
+                    <option value="2">Poor</option>
+                    <option value="3">Average</option>
+                    <option value="4">Very Good</option>
+                    <option value="5">Excellent</option>
+                  </select>
+                  </td>
+          </tr>
+            <td>Staff w/ Kids</td>
+            <td><select id="staff-sticky">
+                    <option value=""></option>
+                    <option value="1">Terrible</option>
+                    <option value="2">Poor</option>
+                    <option value="3">Average</option>
+                    <option value="4">Very Good</option>
+                    <option value="5">Excellent</option>
+                  </select>
+                  </td>
+          </tr>   
+            <td>Breastfeeding</td>
+            <td><select id="breastfeeding-sticky">
+                    <option value=""></option>
+                    <option value="1">Terrible</option>
+                    <option value="2">Poor</option>
+                    <option value="3">Average</option>
+                    <option value="4">Very Good</option>
+                    <option value="5">Excellent</option>
+                  </select>
+                  </td>
+          </tr>          
+</table>
+        <input id="sticky-review-title" class="form-control" type="text" placeholder="Title your review">
+        <textarea class="form-control" id="sticky-review-text" rows="4" placeholder="Tell others what you think about this place. Would you recommend it and why?"></textarea>
+        
+        <div class="button-right-wrapper">
+        <button type="submit" id="sticky-review-submit" class="buttonText lm-button">Submit</button>
+        </div>
+        </form>
+          
+
+        </div>
+        </div>
+        </div>
+
+      </div>       <!--row-->
+    </div>
+
+
+    <div class="container">
+
+
+
+
+    </div>
+  </section>
+
+  <section id="mobile-bottom-menu">
+            <div id="mobile-bottom-menu-buttons">
+            <div class="mobile-placeBtnDiv">
+              <div class="circle"></div>
+            <a href="#write-review-wrapper" class="placeButton" id="mobile-reviewBtn"><span id="reviewIcon"><i class="far fa-comments placeButtonIcon"></i></span>Review</a>
+            </div>
+            <% if( typeof place.location.coordinates !='undefined' && place.location.coordinates !=''){ %>
+            <div class="mobile-placeBtnDiv">
+              <div class="circle"></div>
+            <a target="_blank" href="https://maps.apple.com/?daddr=(<%= place.location.coordinates[1] + ", " + place.location.coordinates[0]%>)&dirflg=d" class="placeButton" id="mobile-directionsBtn"><span id="directionsIcon"><i class="fas fa-directions placeButtonIcon"></i></span>Directions</a>
+            </div>
+            <% } %>
+            <div class="mobile-placeBtnDiv">
+              <div class="circle"></div>
+            <button class="placeButton" id="mobile-saveBtn"><span id="saveIcon"><i class="far fa-heart placeButtonIcon"></i></span>Save</button>
+            </div>
+            <div class="mobile-placeBtnDiv">
+              <div class="circle"></div>
+            <button class="placeButton" id="mobile-shareBtn"><span id="shareIcon"><i class="fas fa-share placeButtonIcon"></i></span>Share</button>
+            </div>
+            </div>
+            <div id="mobile-improve-btn">
+                    <a id="" class="" href="/places/<%= place._id %>/edit"><i class="fas fa-pen pr-1"></i>Improve this page</a>
+            </div>
+  </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://cdn.apple-mapkit.com/mk/5.x.x/mapkit.js"></script>
+
+<script>
+  var placeLat = <%= place.latitude %>;
+  var placeLng = <%= place.longitude %>;
+        var MarkerAnnotation = mapkit.MarkerAnnotation;
+        var place = new mapkit.Coordinate(placeLat, placeLng);
+
+  // Initialise map and fetch token 
+  mapkit.init({
+    authorizationCallback: function(done) {
+      fetch("/token")
+        .then(res => res.text())
+        .then(token => done(token)) /* If successful, return your token to MapKit JS */
+        .catch(error => { /* Handle error */
+          console.log("nae token");
+        });
+    }
+
+  });
+
+
+  // // Set default region of map    
+  region = new mapkit.CoordinateRegion(
+    new mapkit.Coordinate(placeLat, placeLng), //Glasgow
+    new mapkit.CoordinateSpan(.005, .005)
+  );
+ 
+  
+  var map = new mapkit.Map("map", {
+        region: region,
+        showsUserLocationControl: true,
+        showsMapTypeControl: false,
+        showsCompass: mapkit.FeatureVisibility.Hidden,
+        title: mapkit.FeatureVisibility.Visible,
+        isRotationEnabled: true,
+        isScrollEnabled: true,
+        isZoomEnabled: true,
+        showsScale: true,
+      });
+        
+        // Setting properties on creation:
+        var placeAnnotation = new MarkerAnnotation(place, { 
+          color: "#00C4B3", 
+          title: "<%= place.name %>", 
+          subtitle: "<%= place.category.join(', ') %>", 
+          glyphImage: {
+            1: "/images/LM-Icon-Teal.svg",
+          },
+          glyphColor: "white",
+        });
+        map.showItems([placeAnnotation]);
+  
+</script>
+
+<script type="text/javascript">
+   $(function() {
+      $('#overall-sticky, #cost-sticky, #baby-change-sticky, #food-sticky, #play-sticky, #staff-sticky, #breastfeeding-sticky').barrating({
+        theme: 'fontawesome-stars-o'
+      });
+   });
+     $(function() {
+      $('#cost-sticky').barrating({
+        theme: 'fontawesome-stars-o£'
+      });
+   });
+</script>
+
+
+
+<% include ../partials/footer %>
