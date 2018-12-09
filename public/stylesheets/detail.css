@@ -3,7 +3,7 @@
     width:100%;
     box-shadow: 0 1px 4px rgba(0,0,0,.03);
     border-radius: 3px;
-    border: 1px solid rgba(0,0,0,.09);
+    border-bottom: 1px solid rgba(0,0,0,.09);
     background: #fff;
     margin-bottom:25px;
     /*box-shadow: */
@@ -46,7 +46,7 @@
     background-color: var(--maven-icon-grey);
     padding:6px;
 }
-                            @media (max-width: 768px){
+                            @media (max-width: 767px){
                                 #improveBtn{
                                     display:none;
                                 }
@@ -80,7 +80,7 @@
     /*width:62%;*/
     width:100%;
 }
-                    @media (max-width: 768px){
+                    @media (max-width: 767px){
                         #summary{margin-top: 2rem; padding-left:2rem;}
                         #placeImage{width:45%;}
                         #profileImage{text-align: center;}
@@ -163,7 +163,7 @@
 }
 #mapScaleBtn{
     position: absolute;
-    z-index: 3;
+    z-index: 2;
     top: 1rem;
     left: 2rem;
 }
@@ -200,7 +200,7 @@
     padding: 0 1rem;
 }
 
-                    @media (max-width: 768px){
+                    @media (max-width: 767px){
                     #sticky-review{
                         display:none;
                         /*top: 100px;*/
@@ -631,6 +631,7 @@ td, th {
 .reviewer-stars{
     display:block;
     margin-top: 2px;
+    width:200px;
 }
 .reviewer-stars > .stars{
     font-size:21px;
@@ -668,7 +669,7 @@ td, th {
 #write-review-wrapper{
     display:none;
 }
-                                        @media (max-width: 768px){
+                                        @media (max-width: 767px){
                                             #write-review-wrapper{
                                                 display:block;
                                             }
@@ -693,7 +694,7 @@ ul {
     margin-bottom: 0px;
 }
 
-                                        @media (max-width: 768px){
+                                        @media (max-width: 767px){
                                             .details-list{
                                               -webkit-column-count: 1; /* Chrome, Safari, Opera */
                                               -moz-column-count: 1; /* Firefox */
@@ -788,7 +789,7 @@ ul {
     color: white;
 }
 
-                    @media (max-width: 768px){
+                    @media (max-width: 767px){
                     #mobile-bottom-menu{
                         display: block;
                         position: fixed;

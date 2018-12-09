@@ -1,6 +1,7 @@
 var mongoose = require("mongoose");
 
 var commentSchema = mongoose.Schema({
+    title: String,
     text: String, 
     createdAt: { type: Date, default: Date.now },
     author: {
@@ -12,6 +13,12 @@ var commentSchema = mongoose.Schema({
     },
     rating: {
         overall_star: Number,
+        cost_star: Number,
+        baby_change_star: Number,
+        food_star: Number,
+        play_star: Number,
+        staff_star: Number,
+        breastfeeding_star: Number,
     },
     place: {
         id: {

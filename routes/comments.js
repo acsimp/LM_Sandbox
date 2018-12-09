@@ -57,22 +57,166 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
                             comment.place.id = place._id;
                             comment.place.name = place.name;
                             comment.rating.overall_star = req.body.rating_overall;
+                            comment.rating.cost = req.body.cost;
+                            comment.rating.baby_change = req.body.baby_change;
+                            comment.rating.food = req.body.food;
+                            comment.rating.play = req.body.play;
+                            comment.rating.staff = req.body.staff;
+                            comment.rating.breastfeeding = req.body.breastfeeding;
                             comment.save(); // need error handling
-                            // calculate the place average rating
+                            // calculate the place average overall rating
                             if (typeof req.body.rating_overall != 'undefined' && req.body.rating_overall) {
-                                var overall_sum = parseInt(req.body.rating_overall, 10);
+                                var overall_5 = 0, overall_4 = 0, overall_3 = 0, overall_2 = 0, overall_1 = 0;
+                                // add new rating to a running totals
+                                var star_rating = parseInt(req.body.rating_overall, 10);
+                                var overall_sum = star_rating;
                                 var overall_count = 1;
+                                if(star_rating == 5){
+                                            overall_5++;
+                                        } else if(star_rating == 4){
+                                            overall_4++;
+                                        } else if(star_rating == 3){
+                                            overall_3++;
+                                        } else if(star_rating == 2){
+                                            overall_2++;
+                                        } else if(star_rating == 1){
+                                            overall_1++;
+                                        }
+                                
+                                // add old ratings to the same running total
                                 for (var i = 0; i < place.comments.length; i++) {
                                     if (typeof place.comments[i].rating.overall_star != 'undefined' && place.comments[i].rating.overall_star) {
                                         overall_sum += parseInt(place.comments[i].rating.overall_star, 10); //don't forget to add the base
                                         overall_count++;
+                                        // sum 5, 4, 3, 2, 1 star weightings
+                                        if(place.comments[i].rating.overall_star == 5){
+                                            overall_5++;
+                                        } else if(place.comments[i].rating.overall_star == 4){
+                                            overall_4++;
+                                        } else if(place.comments[i].rating.overall_star == 3){
+                                            overall_3++;
+                                        } else if(place.comments[i].rating.overall_star == 2){
+                                            overall_2++;
+                                        } else if(place.comments[i].rating.overall_star == 1){
+                                            overall_1++;
+                                        } 
                                     }
                                 }
                                 var overall_mean = overall_sum / overall_count;
-                                console.log("mean: " + overall_mean + ", count: " + overall_count);
+                                console.log("overall_mean: " + overall_mean + ", overall_count: " + overall_count);
                                 place.ratings.overall.mean = overall_mean;
                                 place.ratings.overall.count = overall_count;
+                                place.ratings.overall.five_count = overall_5;
+                                place.ratings.overall.four_count = overall_4;
+                                place.ratings.overall.three_count = overall_3;
+                                place.ratings.overall.two_count = overall_2;
+                                place.ratings.overall.one_count = overall_1;
                             }
+                            // baby change
+                            if (typeof req.body.rating_baby_change != 'undefined' && req.body.rating_baby_change) {
+                                // add new rating to a running total
+                                var baby_change_sum = parseInt(req.body.rating_baby_change, 10);
+                                var baby_change_count = 1;
+                                // add old ratings to the same running total
+                                for (var i = 0; i < place.comments.length; i++) {
+                                    if (typeof place.comments[i].rating.baby_change_star != 'undefined' && place.comments[i].rating.baby_change_star) {
+                                        baby_change_sum += parseInt(place.comments[i].rating.baby_change_star, 10); //don't forget to add the base
+                                        baby_change_count++;
+                                    }
+                                }
+                                var baby_change_mean = baby_change_sum / baby_change_count;
+                                console.log("baby_change_mean: " + baby_change_mean + ", baby_change_count: " + baby_change_count);
+                                place.ratings.baby_change.mean = baby_change_mean;
+                                place.ratings.baby_change.count = baby_change_count;
+                            }
+                            // cost
+                            if (typeof req.body.rating_cost != 'undefined' && req.body.rating_cost) {
+                                // add new rating to a running total
+                                var cost_sum = parseInt(req.body.rating_cost, 10);
+                                var cost_count = 1;
+                                // add old ratings to the same running total
+                                for (var i = 0; i < place.comments.length; i++) {
+                                    if (typeof place.comments[i].rating.cost_star != 'undefined' && place.comments[i].rating.cost_star) {
+                                        cost_sum += parseInt(place.comments[i].rating.cost_star, 10); //don't forget to add the base
+                                        cost_count++;
+                                    }
+                                }
+                                var cost_mean = cost_sum / cost_count;
+                                console.log("cost_mean: " + cost_mean + ", cost_count: " + cost_count);
+                                place.ratings.cost.mean = cost_mean;
+                                place.ratings.cost.count = cost_count;
+                            }
+                            // food
+                            if (typeof req.body.rating_food != 'undefined' && req.body.rating_food) {
+                                // add new rating to a running total
+                                var food_sum = parseInt(req.body.rating_food, 10);
+                                var food_count = 1;
+                                // add old ratings to the same running total
+                                for (var i = 0; i < place.comments.length; i++) {
+                                    if (typeof place.comments[i].rating.food_star != 'undefined' && place.comments[i].rating.food_star) {
+                                        food_sum += parseInt(place.comments[i].rating.food_star, 10); //don't forget to add the base
+                                        food_count++;
+                                    }
+                                }
+                                var food_mean = food_sum / food_count;
+                                console.log("food_mean: " + food_mean + ", food_count: " + food_count);
+                                place.ratings.food.mean = food_mean;
+                                place.ratings.food.count = food_count;
+                            }
+                            // play
+                            if (typeof req.body.rating_play != 'undefined' && req.body.rating_play) {
+                                // add new rating to a running total
+                                var play_sum = parseInt(req.body.rating_play, 10);
+                                var play_count = 1;
+                                // add old ratings to the same running total
+                                for (var i = 0; i < place.comments.length; i++) {
+                                    if (typeof place.comments[i].rating.play_star != 'undefined' && place.comments[i].rating.play_star) {
+                                        play_sum += parseInt(place.comments[i].rating.play_star, 10); //don't forget to add the base
+                                        play_count++;
+                                    }
+                                }
+                                var play_mean = play_sum / play_count;
+                                console.log("play_mean: " + play_mean + ", play_count: " + play_count);
+                                place.ratings.play.mean = play_mean;
+                                place.ratings.play.count = play_count;
+                            }
+                            // breastfeeding
+                            if (typeof req.body.rating_breastfeeding != 'undefined' && req.body.rating_breastfeeding) {
+                                // add new rating to a running total
+                                var breastfeeding_sum = parseInt(req.body.rating_breastfeeding, 10);
+                                var breastfeeding_count = 1;
+                                // add old ratings to the same running total
+                                for (var i = 0; i < place.comments.length; i++) {
+                                    if (typeof place.comments[i].rating.breastfeeding_star != 'undefined' && place.comments[i].rating.breastfeeding_star) {
+                                        breastfeeding_sum += parseInt(place.comments[i].rating.breastfeeding_star, 10); //don't forget to add the base
+                                        breastfeeding_count++;
+                                    }
+                                }
+                                var breastfeeding_mean = breastfeeding_sum / breastfeeding_count;
+                                console.log("breastfeeding_mean: " + breastfeeding_mean + ", breastfeeding_count: " + breastfeeding_count);
+                                place.ratings.breastfeeding.mean = breastfeeding_mean;
+                                place.ratings.breastfeeding.count = breastfeeding_count;
+                            }
+                            // staff
+                            if (typeof req.body.rating_staff != 'undefined' && req.body.rating_staff) {
+                                // add new rating to a running total
+                                var staff_sum = parseInt(req.body.rating_staff, 10);
+                                var staff_count = 1;
+                                // add old ratings to the same running total
+                                for (var i = 0; i < place.comments.length; i++) {
+                                    if (typeof place.comments[i].rating.staff_star != 'undefined' && place.comments[i].rating.staff_star) {
+                                        staff_sum += parseInt(place.comments[i].rating.staff_star, 10); //don't forget to add the base
+                                        staff_count++;
+                                    }
+                                }
+                                var staff_mean = staff_sum / staff_count;
+                                console.log("staff_mean: " + staff_mean + ", staff_count: " + staff_count);
+                                place.ratings.staff.mean = staff_mean;
+                                place.ratings.staff.count = staff_count;
+                            }
+                            
+                            
+                            
                             place.comments.push(comment._id);
                             place.save(); // need error handling place.save(function(err){ etc.
                             user.comments.push(comment._id);

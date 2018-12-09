@@ -321,6 +321,35 @@ var placeSchema = new mongoose.Schema({
             overall:{
                mean: {type: Number, default: 0 },
                count: {type: Number, default: 0 },
+               five_count: {type: Number, default: 0 },
+               four_count: {type: Number, default: 0 },
+               three_count: {type: Number, default: 0 },
+               two_count: {type: Number, default: 0 },
+               one_count: {type: Number, default: 0 },
+            },
+            cost:{
+               mean: {type: Number, default: 0 },
+               count: {type: Number, default: 0 },
+            },
+            baby_change:{
+               mean: {type: Number, default: 0 },
+               count: {type: Number, default: 0 },
+            },
+            food:{
+               mean: {type: Number, default: 0 },
+               count: {type: Number, default: 0 },
+            },
+            play:{
+               mean: {type: Number, default: 0 },
+               count: {type: Number, default: 0 },
+            },
+            staff:{
+               mean: {type: Number, default: 0 },
+               count: {type: Number, default: 0 },
+            },
+            breastfeeding:{
+               mean: {type: Number, default: 0 },
+               count: {type: Number, default: 0 },
             },
             //BF friendly
             //Healthy eating

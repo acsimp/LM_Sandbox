@@ -270,6 +270,9 @@ Parking: <%= fb_place.is_permanently_closed %><br/><br/>
                       <input class="form-control" type="text" disabled value="<%= currentUser.username %>">
                     </div>
                     <div class="form-group">
+                      <input class="form-control" type="text" name="comment[title]" placeholder="Write your title..." form="add-comment-form">
+                    </div>
+                    <div class="form-group">
                       <textarea class="form-control" name="comment[text]" placeholder="Write your comment..." form="add-comment-form" rows="5" cols="70"></textarea>
                     </div>
                     <div class="form-group">

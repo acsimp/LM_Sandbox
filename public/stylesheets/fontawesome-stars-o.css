@@ -2,6 +2,11 @@
   height: 16px;
   white-space: nowrap;
 }
+.reviewer-stars .br-theme-fontawesome-stars-o .br-widget {
+  height: 14px;
+  float: left;
+}
+
 .br-theme-fontawesome-stars-o .br-widget a {
   font: normal normal normal 18px/1 "Font Awesome 5 Free";
   /*font-family: "Font Awesome 5 Free";*/
@@ -10,6 +15,13 @@
   text-decoration: none;
   margin-right: 1px;
 }
+#starSummary .br-theme-fontawesome-stars-o .br-widget a {
+  font: normal normal normal 30px/1 "Font Awesome 5 Free";
+}
+.reviewer-stars .br-theme-fontawesome-stars-o .br-widget a{
+  font: normal normal normal 16px/1 "Font Awesome 5 Free";
+}
+
 .br-theme-fontawesome-stars-o .br-widget a:after {
   content: '\f005';
   color: #d2d2d2;
@@ -23,9 +35,13 @@
     font-weight: 900;
   color: var(--maven-primary);
 }
+.reviewer-stars .br-theme-fontawesome-stars-o .br-widget a.br-selected:after, .reviewer-stars .br-theme-fontawesome-stars-o .br-widget a.br-fractional:after {
+  color: var(--maven-icon-grey);
+}
 .br-theme-fontawesome-stars-o .br-widget a.br-fractional:after {
-  content: '\f123';
+  content: '\f5c0';
   color: var(--maven-primary);
+  font-weight: 900;
 }
 .br-theme-fontawesome-stars-o .br-widget .br-current-rating {
   /*display: none;*/
@@ -36,6 +52,17 @@
   color: var(--maven-primary);
   /*float:right;*/
 }
+#starSummary .br-theme-fontawesome-stars-o .br-widget .br-current-rating, #overallStarAvg .br-theme-fontawesome-stars-o .br-widget .br-current-rating, .reviewer-stars .br-theme-fontawesome-stars-o .br-widget .br-current-rating {
+  display: none;
+}
+
+#starSummary a, #overallStarAvg a, .reviewer-stars a {
+    text-decoration: none;
+}    
+#starSummary a:hover, #overallStarAvg a:hover, .reviewer-stars a:hover {
+    text-decoration: none;
+}
+
                                         @media (max-width: 992px){
                                           .br-theme-fontawesome-stars-o .br-widget .br-current-rating {
                                           display: none;

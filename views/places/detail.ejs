@@ -27,11 +27,14 @@
           <div class="col-md-8" id="summary">
             <h4 id="placeName"><%= typeof place.name !='undefined' ? place.name : '*No Name*' %></h4>
             <div id="starSummary">
-              <i class="material-icons md-30">star</i>
-              <i class="material-icons md-30">star</i>
-              <i class="material-icons md-30">star</i>
-              <i class="material-icons md-30">star</i>
-              <i class="material-icons md-30">star_half</i>
+              <select id="starSummaryTop">
+                    <option value=""></option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
             </div>
             
             <a class="subtitle2" id="summaryReviewCount" href="#reviews"><span property="count">
@@ -41,6 +44,7 @@
                   0
                   <% } %>
                 </span>Reviews </a>
+            
             
             
             <!--<p class="subtitle2" id="summaryReviewCount">20 reviews</p>-->
@@ -115,7 +119,7 @@
 
         <div class="col-md-4 second-content" id="action-icons">
           
-          <div id="" class="subtitle2">
+          <div id="" class="">
             <% if( typeof place.location.coordinates !='undefined' && place.location.coordinates !=''){ %>
             <div class="placeBtnDiv">
             <a target="_blank" href="https://maps.apple.com/?daddr=(<%= place.location.coordinates[1] + ", " + place.location.coordinates[0]%>)&dirflg=d" class="placeButton" id="directionsBtn"><span id="directionsIcon"><i class="fas fa-directions placeButtonIcon"></i></span>Directions</a>
@@ -159,11 +163,36 @@
           <div class=" col-lg-3 col-md-6 col-6 order-1 " id="rating-summary-wrapper">
           
           <div id="rating-summary">
-          <h2 id="rating-overall-avg">4.5</h2>
-            <div id="overallStarAvg">
-              <i class="material-icons star-size">star star star star star_half</i>
+            
+            <% if(typeof place.ratings.overall.count!='undefined' && place.ratings.overall.count > 0) { %>
+              <h2 id="rating-overall-avg"><%= place.ratings.overall.mean.toFixed(1) %></h2>
+              <div id="overallStarAvg">
+              <select id="rating-overall-avg-star">
+                    <option value=""></option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
             </div>
-            <span class="captionText" id="ratingReviewCount">20 Reviews</span>
+            <span class="captionText" id="ratingReviewCount"><%= place.ratings.overall.count %> Reviews</span>
+              <% } else { %>
+              <p>no ratings yet...</p>
+              <% } %>
+            
+          <!--<h2 id="rating-overall-avg">4.5</h2>-->
+            <!--<div id="overallStarAvg">-->
+            <!--  <select id="rating-overall-avg-star">-->
+            <!--        <option value=""></option>-->
+            <!--        <option value="1">1</option>-->
+            <!--        <option value="2">2</option>-->
+            <!--        <option value="3">3</option>-->
+            <!--        <option value="4">4</option>-->
+            <!--        <option value="5">5</option>-->
+            <!--      </select>-->
+            <!--</div>-->
+            <!--<span class="captionText" id="ratingReviewCount"><%= place.ratings.overall.count %>20 Reviews</span>-->
             </div>
             </div>
             
@@ -172,28 +201,58 @@
               <table class="table">
               <tr>
                 <td class="rating-des body2">Excellent</td>
-                <td class=""><div class="rating-bar"><div class="rate rate-5" style="width:80%"></div></div></td>
-                <td class="rating-bar-percent">70%</th>
+                <% if(typeof place.ratings.overall.count!='undefined' && place.ratings.overall.count > 0) { %>
+                <% var percent_5 = (place.ratings.overall.five_count / place.ratings.overall.count)*100; %>
+                <td class=""><div class="rating-bar"><div class="rate rate-5" style="width:<%= percent_5.toFixed(1) %>%"></div></div></td>
+                <td class="rating-bar-percent"><%= percent_5.toFixed(1) %>%</th>
+                <% } else { %>
+                <td class=""><div class="rating-bar"><div class="rate rate-5" style="width:0%"></div></div></td>
+                <td class="rating-bar-percent">--%</th>
+                <% } %>
               </tr>
               <tr>
                 <td class="rating-des body2">Very Good</td>
-                <td class=""><div class="rating-bar"><div class="rate rate-4" style="width:60%"></div></div></td>
-                <td class="rating-bar-percent">60%</td>
+                <% if(typeof place.ratings.overall.count!='undefined' && place.ratings.overall.count > 0) { %>
+                <% var percent_4 = (place.ratings.overall.four_count / place.ratings.overall.count)*100; %>
+                <td class=""><div class="rating-bar"><div class="rate rate-4" style="width:<%= percent_4.toFixed(1) %>%"></div></div></td>
+                <td class="rating-bar-percent"><%= percent_4.toFixed(1) %>%</th>
+                <% } else { %>
+                <td class=""><div class="rating-bar"><div class="rate rate-4" style="width:0%"></div></div></td>
+                <td class="rating-bar-percent">--%</th>
+                <% } %>
               </tr>
               <tr>
                 <td class="rating-des body2">Average</td>
-                <td class=""><div class="rating-bar"><div class="rate rate-3" style="width:50%"></div></div></td>
-                <td class="rating-bar-percent">50%</td>
+                <% if(typeof place.ratings.overall.count!='undefined' && place.ratings.overall.count > 0) { %>
+                <% var percent_3 = (place.ratings.overall.three_count / place.ratings.overall.count)*100; %>
+                <td class=""><div class="rating-bar"><div class="rate rate-3" style="width:<%= percent_3.toFixed(1) %>%"></div></div></td>
+                <td class="rating-bar-percent"><%= percent_3.toFixed(1) %>%</th>
+                <% } else { %>
+                <td class=""><div class="rating-bar"><div class="rate rate-3" style="width:0%"></div></div></td>
+                <td class="rating-bar-percent">--%</th>
+                <% } %>
               </tr>
               <tr>
                 <td class="rating-des body2">Poor</td>
-                <td class=""><div class="rating-bar"><div class="rate rate-2" style="width:20%"></div></div></td>
-                <td class="rating-bar-percent">20%</td>
+                <% if(typeof place.ratings.overall.count!='undefined' && place.ratings.overall.count > 0) { %>
+                <% var percent_2 = (place.ratings.overall.two_count / place.ratings.overall.count)*100; %>
+                <td class=""><div class="rating-bar"><div class="rate rate-2" style="width:<%= percent_2.toFixed(1) %>%"></div></div></td>
+                <td class="rating-bar-percent"><%= percent_2.toFixed(1) %>%</th>
+                <% } else { %>
+                <td class=""><div class="rating-bar"><div class="rate rate-2" style="width:0%"></div></div></td>
+                <td class="rating-bar-percent">--%</th>
+                <% } %>
               </tr>
               <tr>
                 <td class="rating-des body2">Terrible</td>
-                <td class=""><div class="rating-bar"><div class="rate rate-1" style="width:32%"></div></div></td>
-                <td class="rating-bar-percent">32%</td>
+                <% if(typeof place.ratings.overall.count!='undefined' && place.ratings.overall.count > 0) { %>
+                <% var percent_1 = (place.ratings.overall.one_count / place.ratings.overall.count)*100; %>
+                <td class=""><div class="rating-bar"><div class="rate rate-1" style="width:<%= percent_1.toFixed(1) %>%"></div></div></td>
+                <td class="rating-bar-percent"><%= percent_1.toFixed(1) %>%</th>
+                <% } else { %>
+                <td class=""><div class="rating-bar"><div class="rate rate-1" style="width:0%"></div></div></td>
+                <td class="rating-bar-percent">--%</th>
+                <% } %>
               </tr>
             </table></div>
             
@@ -204,28 +263,43 @@
             <table class="table">
               <tr>
                 <td class="sub-rating-des body2">Baby Change</td>
-                <!--<td class="substars"><i class="material-icons sub-rating-stars">star star star star star_half</i>-->
-                <td class="subtitle2"><span class="primary">4.5 </span><span class="body2">/ 5</span></td>
+                <% if(typeof place.ratings.baby_change.mean!='undefined' && place.ratings.baby_change.mean > 0) { %>
+                <td class="subtitle2"><span class="primary"><%= place.ratings.baby_change.mean %> </span><span class="body2">/ 5</span></td>
+                <% } else { %>
+                <td class="subtitle2"><span class="primary">-- </span><span class="body2">/ 5</span></td>
+                <% } %>
               </tr>
               <tr>
                 <td class="sub-rating-des body2">Food For Kids</td>
-                <!--<td class=""><i class="material-icons sub-rating-stars">star star star star star_half</i>-->
-                <td class="subtitle2"><span class="primary">4.5 </span> <span class="body2">/ 5</span></td>
+                <% if(typeof place.ratings.food.mean!='undefined' && place.ratings.food.mean > 0) { %>
+                <td class="subtitle2"><span class="primary"><%= place.ratings.food.mean %> </span> <span class="body2">/ 5</span></td>
+                <% } else { %>
+                <td class="subtitle2"><span class="primary">-- </span><span class="body2">/ 5</span></td>
+                <% } %>
               </tr>
               <tr>
                 <td class="sub-rating-des body2">Play</td>
-                <!--<td class=""><i class="material-icons sub-rating-stars">star star star star star_half</i>-->
-                <td class="subtitle2"><span class="primary">4.5 </span> <span class="body2">/ 5</span></td>
+                <% if(typeof place.ratings.play.mean!='undefined' && place.ratings.play.mean > 0) { %>
+                <td class="subtitle2"><span class="primary"><%= place.ratings.play.mean %> </span> <span class="body2">/ 5</span></td>
+                <% } else { %>
+                <td class="subtitle2"><span class="primary">-- </span><span class="body2">/ 5</span></td>
+                <% } %>
               </tr>
               <tr>
                 <td class="sub-rating-des body2">Staff w/ Kids</td>
-                <!--<td class=""><i class="material-icons sub-rating-stars">star star star star star_half</i>-->
-                <td class="subtitle2"><span class="primary">4.5 </span> <span class="body2">/ 5</span></td>
+                <% if(typeof place.ratings.staff.mean!='undefined' && place.ratings.staff.mean > 0) { %>
+                <td class="subtitle2"><span class="primary"><%= place.ratings.staff.mean %> </span> <span class="body2">/ 5</span></td>
+                <% } else { %>
+                <td class="subtitle2"><span class="primary">-- </span><span class="body2">/ 5</span></td>
+                <% } %>
               </tr>
               <tr>
                 <td class="sub-rating-des body2">Breastfeeding</td>
-                <!--<td class=""><i class="material-icons sub-rating-stars">star star star star star_half</i>-->
-                <td class="subtitle2"><span class="primary">4.5 </span> <span class="body2">/ 5</span></td>
+                <% if(typeof place.ratings.breastfeeding.mean!='undefined' && place.ratings.breastfeeding.mean > 0) { %>
+                <td class="subtitle2"><span class="primary"><%= place.ratings.breastfeeding.mean %> </span> <span class="body2">/ 5</span></td>
+                <% } else { %>
+                <td class="subtitle2"><span class="primary">-- </span><span class="body2">/ 5</span></td>
+                <% } %>
               </tr>
             </table>
             </div>
@@ -233,63 +307,71 @@
             </div>
         </div>
         
+        
         <div class="review-wrapper paper-box">
           
+          <% if (place.comments.length === 0) { %>
+              <em style="color: grey;">No comments yet.</em>
+                <% } else { %>
+                  <% var reverse_comments = place.comments.reverse(); %>
+                  <% var i=0; %>
+                  <% } %>
+          
           <div class="">
-            <p class="review-total"><b>1</b> - <b>3</b> of 3 reviews</p>
+            <p class="review-total"><b>1</b> - <b><%= place.comments.length %></b> of <%= place.comments.length %> reviews</p>
           </div>
+          
+          <!--Display comments by looping through them-->
+          <% if (place.comments.length > 0) { %>
+                <% reverse_comments.forEach(function(comment) { %>
           
           <div class="review">
           <div class="flex-container">
-            <div class="flex-child"><figure class="review-avatar" data-initial="AS"></figure></div>
+            <div class="flex-child"><figure class="review-avatar" data-initial="<%= comment.author.username.charAt(0) %>"></figure></div>
             <div class="flex-child reviewer">
               <a class="subtitle2" href="" id="reviewer-username">
-                <span id="">Andrew Simpson</span>
+                <span id=""><a href="/users/<%= comment.author.id %>"><%= comment.author.username %></a></span>
               </a>
-              <span class="reviewer-stars"><i class="material-icons stars">star star star star star_half</i><span class="middotDivider"></span>Oct 18</span>
+              <span class="reviewer-stars">
+                <select class="reviewer-stars-rating_<%= i %>">
+                    <option value=""></option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
+              <span class="middotDivider"></span><%= moment(comment.createdAt).format("D MMM YY") %></span>
             </div>
             </div>
             <div class="review-text">
-              <p class="subtitle2 review-title">This Is Awesome!</p>
-              <p class="body2">I went to this place today to have brunch with my family. The staff was really great at accommodating our needs and... <a href="#" class="more-text-link" >More</a></p>
+              <p class="subtitle2 review-title capitalize"><%= comment.title %></p>
+              <p class="body2"><%= comment.text %></p>
             </div>
             </div>
             
+            <script>
+                 $(function() {
+                  $('.reviewer-stars-rating_<%= i %>').barrating({
+                    theme: 'fontawesome-stars-o',
+                    readonly: true,
+                    <% if (typeof comment.rating.overall_star!='undefined' && comment.rating.overall_star) { %>
+                  initialRating:<%= comment.rating.overall_star %>, 
+                  <% } else { %>
+                    initialRating: 0,
+                    <% } %>
+                  });
+               });
+            </script>
+            <% i++ %>
+            <% }); %>
+            <% } else { %>
             <div class="review">
-          <div class="flex-container">
-            <div class="flex-child"><figure class="review-avatar" data-initial="AS"></figure></div>
-            <div class="flex-child reviewer">
-              <a class="subtitle2" href="" id="reviewer-username">
-                <span id="">Andrew Simpson</span>
-              </a>
-              <span class="reviewer-stars"><i class="material-icons stars">star star star star star_half</i><span class="middotDivider"></span>Oct 18</span>
+            <p class="subtitle1">Be the first to review <span><%= place.name %></span>.</p>
             </div>
-            </div>
-            <div class="review-text">
-              <p class="subtitle2 review-title">This Is Awesome!</p>
-              <p class="body2">I went to this place today to have brunch with my family. The staff was really great at accommodating our needs and... <a href="#" class="more-text-link" >More</a></p>
-            </div>
-            </div>
-            
-            <div class="review">
-          <div class="flex-container">
-            <div class="flex-child"><figure class="review-avatar" data-initial="AS"></figure></div>
-            <div class="flex-child reviewer">
-              <a class="subtitle2" href="" id="reviewer-username">
-                <span id="">Andrew Simpson</span>
-              </a>
-              <span class="reviewer-stars"><i class="material-icons stars">star star star star star_half</i><span class="middotDivider"></span>Oct 18</span>
-            </div>
-            </div>
-            <div class="review-text">
-              <p class="subtitle2 review-title">This Is Awesome!</p>
-              <p class="body2">I went to this place today to have brunch with my family. The staff was really great at accommodating our needs and... <a href="#" class="more-text-link" >More</a></p>
-            </div>
-            </div>
-            
+            <% } %>
           </div>
-          
-                  </div>
+          </div> <!--#reviews-->
         
         
 
@@ -300,11 +382,18 @@
           <div class="paper-box">
             <div class="place-detail-container">
             
+            <% if(!currentUser) { %>
+                  <!--If the user is not logged in, direct him to the login page-->
+                  <h6>You need to login before you can comment. <a href="/login">Click here</a> to go to the login page.</h6>
+                    <% } %>
+                    <% if(currentUser) { %>
+            
                     <form id="add-comment-sticky-form" action="/places/<%= place._id %>/comments" method="POST">
+                      <input class="form-control" type="hidden" disabled value="<%= currentUser.username %>">
         <table id="sticky-review-table">
           <tr class="rate-overall">
             <td>Overall</td>
-            <td><select id="overall-sticky">
+            <td><select id="overall-sticky" name="rating_overall">
                     <option value=""></option>
                     <option value="1">Terrible</option>
                     <option value="2">Poor</option>
@@ -316,7 +405,7 @@
           </tr>
           <tr class="br-theme-cost">
             <td>Cost</td>
-            <td><select id="cost-sticky">
+            <td><select id="cost-sticky" name="rating_cost">
                     <option value=""></option>
                     <option value="1"><£10 pp</option>
                     <option value="2">£10-£30 pp</option>
@@ -328,7 +417,7 @@
           </tr>
           <tr>
             <td>Baby Change</td>
-            <td><select id="baby-change-sticky">
+            <td><select id="baby-change-sticky" name="rating_baby_change">
                     <option value=""></option>
                     <option value="1">Terrible</option>
                     <option value="2">Poor</option>
@@ -340,7 +429,7 @@
           </tr>          
           <tr>
             <td>Food For Kids</td>
-            <td><select id="food-sticky">
+            <td><select id="food-sticky" name="rating_food">
                     <option value=""></option>
                     <option value="1">Terrible</option>
                     <option value="2">Poor</option>
@@ -352,7 +441,7 @@
           </tr>
           <tr>
             <td>Play</td>
-            <td><select id="play-sticky">
+            <td><select id="play-sticky" name="rating_play">
                     <option value=""></option>
                     <option value="1">Terrible</option>
                     <option value="2">Poor</option>
@@ -363,7 +452,7 @@
                   </td>
           </tr>
             <td>Staff w/ Kids</td>
-            <td><select id="staff-sticky">
+            <td><select id="staff-sticky" name="rating_staff">
                     <option value=""></option>
                     <option value="1">Terrible</option>
                     <option value="2">Poor</option>
@@ -374,7 +463,7 @@
                   </td>
           </tr>   
             <td>Breastfeeding</td>
-            <td><select id="breastfeeding-sticky">
+            <td><select id="breastfeeding-sticky" name="rating_breastfeeding">
                     <option value=""></option>
                     <option value="1">Terrible</option>
                     <option value="2">Poor</option>
@@ -385,13 +474,14 @@
                   </td>
           </tr>          
 </table>
-        <input id="sticky-review-title" class="form-control" type="text" placeholder="Title your review">
-        <textarea class="form-control" id="sticky-review-text" rows="4" placeholder="Tell others what you think about this place. Would you recommend it and why?"></textarea>
-        
+        <input id="sticky-review-title" name="comment[title]" class="form-control" type="text" placeholder="Title your review">
+        <textarea class="form-control" name="comment[text]" id="sticky-review-text" rows="4" placeholder="Tell others what you think about this place. Would you recommend it and why?"></textarea>
+
         <div class="button-right-wrapper">
         <button type="submit" id="sticky-review-submit" class="buttonText lm-button">Submit</button>
         </div>
         </form>
+        <% } %>
             
             
             </div>
@@ -1077,8 +1167,27 @@
         theme: 'fontawesome-stars-o£'
       });
    });
+    $(function() {
+      $('#starSummaryTop').barrating({
+        theme: 'fontawesome-stars-o',
+        readonly: true,
+        <% if(typeof place.ratings.overall.count!='undefined' && place.ratings.overall.count > 0) { %>
+        initialRating: <%= place.ratings.overall.mean.toFixed(1) %>,
+        <% } else { %>
+              initialRating: 0,
+        <% } %>
+      });
+   });
+    $(function() {
+      $('#rating-overall-avg-star').barrating({
+        theme: 'fontawesome-stars-o',
+        readonly: true,
+        initialRating: <%= place.ratings.overall.mean.toFixed(1) %>,
+      });
+   });
 </script>
 
 
 
 <% include ../partials/footer %>
+|
