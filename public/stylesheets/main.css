@@ -369,15 +369,14 @@ background-color: var(--maven-primary);}
 header.short{height:56px}
 /* header.short .mobileMenuOuter a img{height:40px;margin-top:8px} */
 header .mobileMenuOuter{margin:0 auto;max-width:1032px}
-header .mobileMenuOuter a{float:left;}
+header .mobileMenuOuter a, #searchMenu #navBrand{float:left;}
 header .mobileMenuOuter .mobileMenuInner,header ul{float:right; padding:0px}
-header .mobileMenuOuter a img{height:38px;margin:10px 0 0;}
+header .mobileMenuOuter a img, #searchMenu #navBrand img{height:38px;margin:10px 0 0;}
 header ul{display:inline-block;margin:24px 0 0}
 header ul li{display:inline-block;margin:0 0 0 22px}
 header ul li a{font-weight:500;font-size:14px;line-height:1.33;color:white;text-decoration:none;text-transform:none;cursor:pointer}
 header ul li a:hover{color:#00a5e6}
 header #hamburger,header #mobileMenuBG {-webkit-tap-highlight-color:transparent;display:none}
-
 #searchMenuBG{-webkit-tap-highlight-color:transparent;display:none}
 #searchMenuBG{position:fixed;top:0px;width:100%;height:100%;background-color:rgba(0,0,0,.24)}
 .searchMenuOpen #searchMenuBG{display:block;-webkit-animation:fadein 2s ease 0s 1 normal none running;-moz-animation:fadein 2s ease 0s 1 normal none running;-ms-animation:fadein 2s ease 0s 1 normal none running;-o-animation:fadein 2s ease 0s 1 normal none running;animation:fadein 2s ease 0s 1 normal none running}
@@ -412,8 +411,8 @@ to{opacity:1}
   header.short{height:64px;box-shadow:0 1px 0 0 #e9ebec}
   /* header .mobileMenuOuter a>img,header.short .mobileMenuOuter a img{height:32px;margin-top:16px} */
   header .mobileMenuOuter{text-align:center}
-  header .mobileMenuOuter a{float:none}
-  header .mobileMenuOuter a img{height:30px;margin:14px 0 0;}
+  header .mobileMenuOuter a, #searchMenu #navBrand {float:none}
+  header .mobileMenuOuter a img, #searchMenu #navBrand img{height:30px;margin:14px 0 0;}
   header .mobileMenuOuter .mobileMenuInner{left:-100%;-webkit-transition:.5s ease-in-out;-moz-transition:.5s ease-in-out;-o-transition:.5s ease-in-out;transition:.5s ease-in-out;float:none;text-align:left;position:fixed;top:55px;background-color:#fff;width:256px;height:100%;box-shadow:3px 0 2px 0 rgba(0,0,0,.16)}
   header .mobileMenuOuter .mobileMenuInner>ul{float:none;margin:0;background-color:#fff;width:100%;padding-top:16px}
   header .mobileMenuOuter .mobileMenuInner>ul li{display:block;margin:0}
@@ -425,9 +424,9 @@ to{opacity:1}
 
   header #searchMenu{
       /*margin:18px 0 0 24px;*/
-      width: 95%;
-      left: 2.5%;
-      top: 1%;
+      width: 100%;
+      left: 0;
+      top: 0;
   }
   header.searchMenuOpen #searchMenu{}
 
@@ -493,17 +492,32 @@ header #search{display:inline-block;margin:14px 0 0 24px; float: right;}
 }
 
 #searchMenu{
-  height: 50%;
+  height: 300px;
   background-color: white;
-  width: 90%;
+  width: 100%;
   top: 0px;
   margin: 0 auto;
   position: fixed;
-  left: 5%;
+  left: 0%;
   visibility:hidden;
   z-index:1;
   box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, .05);
+  text-align: center;
 
+}
+#searchMenu #navSearchForm{
+    margin-top:100px;
+}
+#searchMenu #navSearchForm .field{
+    background-color:var(--monkey-off-white);
+}
+#searchMenu #navSearchForm .right-side__subitem{
+    margin:0;
+    margin-top:2px;
+}
+
+#searchMenu #navSearchForm .right-side__sublink{
+    background-color:var(--monkey-off-white);
 }
 
 @media (max-width:750px){
@@ -511,7 +525,387 @@ header #search{display:inline-block;margin:14px 0 0 24px; float: right;}
     width: 100%;
     left: 0%;
   } 
+  #searchMenu #navSearchForm {margin-top:50px;}
+
 }
+
+
+
+
+
+
+
+/* ------------------------ SEARCH FORM (Start) ------------------------ */
+
+/* Search Form */
+
+/*************** Search-Box start here ************/
+
+.search {
+  width: 100%;
+  font-size: 0;
+  line-height: normal;
+  margin-bottom: 10px;
+}
+
+/***** Categories box style ****
+********************************/
+
+#navSearchDiv{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    /*align-items: stretch;*/
+    align-content: center;
+    flex-direction: row;
+}
+
+.searchItem{
+    margin-left: 1.5px;
+    margin-right: 1.5px;
+}
+
+.field-wrapper {
+  box-sizing: border-box;
+  position: relative;
+  /*margin-top: 2px;*/
+}
+
+.field {
+  display: inline-block;
+  box-sizing: border-box;
+  font-size: 18px;
+  padding: 11px 0 14px 58px;
+  outline: none;
+  border: 0;
+  border-radius: 4px;
+}
+
+.field.request {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 18px;
+  outline: none;
+  border: 0;
+  border-radius: 4px 0 0 4px;
+}
+
+.field.location {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 18px;
+  outline: none;
+  /*border: 2px solid red;*/
+  height: 100%;
+  border-radius: 4px;
+}
+
+.field.location ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  font-size: 0.85rem;
+  opacity: 1; /* Firefox */
+}
+
+.field.location :-ms-input-placeholder { /* Internet Explorer 10-11 */
+  font-size: 0.85rem;
+}
+
+.field.location ::-ms-input-placeholder { /* Microsoft Edge */
+  font-size: 0.85rem;
+}
+
+.field.location::-webkit-input-placeholder { 
+  font-size: 0.85rem;
+}
+
+.field-title {
+  position: absolute;
+  top: -30.5px;
+  left: 11px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #666;
+  z-index: 2;
+}
+
+.field-title.find {
+  position: absolute;
+  top: -36px;
+}
+
+
+
+
+
+
+
+/* right-side */
+
+.right-side {
+  /*display: inline-block;*/
+  width: 35%;
+  box-sizing: border-box;
+  /*margin-left: 0;*/
+  vertical-align: middle;
+}
+.distKm{
+  width: 100px;
+  /*display: inline-block;*/
+  box-sizing: border-box;
+  margin-left: 3px;
+  vertical-align: middle;
+  /*width:15%;*/
+}
+.near_field{
+      /*margin-left:3px;*/
+}
+#searchBtnDiv{
+  /*height:50px;*/
+}
+.search-button {  
+  /*display: inline-block;*/
+  height: 95%;
+  width: 100%;
+  /*width:10%;*/
+  min-width:100px;
+  box-sizing: border-box;
+  background-color: var(--maven-primary);
+  /*background-image: url(https://s26.postimg.org/v8mlp8w49/search.png);*/
+  /*background-repeat: no-repeat;*/
+  /*background-position: 17px 8px;*/
+  color: #fff;
+  /*font-size: 0;*/
+  /*vertical-align: top;*/
+  border-radius: 4px;
+  text-transform: uppercase;
+  font-weight: 500;
+  outline: none;
+}
+
+.search-button:focus {
+  outline:0;
+}
+
+.right-side__sublink {
+  position: relative;
+  display: block;
+  /*width: 360px;*/
+  width:125px;
+  background-color: #fff;
+  color: #333;
+  text-decoration: none;
+  font-size: 14px;
+  padding: 7px 7px 7px 37px;
+  box-sizing: border-box;
+  margin-left: 55px;
+  float:right;
+}
+                    
+                    
+                    @media (max-width: 1030px){
+                        .right-side {
+                          /*width: 330px;*/
+                        }
+                        .right-side__sublink {
+                          /*width: 330px;*/
+                        }
+                        .search-button {  
+                        }
+                    }
+                    @media (max-width: 900px){
+                        .right-side {
+                          /*width: 300px;*/
+                        }
+                        .right-side__sublink {
+                          /*width: 300px;*/
+                        }
+                        .search-button {  
+                          /*width: 330px;*/
+                          /*border-radius: 4px;*/
+                        }
+                    }
+                    @media (max-width: 810px) {
+                        .right-side {
+                            /*width: 260px;*/
+                        }
+                        .right-side__sublink {
+                            /*width: 260px;*/
+                        }
+                        .search-button {
+                            /*display: inline-block;*/
+                            /*width: 260px ;*/
+                            /*border-radius: 4px;*/
+                            /*padding: 10px;*/
+                        }
+                        .near_field{
+                              /*margin-left:0px;*/
+                              /*margin-top:3px;*/
+                              /*margin-bottom:3px;*/
+                        }
+                    }
+                     
+                    /*@media (max-width: 1199px){*/
+                    /*    .right-side {*/
+                    /*      width: 400px;*/
+                    /*    }*/
+                    /*}*/
+
+
+.field-title.near {
+  position: absolute;
+  top: -36px;
+}
+
+
+
+/* right-side dropdown */
+
+.right-side__sublist {
+  position: absolute;
+  display: none;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  text-align: left;
+  font-weight:500;
+}
+
+.right-side__subitem {
+  position: relative;
+  cursor: pointer;
+}
+.right-side__subitem:hover {
+  color: white;
+}
+
+
+
+.right-side__sublink.state {
+  border-radius: 0 0 4px 4px;
+}
+
+.right-side__sublink.current {
+  color: #0073BB;
+}
+
+.right-side__sublink.current:hover {
+  color: #fff;
+  background-color: var(--maven-secondary);
+}
+
+.right-side__sublink.current:before {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 10px;
+  width: 20px;
+  height: 20px;
+  box-sizing: border-box;
+  /*background-image: url(https://s26.postimg.org/r1a5huswp/location.png);*/
+  /*background-position: center center;*/
+  /*background-repeat: no-repeat;*/
+  font: normal normal normal 22px/1 "Font Awesome 5 Free";
+    font-size: 1.25em;
+    margin-right: 5px;
+    content: '\f124';
+    font-weight: 900;
+    color: var(--maven-primary);
+    margin-top: 2px;
+}
+
+.right-side__sublink.current:hover::before {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 10px;
+  width: 20px;
+  height: 20px;
+  box-sizing: border-box;
+  /*background-image: url(https://s26.postimg.org/9roq2ti9l/location_blue.png);*/
+    font: normal normal normal 22px/1 "Font Awesome 5 Free";
+    font-size: 1.25em;
+    margin-right: 5px;
+    content: '\f124';
+    font-weight: 900;
+    color: var(--maven-primary);
+    margin-top: 2px;
+}
+
+.field:focus ~ .right-side__sublist {
+  display: block;
+}
+
+/*.right-side__sublist:hover {*/
+/*  display: block;*/
+/*}*/
+.right-side__sublist:active {
+  display: block;
+}
+
+
+/*.field:focus ~ #locationDropdown {*/
+/*  display: block;*/
+/*}*/
+
+/*#locationDropdown:hover {*/
+/*  display: block;*/
+/*}*/
+
+@media (max-width: 1030px) {
+                        .right-side {
+                              width: 70%;
+                        }
+                        .search-button {
+                            margin-top:3px;
+                        }
+                        .near_field{
+                              margin-top:5px;
+                        }
+                   
+#findDiv, #navFindDiv{
+    order: 1;
+}
+#locationDiv, #navLocationDiv{
+    order: 3;
+}
+#distKmDiv, #navDistKmDiv{
+    order: 2;
+}
+#searchBtnDiv, #navSearchBtnDiv{
+    order: 4;
+}
+
+}
+
+@media (max-width: 575px) {
+            .field.location {
+                font-size: 15px;
+                padding: 6px 0 10px 54px;
+            }
+            .field-title {
+                font-size:15px;
+            }
+            .field-title.near {
+                top: -29px;
+            }
+}
+
+@media (max-width: 400px) {
+                        .right-side {
+                              width: 62%;
+                        }
+                        }
+/*------------- SEARCH FORM (End) ------------- */
+
+
+
+
+
 
 /*------------- HEADER (End) ------------- */
 

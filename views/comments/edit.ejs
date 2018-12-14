@@ -1,16 +1,157 @@
 <% include ../partials/header %>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/detail.css">
+      <link rel="stylesheet" href="/stylesheets/fontawesome-stars-o.css">
+    <link rel="stylesheet" href="/stylesheets/fontawesome-stars-o£.css">  
+    <script src="/js/jquery.barrating.min.js"></script>
 
-    <div class="row"></div>
-        <h1 style="text-align:center">Edit Comment</h1>
-        <div style="width:30%; min-width:250px; margin: 25px auto; ">
-            <form action="/places/<%= place_id %>/comments/<%= comment._id %>?_method=PUT" method="POST">
-                <div class="form-group">
-                <input class="form-control" type="text" name="comment[text]" value="<%= comment.text %>" autofocus>
-                </div>
-                <div class="form-group">
-                <button class="btn btn-lg btn-primary btn-block">Submit</button>
-                </div>
-            </form>
-            <a href="/places/<%= back %>">Go Back</a>
+<div class="row">
+<div class="container col-lg-6 col-md-6 col-10" style="">
+        
+<div id="write-review-wrapper" class="place-details mt-3" style="display:block">
+          
+          <h5 class=" mt-3">Edit Your Review</h5>
+          
+          
+            
+                  <!--If the user is not logged in, direct him to the login page-->
+
+                    <div class="paper-box">
+                    <div class="place-detail-container is_logged_in" style="">
+
+            
+                    <form id="add-comment-sticky-form" action="/places/<%= place_id %>/comments/<%= comment._id %>?_method=PUT" method="POST">
+                      <% if(currentUser) { %>
+                      <input class="form-control" type="hidden" disabled value="<%= currentUser.username %>">
+                      <% } %>
+        <table id="sticky-review-table">
+          <tr class="rate-overall">
+            <td>Overall</td>
+            <td>
+              
+              <select id="overall-sticky" name="comment[rating.overall_star]">
+                    <option value="" <%= ( comment.rating.overall_star == '' ) ? "selected" : ""; %>></option>
+                    <option value="1" <%= ( comment.rating.overall_star == '1' ) ? "selected" : ""; %>>Terrible</option>
+                    <option value="2" <%= ( comment.rating.overall_star == '2' ) ? "selected" : ""; %>>Poor</option>
+                    <option value="3" <%= ( comment.rating.overall_star == '3' ) ? "selected" : ""; %>>Average</option>
+                    <option value="4" <%= ( comment.rating.overall_star == '4' ) ? "selected" : ""; %>>Very Good</option>
+                    <option value="5" <%= ( comment.rating.overall_star == '5' ) ? "selected" : ""; %>>Excellent</option>
+                  </select>
+                  </td>
+          </tr>
+          <tr class="br-theme-cost">
+            <td>Cost</td>
+            <td><select id="cost-sticky" name="comment[rating.cost_star]">
+                    <option value="" <%= ( comment.rating.cost_star == '' ) ? "selected" : ""; %>></option>
+                    <option value="1" <%= ( comment.rating.cost_star == '1' ) ? "selected" : ""; %>><£10 pp</option>
+                    <option value="2" <%= ( comment.rating.cost_star == '2' ) ? "selected" : ""; %>>£10-£30 pp</option>
+                    <option value="3" <%= ( comment.rating.cost_star == '3' ) ? "selected" : ""; %>>£30-£60 pp</option>
+                    <option value="4" <%= ( comment.rating.cost_star == '4' ) ? "selected" : ""; %>>£60+ pp</option>
+                  </select>
+                  </td>
+
+          </tr>
+          <tr>
+            <td>Baby Change</td>
+            <td><select id="baby-change-sticky" name="comment[rating.baby_change_star]">
+                    <option value="" <%= ( comment.rating.baby_change_star == '' ) ? "selected" : ""; %>></option>
+                    <option value="1" <%= ( comment.rating.baby_change_star == '1' ) ? "selected" : ""; %>>Terrible</option>
+                    <option value="2" <%= ( comment.rating.baby_change_star == '2' ) ? "selected" : ""; %>>Poor</option>
+                    <option value="3" <%= ( comment.rating.baby_change_star == '3' ) ? "selected" : ""; %>>Average</option>
+                    <option value="4" <%= ( comment.rating.baby_change_star == '4' ) ? "selected" : ""; %>>Very Good</option>
+                    <option value="5" <%= ( comment.rating.baby_change_star == '5' ) ? "selected" : ""; %>>Excellent</option>
+                  </select>
+                  </td>
+          </tr>          
+          <tr>
+            <td>Food For Kids</td>
+            <td><select id="food-sticky" name="comment[rating.food_star]">
+                    <option value="" <%= ( comment.rating.food_star == '' ) ? "selected" : ""; %>></option>
+                    <option value="1" <%= ( comment.rating.food_star == '1' ) ? "selected" : ""; %>>Terrible</option>
+                    <option value="2" <%= ( comment.rating.food_star == '2' ) ? "selected" : ""; %>>Poor</option>
+                    <option value="3" <%= ( comment.rating.food_star == '3' ) ? "selected" : ""; %>>Average</option>
+                    <option value="4" <%= ( comment.rating.food_star == '4' ) ? "selected" : ""; %>>Very Good</option>
+                    <option value="5" <%= ( comment.rating.food_star == '5' ) ? "selected" : ""; %>>Excellent</option>
+                  </select>
+                  </td>
+          </tr>
+          <tr>
+            <td>Play</td>
+            <td><select id="play-sticky" name="comment[rating.play_star]">
+                    <option value="" <%= ( comment.rating.play_star == '' ) ? "selected" : ""; %>></option>
+                    <option value="1" <%= ( comment.rating.play_star == '1' ) ? "selected" : ""; %>>Terrible</option>
+                    <option value="2" <%= ( comment.rating.play_star == '2' ) ? "selected" : ""; %>>Poor</option>
+                    <option value="3" <%= ( comment.rating.play_star == '3' ) ? "selected" : ""; %>>Average</option>
+                    <option value="4" <%= ( comment.rating.play_star == '4' ) ? "selected" : ""; %>>Very Good</option>
+                    <option value="5" <%= ( comment.rating.play_star == '5' ) ? "selected" : ""; %>>Excellent</option>
+                  </select>
+                  </td>
+          </tr>
+            <td>Staff w/ Kids</td>
+            <td><select id="staff-sticky" name="comment[rating.staff_star]">
+                    <option value="" <%= ( comment.rating.staff_star == '' ) ? "selected" : ""; %>></option>
+                    <option value="1" <%= ( comment.rating.staff_star == '1' ) ? "selected" : ""; %>>Terrible</option>
+                    <option value="2" <%= ( comment.rating.staff_star == '2' ) ? "selected" : ""; %>>Poor</option>
+                    <option value="3" <%= ( comment.rating.staff_star == '3' ) ? "selected" : ""; %>>Average</option>
+                    <option value="4" <%= ( comment.rating.staff_star == '4' ) ? "selected" : ""; %>>Very Good</option>
+                    <option value="5" <%= ( comment.rating.staff_star == '5' ) ? "selected" : ""; %>>Excellent</option>
+                  </select>
+                  </td>
+          </tr>   
+            <td>Breastfeeding</td>
+            <td><select id="breastfeeding-sticky" name="comment[rating.breastfeeding_star]">
+                    <option value="" <%= ( comment.rating.breastfeeding_star == '' ) ? "selected" : ""; %>></option>
+                    <option value="1" <%= ( comment.rating.breastfeeding_star == '1' ) ? "selected" : ""; %>>Terrible</option>
+                    <option value="2" <%= ( comment.rating.breastfeeding_star == '2' ) ? "selected" : ""; %>>Poor</option>
+                    <option value="3" <%= ( comment.rating.breastfeeding_star == '3' ) ? "selected" : ""; %>>Average</option>
+                    <option value="4" <%= ( comment.rating.breastfeeding_star == '4' ) ? "selected" : ""; %>>Very Good</option>
+                    <option value="5" <%= ( comment.rating.breastfeeding_star == '5' ) ? "selected" : ""; %>>Excellent</option>
+                  </select>
+                  </td>
+          </tr>          
+</table>
+        <input id="sticky-review-title" name="comment[title]" value="<%= comment.title %>" class="form-control" type="text" placeholder="Title your review">
+        <textarea class="form-control" name="comment[text]" id="sticky-review-text" rows="4" placeholder="Tell others what you think about this place. Would you recommend it and why?"><%= comment.text %></textarea>
+
+        <div class="button-right-wrapper">
+        <button type="submit" id="sticky-review-submit" class="buttonText lm-button">Submit</button>
         </div>
+        </form>
+                    <a href="/places/<%= back %>">Go Back</a>
+
+
+            
+            
+            </div>
+            </div>
+          <form id="delete-form" action="/places/<%= place_id %>/comments/<%= comment._id %>?_method=DELETE" method="POST" style="display: inline;">
+                    <button class="btn btn-sm btn-danger">Delete</button>
+                  </form>
+        </div>   
+        </div>
+</div>
+        
+        
+        
+        
+        
+        
+        
+        
+<script type="text/javascript">
+   $(function() {
+      $('#overall-sticky, #cost-sticky, #baby-change-sticky, #food-sticky, #play-sticky, #staff-sticky, #breastfeeding-sticky').barrating({
+        theme: 'fontawesome-stars-o'
+      });
+   });
+   $(function() {
+      $('#cost-sticky').barrating({
+        theme: 'fontawesome-stars-o£',
+      });
+   });
+
+    
+
+</script>        
+        
+        
     <% include ../partials/footer %>

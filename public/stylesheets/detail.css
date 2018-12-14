@@ -51,7 +51,7 @@
                                     display:none;
                                 }
                                 #banner{
-                                    height: 8.5rem;
+                                    height: 6.5rem;
                                     background-color: var(--maven-primary);
                                 }
                             }
@@ -71,7 +71,9 @@
     width:100%;
     border: white 3px solid;
     /*float: left;*/
+    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, .05);
 }
+
 
 #summary{
     margin-top: -4.5rem;
@@ -674,6 +676,42 @@ td, th {
                                                 display:block;
                                             }
                                         }
+
+.not_logged_in .not_logged_in_overlay{
+    display:block;
+    position:absolute;
+    top:0px;
+    bottom:0px;
+    opacity:0.60;
+    filter:alpha(opacity=60);
+    background-color:white;
+    height:expression(parentElement.scrollHeight + 'px');
+    width:100%;
+    z-index:1;
+}
+    
+.is_logged_in .not_logged_in_overlay{
+    display:none;
+}
+.must_login{
+    position:absolute; 
+    z-index:2;
+    text-align:center; 
+    width: 70%; 
+    left:15%; 
+    vertical-align:middle;
+    top:30%;
+}
+
+    
+/*.not_logged_in_overlay{*/
+/*    background-color: rgba(255,0,0,0.5);*/
+/*    height: 100%;*/
+/*    width: 100%;*/
+    /*position:absolute;*/
+    /*top:0;*/
+    /*left:0;*/
+/*}*/
 
 .place-detail-container{
     padding-top:4px;

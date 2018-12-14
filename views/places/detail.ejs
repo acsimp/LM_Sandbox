@@ -63,7 +63,16 @@
             <p class="body2 sm-mb p-500" id="goodForSummary" >
               <img class="mb-2 footer-maven-icon" src="/images/LM-Icon-Teal.svg" alt="Little Maven Thumb Icon">
               <!--<span id="forIcon"><i class="fas fa-check-circle summaryIcon"></i></span>-->
-              <span class="uppercase pl-2 pr-2">Food</span>+<span class="pr-2 pl-2 uppercase">Nappy Change</span>+<span class="pr-2 pl-2 uppercase">Play</span>
+              <% var good_for_tags = []; %>
+              <% if(typeof place.good_for.food !='undefined' && place.good_for.food){ good_for_tags.push('Food'); } %>
+              <% if(typeof place.good_for.nappy_change !='undefined' && place.good_for.nappy_change){ good_for_tags.push('Nappy Change'); } %>
+              <% if(typeof place.good_for.play !='undefined' && place.good_for.play){ good_for_tags.push('Play'); } %>
+                  <% if (good_for_tags.length > 0){ %>
+                  <% for (var i = 0; i < good_for_tags.length; i++){%>
+                  <span class="uppercase pl-2 pr-2"><%= good_for_tags[i] %></span>
+                  <% if (i<(good_for_tags.length-1)){ %>
+                  +
+                  <% } %><% } %><% } %>
             </p>
             <hr style="width: 100%">
             <p class="body2 sm-mb">
@@ -347,9 +356,21 @@
             <div class="review-text">
               <p class="subtitle2 review-title capitalize"><%= comment.title %></p>
               <p class="body2"><%= comment.text %></p>
-            </div>
-            </div>
             
+                   
+            
+                       <!--If the visitor is logged in and the owner of the comment, show the edit and delete buttons-->
+
+                    <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
+                            <a class="btn btn-sm btn-warning" 
+                            href="/places/<%= place._id %>/comments/<%= comment._id %>/edit">
+                            Edit
+                            </a>
+                            
+                            <% } %>
+                    
+             </div>
+             </div>       
             <script>
                  $(function() {
                   $('.reviewer-stars-rating_<%= i %>').barrating({
@@ -379,17 +400,29 @@
           
           <h5 class="">Write a Review</h5>
           
-          <div class="paper-box">
-            <div class="place-detail-container">
+          
             
             <% if(!currentUser) { %>
                   <!--If the user is not logged in, direct him to the login page-->
-                  <h6>You need to login before you can comment. <a href="/login">Click here</a> to go to the login page.</h6>
-                    <% } %>
-                    <% if(currentUser) { %>
+                  
+                  <div class="paper-box">
+                  
+                  <div class="place-detail-container not_logged_in" style="position:relative;overflow:hidden;">
+                    <h6 class="must_login" >You need to login before you can comment. <a href="/login">Click here</a> to go to the login page.</h6>
+                  <div class="not_logged_in_overlay"></div>
+            
+                                
+                    <% } else { %>
+                    <div class="paper-box">
+                    <div class="place-detail-container is_logged_in" style="">
+                      <% } %>
+                    <% //if(currentUser) { %>
+                    
             
                     <form id="add-comment-sticky-form" action="/places/<%= place._id %>/comments" method="POST">
+                      <% if(currentUser) { %>
                       <input class="form-control" type="hidden" disabled value="<%= currentUser.username %>">
+                      <% } %>
         <table id="sticky-review-table">
           <tr class="rate-overall">
             <td>Overall</td>
@@ -481,7 +514,7 @@
         <button type="submit" id="sticky-review-submit" class="buttonText lm-button">Submit</button>
         </div>
         </form>
-        <% } %>
+        <% //} %>
             
             
             </div>
@@ -946,14 +979,33 @@
         <div class="col-md-4" id="">
           <div class="sticky-content" id="sticky-review">
           <h5 class="sticky-review-heading ">Write a Review</h5>
-          <div id="sticky-review-box" class="">
-          <!--<p class="subtitle2 sticky-review-subtitle"><i>Write a Review</i></p>-->
-        
+          
+            
+            <% if(!currentUser) { %>
+                  <!--If the user is not logged in, direct him to the login page-->
+                  
+                  <!--<div class="paper-box">-->
+                  
+                  <div id="sticky-review-box" class="not_logged_in">
+                    <h6 class="must_login" >You need to login before you can comment. <a href="/login">Click here</a> to go to the login page.</h6>
+                  <div class="not_logged_in_overlay"></div>
+            
+                                
+                    <% } else { %>
+                    <div id="sticky-review-box" class="is_logged_in">
+                      <% } %>
+
+            
+
+
         <form id="add-comment-sticky-form" action="/places/<%= place._id %>/comments" method="POST">
+                      <% if(currentUser) { %>
+                      <input class="form-control" type="hidden" disabled value="<%= currentUser.username %>">
+                      <% } %>
         <table id="sticky-review-table">
           <tr class="rate-overall">
             <td>Overall</td>
-            <td><select id="overall-sticky">
+            <td><select id="overall-sticky" name="rating_overall">
                     <option value=""></option>
                     <option value="1">Terrible</option>
                     <option value="2">Poor</option>
@@ -965,7 +1017,7 @@
           </tr>
           <tr class="br-theme-cost">
             <td>Cost</td>
-            <td><select id="cost-sticky">
+            <td><select id="cost-sticky" name="rating_cost">
                     <option value=""></option>
                     <option value="1"><£10 pp</option>
                     <option value="2">£10-£30 pp</option>
@@ -977,7 +1029,7 @@
           </tr>
           <tr>
             <td>Baby Change</td>
-            <td><select id="baby-change-sticky">
+            <td><select id="baby-change-sticky" name="rating_baby_change">
                     <option value=""></option>
                     <option value="1">Terrible</option>
                     <option value="2">Poor</option>
@@ -989,7 +1041,7 @@
           </tr>          
           <tr>
             <td>Food For Kids</td>
-            <td><select id="food-sticky">
+            <td><select id="food-sticky" name="rating_food">
                     <option value=""></option>
                     <option value="1">Terrible</option>
                     <option value="2">Poor</option>
@@ -1001,7 +1053,7 @@
           </tr>
           <tr>
             <td>Play</td>
-            <td><select id="play-sticky">
+            <td><select id="play-sticky" name="rating_play">
                     <option value=""></option>
                     <option value="1">Terrible</option>
                     <option value="2">Poor</option>
@@ -1012,7 +1064,7 @@
                   </td>
           </tr>
             <td>Staff w/ Kids</td>
-            <td><select id="staff-sticky">
+            <td><select id="staff-sticky" name="rating_staff">
                     <option value=""></option>
                     <option value="1">Terrible</option>
                     <option value="2">Poor</option>
@@ -1023,7 +1075,7 @@
                   </td>
           </tr>   
             <td>Breastfeeding</td>
-            <td><select id="breastfeeding-sticky">
+            <td><select id="breastfeeding-sticky" name="rating_breastfeeding">
                     <option value=""></option>
                     <option value="1">Terrible</option>
                     <option value="2">Poor</option>
@@ -1034,9 +1086,9 @@
                   </td>
           </tr>          
 </table>
-        <input id="sticky-review-title" class="form-control" type="text" placeholder="Title your review">
-        <textarea class="form-control" id="sticky-review-text" rows="4" placeholder="Tell others what you think about this place. Would you recommend it and why?"></textarea>
-        
+        <input id="sticky-review-title" name="comment[title]" class="form-control" type="text" placeholder="Title your review">
+        <textarea class="form-control" name="comment[text]" id="sticky-review-text" rows="4" placeholder="Tell others what you think about this place. Would you recommend it and why?"></textarea>
+
         <div class="button-right-wrapper">
         <button type="submit" id="sticky-review-submit" class="buttonText lm-button">Submit</button>
         </div>

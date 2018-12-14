@@ -11,4 +11,94 @@
       </footer>
 
     </body>
+    
+<script> // get user location with browser geolocation
+var y = document.getElementById("navCoords");
+
+function navGetLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(navShowPosition,navShowError);
+    } else { 
+        y.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+
+function navShowPosition(position) {
+    // x.innerHTML = "Latitude: " + position.coords.latitude + 
+    // "<br>Longitude: " + position.coords.longitude;
+    document.getElementById("navLatitide").value = position.coords.latitude;
+    document.getElementById("navLongitude").value = position.coords.longitude;
+    document.getElementById("navGeocoder").value = "";
+    document.getElementById("navGeocoder").placeholder = "Me";
+    document.getElementById("navDistKm").value = "5";
+}
+function navShowError(error) {
+    switch(error.code) {
+        case error.PERMISSION_DENIED:
+            y.innerHTML = "User denied the request for Geolocation."
+            break;
+        case error.POSITION_UNAVAILABLE:
+            y.innerHTML = "Location information is unavailable."
+            break;
+        case error.TIMEOUT:
+            y.innerHTML = "The request to get user location timed out."
+            break;
+        case error.UNKNOWN_ERROR:
+            y.innerHTML = "An unknown error occurred."
+            break;
+    }
+}
+
+</script>
+    <script>
+  
+    function navSubmitFn() {
+    var y = document.getElementById("navCoords");
+    
+    // Initialise map and fetch token 
+    mapkit.init({
+        authorizationCallback: function(done) {
+            fetch("/token")
+                .then(res => res.text())
+                .then(token => done(token)) /* If successful, return your token to MapKit JS */
+                .catch(error => { /* Handle error */
+                    console.log("nae token")
+                });
+            // done("eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjI0OU5KQk4ySkoifQ.eyJpc3MiOiJGVVhRWjYyWjlNIiwiaWF0IjoxNTM0NjA4MDI4LjEzNSwiZXhwIjoxNTM0NjA5ODI4LjEzNX0.RlxNj23pp1Agx1qwfuHMcRCAgx5nFDXKpxmSLgEKuxOn_to3p-4LOH0uqNMACBY52WEOhxgW6byx8fDCY9E5kg"); //alternative to short term token fetched above
+        }
+
+    });
+
+        let location = document.getElementById("navGeocoder").value;
+        let geocoder = new mapkit.Geocoder({
+            getsUserLocation: true
+        });
+        if (!location == "") {
+        geocoder.lookup(location, function(error, data) {
+            if (error) {
+                console.log(error);
+                return;
+                y.innerHTML = "lookup error";
+            }
+            // console.log(data);
+
+                // document.getElementById("geo-coords").innerHTML +=
+                //     '<h5 class="card-title mb-3">' + data.results[0].coordinate + '</h5>';
+
+                // map.addAnnotation(new mapkit.MarkerAnnotation(data.results[0].coordinate));
+                // let coordinate = new mapkit.Coordinate(data.results[0].coordinate.latitude, data.results[0].coordinate.longitude);
+                // map.setCenterAnimated(coordinate, true);
+                document.getElementById("navLatitide").value = data.results[0].coordinate.latitude;
+                document.getElementById("navLongitude").value = data.results[0].coordinate.longitude;
+                // document.getElementById("distKm").value = 3;
+                document.getElementById("navSearchForm").submit();
+                
+            });
+        } else {
+        document.getElementById("navSearchForm").submit();
+    }
+    } 
+    
+</script>
+    
 </html>

@@ -51,18 +51,19 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
                             console.log(err);
                         }
                         else {
+                            // console.log(req.body);
                             //add username and id to comment
                             comment.author.id = req.user._id;
                             comment.author.username = req.user.username;
                             comment.place.id = place._id;
                             comment.place.name = place.name;
                             comment.rating.overall_star = req.body.rating_overall;
-                            comment.rating.cost = req.body.cost;
-                            comment.rating.baby_change = req.body.baby_change;
-                            comment.rating.food = req.body.food;
-                            comment.rating.play = req.body.play;
-                            comment.rating.staff = req.body.staff;
-                            comment.rating.breastfeeding = req.body.breastfeeding;
+                            comment.rating.cost_star = req.body.rating_cost;
+                            comment.rating.baby_change_star = req.body.rating_baby_change;
+                            comment.rating.food_star = req.body.rating_food;
+                            comment.rating.play_star = req.body.rating_play;
+                            comment.rating.staff_star = req.body.rating_staff;
+                            comment.rating.breastfeeding_star = req.body.rating_breastfeeding;
                             comment.save(); // need error handling
                             // calculate the place average overall rating
                             if (typeof req.body.rating_overall != 'undefined' && req.body.rating_overall) {
@@ -260,6 +261,7 @@ router.put("/:comment_id", middleware.checkCommentOwnership, function(req, res) 
             res.redirect("back");
         }
         else {
+            req.flash("success", "Comment Updated");
             res.redirect("/places/" + req.params.id);
         }
     });
@@ -323,7 +325,7 @@ router.delete("/:comment_id", middleware.checkCommentOwnership, function(req, re
                     }
                 });
             });
-            req.flash("success", "Comment deleted");
+            req.flash("success", "Comment Deleted");
             res.redirect("/places/" + req.params.id);
         }
     });

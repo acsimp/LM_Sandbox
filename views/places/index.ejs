@@ -1,30 +1,49 @@
 <% include ../partials/header %>
 
 
-    <div class="jumbotron text-center">
+    <div class="banner">
         <div class="container">
-            <div class="container">
-                <h1 class="jumbotron-heading">List of Places</h1>
-                <p class="lead text-muted">View our hand-picked venues from all over Greater Glasgow</p>
-                <!--<p>        -->
-                <!--    <a class="btn btn-secondary my-2 btn-sm" role="button" href="/places/new">Add New Place</a>-->
-                <!--</p>-->
+            <!--<div class="container">-->
+                <!--<h5 class="jumbotron-heading">Search little Maven</h5>-->
                 <p>
-                    <form id="searchForm" class="form-inline mx-auto" action="/places" method="GET">
-                        <div class="form-group mx-auto">
-                            <label class="label" for="search">Find:</label>
-                            <input class="form-control" type="text" name="search" placeholder="name, category, cuisine..." value="<%= search %>">
-                                    <!--<input class="form-control" id="location" type="text" name="loc" placeholder="location" onclick="getLocation()" value="">-->
-                                    <input class="form-control" id="latitide" type="hidden" name="lat" placeholder="latitide" value="<%= lat %>" >
-                                    <input class="form-control" id="longitude" type="hidden" name="lng" placeholder="longitude" value="<%= lng %>">
-                            <label class="label ml-1" for="geocoder">Near:</label>
-                            <input class="form-control mr-sm-2" type="text" name="geocoder" id="geocoder" placeholder="address, neighbouthood, city, postcode" aria-label="geocoder" value="<%=geocoder%>">
-                            <a class="btn btn-sm btn-outline-info" id="nearMeBtn" onclick="getLocation()">Near Me</a>
-                            <label class="label ml-1" for="distKm">Radius:</label>
-                            <input class="form-control" style="width: 70px;" id="distKm" type="number" name="distKm" placeholder="distance in km" value="<%= distKm %>">
-                            <input class="btn btn-secondary my-2" type="button" onclick="submitFn()" value="Search">
+                    <form id="searchForm" class="" action="/places" autocomplete="off" method="GET">
+                        <div class="search" id="searchDiv">
+
+                                    
+                                    
+                                    <input class="" id="latitide" type="hidden" name="lat" placeholder="latitide" value="<%= lat %>" >
+                                    <input class="" id="longitude" type="hidden" name="lng" placeholder="longitude" value="<%= lng %>">
+                                    
+                                 <div class="right-side searchItem" id="findDiv">
+                                    <input class="field location" type="text" name="search" autocomplete="off" placeholder="name, category, cuisine..." value="<%= search %>">
+                                    <div class="field-wrapper">
+                                      <span class="field-title near">Find</span>
+                                    </div>
+                                  </div>   
+                                <div class="right-side near_field searchItem" id="locationDiv">
+                                    <input class="field location" type="text" name="geocoder" id="geocoder" autocomplete="off" placeholder="address, neighbouthood, city, postcode" aria-label="geocoder" value="<%=geocoder%>">
+                                    <div class="field-wrapper">
+                                      <span class="field-title near">Near</span>
+                                    </div>
+                                    <ul class="right-side__sublist" id="locationDropdown">
+                                      <li class="right-side__subitem"><a class="right-side__sublink current" id="nearMeBtn" onclick="getLocation()">Near Me</a></li>
+                                    </ul>
+                                  </div>
+                                  <div class="distKm searchItem" id="distKmDiv">
+                                    <input class="field location" id="distKm" type="number" name="distKm" autocomplete="off" placeholder="km" value="<%= distKm %>">
+                                    <div class="field-wrapper">
+                                      <span class="field-title near">Km</span>
+                                    </div>
+                                  </div>   
+                                    
+                                <div class="searchItem" id="searchBtnDiv">
+                                    <input class="search-button btn" type="button" onclick="submitFn()" value="Search">
+                                </div>
                         </div>
                     </form>
+                    
+                    
+                    
                     
                     <div id="coords"></div>
                 </p>
@@ -34,11 +53,11 @@
                 <!--    <button class="btn btn-outline-success my-2 my-sm-0" id="geocoderBtn" type="submit">Geocode</button>-->
                 <!--</div>-->
                 
-            </div><!--container-->
+            <!--</div><!--container-->
         </div><!--container-->
     </div>
     
-    <div class="container">
+    <div class="container" id="mapContainer">
         <div id="map">
         </div>
         <script src="https://cdn.apple-mapkit.com/mk/5.x.x/mapkit.js"></script>
@@ -66,41 +85,38 @@
     <% places.forEach(function(place){ %>
         
                       
-
-        <div class="col-lg-3 col-md-4 col-sm-6 ">
+        
+        <div class="col-lg-3 col-md-4 col-sm-6" id="cards">
+            <a href="/places/<%= place._id %>">
             <!--col-6-->
         <!--<div class="item">-->
               <div class="content card mb-4 box-shadow">
                   <span class="placeNumber"><%= (first+i).toString() %></span>
-                <a href="/places/<%= place._id %>">
+                <!--<a href="/places/<%= place._id %>">-->
                     <% if (place.images.card_img) { %>
                         <div class="image">
-                            <img class="card-img-top" src= "<%= place.images.card_img %>"></a>
+                            <img class="card-img-top" src= "<%= place.images.card_img %>">
+                            <!--</a>-->
                         </div>
                     <% } else { %>
                     <div class="image">
-                            <img class="card-img-top placeholder" src= "https://www.ppihotline.co.uk/wp-content/uploads/2017/02/placeholder-image.jpg"></a>
+                            <img class="card-img-top" src= "https://www.ppihotline.co.uk/wp-content/uploads/2017/02/placeholder-image.jpg"></a>
                         </div>
                     <% } %>
-                <div class="content card-body">
                     
-                  <h5 class="card-title mb-3"><%=place.name%></h5>
-                  <p class="card-text"><%=place.single_line_address%></p>
-                  <% if (typeof place.distance!='undefined' && place.distance) { %>
-                      <p class="card-text text-right"><%= place.distance.toFixed(2) %>km away</p><% } %>
+                <div class="content card-body">
+                    <% if (typeof place.distance!='undefined' && place.distance) { %>
+                      <span class="distanceTo overlineText"><%= place.distance.toFixed(2) %>km away</span><% } %>
+                  <h6 class="subtitle1"><%=place.name%></h6>
+                  <p class="captionText card_address"><%=place.single_line_address%></p>
+                  
                   <div class="d-flex justify-content-between align-items-center">
-                    <!--<button class="foo-button mdc-button mdc-button--dense mdc-button--raised mdc-ripple-upgraded" style="--mdc-ripple-fg-size:46.8469px; --mdc-ripple-fg-scale:2.01468; --mdc-ripple-fg-translate-start:20.3734px, -14.6109px; --mdc-ripple-fg-translate-end:15.6156px, -7.42344px;">Button</button>-->
-                    <% if(currentUser && place.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
-                    <div class="btn-group">
-                      <a class="btn btn-sm btn-outline-secondary" href="/places/<%= place._id %>/edit">Edit</a>
-                    </div>
-                    <% } %>
-                    <!--Show when the comment was made-->
-                    <small class="createdAt text-muted"><%= moment(place.createdAt).fromNow() %></small>
+
                   </div>
                 </div>
               </div>
             </div>
+            </a>
         <% i++ %>
         
         <!--<div class="col-md-4 col-sm-6">-->
@@ -261,9 +277,9 @@ function showError(error) {
     places.forEach(function(place){ 
         var item = new mapkit.Coordinate(place.latitude, place.longitude);
         if (place.category){
-            var annotation = new MarkerAnnotation(item, { color: "#5960e7", title: place.name, subtitle: place.category.join(', '), glyphText: (firstPlaceNumber+i).toString() });
+            var annotation = new MarkerAnnotation(item, { color: "#00C4B3", title: place.name, subtitle: place.category.join(', '), glyphText: (firstPlaceNumber+i).toString() });
         } else {
-            var annotation = new MarkerAnnotation(item, { color: "#5960e7", title: place.name, glyphText: (i+1).toString() });
+            var annotation = new MarkerAnnotation(item, { color: "#00C4B3", title: place.name, glyphText: (i+1).toString() });
         }
         mapItems.push(annotation);
         i++;

@@ -24,7 +24,9 @@
     width: 100%;
     text-align: right
 }
-
+#map{
+    /*margin-top:-1.5rem;*/
+}
 .box-shadow {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
@@ -37,7 +39,7 @@
     height: 2rem;
     width: 2rem;
     border-radius: 50%;
-    background-color: var(--maven-blue);
+    background-color: var(--maven-primary);
     color: white;
     text-align: center;
     vertical-align: middle;
@@ -48,4 +50,146 @@
     margin: 0.5rem;
     /*font-weight: 500;*/
     font-weight: 500;
+    box-shadow: 
+     0 2px 3px 0px rgba(0,0,0,.10), 
+     0 4px 3px 0px rgba(0,0,0,.08);
 }
+
+
+.distanceTo{
+    margin-top: -2.75rem;
+    background-color: white;
+    z-index: 2;
+    position: absolute;
+    right: 0;
+    padding-left: 5px;
+    padding-right: 5px;
+    line-height: 1.5rem;
+}
+.card_address{
+    margin:0;
+}
+
+.card-body{
+}
+
+#cards a{
+    color: var(--maven-text2);
+}
+
+#searchDiv{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    /*align-items: stretch;*/
+    align-content: center;
+    flex-direction: row;
+}
+.searchItem{
+    margin-left: 1.5px;
+    margin-right: 1.5px;
+}
+.banner{
+  padding-top: 1.5rem;
+  padding-bottom: 3rem;
+  background-color: var(--maven-off-white2);
+  /*margin-bottom: 0.5rem;*/
+}
+
+
+
+@media (max-width: 1030px) {
+                        .right-side {
+                              width: 70%;
+                        }
+                        .search-button {
+                            margin-top:3px;
+                        }
+                        .near_field{
+                              margin-top:5px;
+                        }
+                   
+#findDiv, #navFindDiv{
+    order: 1;
+}
+#locationDiv, #navLocationDiv{
+    order: 3;
+}
+#distKmDiv, #navDistKmDiv{
+    order: 2;
+}
+#searchBtnDiv, #navSearchBtnDiv{
+    order: 4;
+}
+
+ }
+
+@media (max-width: 575px) {
+            .field.location {
+                font-size: 15px;
+                padding: 6px 0 10px 54px;
+            }
+            .field-title {
+                font-size:15px;
+            }
+            .field-title.near {
+                top: -29px;
+            }
+            .banner{
+              padding-top: 1rem;
+              padding-bottom: 0.55rem;
+              background-color: var(--maven-off-white2);
+              margin-bottom: 0.5rem;
+            }
+            #mapContainer{
+                padding-left: 0px;
+                padding-right: 0px;
+            }
+            #map {
+                height: 225px;
+            }
+#cards{
+    padding-right: 0px;
+    padding-left: 0px;
+}
+.card {
+    flex-direction: row;
+    margin-bottom: 2px!important;
+}
+.image {
+    position: relative;
+    /* overflow: hidden; */
+    /* padding-bottom: 100%; */
+    /* width: 100%; */
+    /* float: left; */
+    height: 125px;
+    width: 180px;
+    padding-bottom:0px;
+}
+.placeNumber{
+right:0;
+}
+.distanceTo {
+    margin-top: 0px;
+    bottom: 0;
+}
+/*.image img {*/
+/*    position: absolute;*/
+/*    height: 100%;*/
+/*}*/
+/*.card-img-top {*/
+/*    object-fit: contain;*/
+/*}*/
+/*.card-img-top {*/
+/*    width: 30%;*/
+/*    border-top-left-radius: calc(.25rem - 1px);*/
+/*    border-top-right-radius: calc(.25rem - 1px);*/
+/*}*/
+}
+
+
+@media (max-width: 400px) {
+                        .right-side {
+                              width: 62%;
+                        }
+                        }
