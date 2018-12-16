@@ -103,7 +103,18 @@
                     <% } %>
                     <br/>
                      <% if (place.data[i].category_list) { %>
-                            <%= place.data[i].category_list[0].name %><br />
+                            <!--<%= // place.data[i].category_list[0].name %><br />-->
+                            
+                            <% var categories = ""; %>
+                            
+                            <% for (var j = 0; j < place.data[i].category_list.length; j++){%>
+                                <% categories += place.data[i].category_list[j].name;%>
+                                <% j<(place.data[i].category_list.length-1) ? categories += ", " : '';%>
+                            <% }; %>
+                            <p class="body2 sm-mb" id="categories"><%=  categories.substring(0, 70) + " ..." %></p>
+                            <p class="body2 sm-mb" style="display:none" id="categories-all"><%= categories %></p>
+
+                            
                     <% } %>
                     <br/>
                      <% if (place.data[i].distance) { %>
@@ -160,11 +171,13 @@ $(document).ready(function() {
     function storePlace(id, i) {
         var fbPlaceID = id;
         var imageURL = document.querySelectorAll('.card-img-top')[i].src;
+        var FBcategories = document.getElementById('categories-all').textContent ;
         
         //fetch object
 
         sessionStorage.setItem('fbPlaceID', fbPlaceID);
         sessionStorage.setItem('imageURL', imageURL);
+        sessionStorage.setItem('categories', FBcategories);
 
         console.log(sessionStorage.getItem(fbPlaceID));
     };

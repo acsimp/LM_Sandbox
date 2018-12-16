@@ -948,6 +948,19 @@ footer {
 .no-padding{
     padding:0;
 }
+.tooltip{
+    margin:25px;
+}
+
+.tooltip.in{
+}
+
+.tooltip-inner{
+    background-color: var(--monkey-pink);
+}
+.bs-tooltip-top .arrow::before, .bs-tooltip-bottom .arrow::before, .bs-tooltip .arrow::before {
+    border-top-color: var(--monkey-pink);
+}
 
 /*------------- COMMON (End) ------------- */
 

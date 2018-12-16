@@ -389,6 +389,7 @@ router.get("/map", function(req, res) {
 
 //CREATE - add new place to DB
 router.post("/", middleware.isLoggedIn, function(req, res) {
+    console.log(req.body);
     //get data from form
     var name = req.body.name;
     var single_line_address = req.body.formattedAddress;
@@ -407,10 +408,13 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
         id: req.user._id,
         username: req.user.username
     };
-    var service = {
-        food: req.body.food_service,
-        nappy_change: req.body.nappy_change_facilities,
+    
+    var good_for = {
+        play: req.body.good_for_play,
+        food: req.body.good_for_food_service,
+        nappy_change: req.body.good_for_nappy_change_facilities,
     };
+     var category = req.body.categories.split(', ');
 
     //create new object
     var newPlace = {
@@ -425,7 +429,8 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
         fb_id: fb_id,
         images: images,
         author: author, 
-        service: service,
+        good_for: good_for,
+        category: category,
     };
 
 
@@ -699,7 +704,7 @@ router.get("/:id", function(req, res) {
 // ******************************************************************************************************************
 
 // EDIT place route
-router.get("/:id/edit", middleware.checkPlaceOwnership, function(req, res) {
+router.get("/:id/edit", middleware.isLoggedIn, function(req, res) {
     Place.findById(req.params.id, function(err, foundPlace) {
         if (err || !foundPlace) {
             req.flash("error", "No place found");
@@ -714,7 +719,7 @@ router.get("/:id/edit", middleware.checkPlaceOwnership, function(req, res) {
 // ******************************************************************************************************************
 
 // UPDATE place route
-router.put("/:id", middleware.checkPlaceOwnership, function(req, res) {
+router.put("/:id", middleware.isLoggedIn, function(req, res) {
     // geocoder.geocode(req.body.location, function (err, data) {
     // if (err || !data.length) {
     //   req.flash('error', 'Invalid address');
@@ -732,9 +737,11 @@ router.put("/:id", middleware.checkPlaceOwnership, function(req, res) {
     };
     var latitude = req.body.latitude;
     var longitude = req.body.longitude;
+    // if(latitude && longitude){
     var coordinates = [req.body.longitude, req.body.latitude];
-    // console.log("coords: " + coordinates);
     var location = { type: 'Point', coordinates: coordinates };
+    // }
+    // console.log("coords: " + coordinates);
     // console.log("location: " + location);
     var apple_card = req.body._wpURL;
     var apple_id = req.body.muid;
@@ -753,6 +760,7 @@ router.put("/:id", middleware.checkPlaceOwnership, function(req, res) {
     var baby_change = {
         ladies: req.body.baby_change_ladies,
         gents: req.body.baby_change_gents,
+        unisex: req.body.baby_change_unisex,
         disabled: req.body.baby_change_disabled,
         room: req.body.baby_change_room,
         free_nappy: req.body.baby_change_free_nappy,
@@ -889,7 +897,66 @@ router.put("/:id", middleware.checkPlaceOwnership, function(req, res) {
     var not_for_kids = req.body.not_for_kids;
     var verified_by_owner = req.body.verified_by_owner;
     var kid_restrictions = req.body.kid_restrictions;
+    var opening_hours = {
+        mon: {
+            open: req.body.hours_mon_open,
+            close: req.body.hours_mon_close,
+            open_str: req.body.hours_mon_open_str,
+            close_str: req.body.hours_mon_close_str,
+            closed: req.body.hours_mon_closed,
+            allDay: req.body.hours_mon_allDay,
+        },
+        tue: {
+            open: req.body.hours_tue_open,
+            close: req.body.hours_tue_close,
+            open_str: req.body.hours_tue_open_str,
+            close_str: req.body.hours_tue_close_str,
+            closed: req.body.hours_tue_closed,
+            allDay: req.body.hours_tue_allDay,
+        },
+        wed: {
+            open: req.body.hours_wed_open,
+            close: req.body.hours_wed_close,
+            open_str: req.body.hours_wed_open_str,
+            close_str: req.body.hours_wed_close_str,
+            closed: req.body.hours_wed_closed,
+            allDay: req.body.hours_wed_allDay,
+        },
+        thu: {
+            open: req.body.hours_thu_open,
+            close: req.body.hours_thu_close,
+            open_str: req.body.hours_thu_open_str,
+            close_str: req.body.hours_thu_close_str,
+            closed: req.body.hours_thu_closed,
+            allDay: req.body.hours_thu_allDay,
+        },
+        fri: {
+            open: req.body.hours_fri_open,
+            close: req.body.hours_fri_close,
+            open_str: req.body.hours_fri_open_str,
+            close_str: req.body.hours_fri_close_str,
+            closed: req.body.hours_fri_closed,
+            allDay: req.body.hours_fri_allDay,
+        },
+        sat: {
+            open: req.body.hours_sat_open,
+            close: req.body.hours_sat_close,
+            open_str: req.body.hours_sat_open_str,
+            close_str: req.body.hours_sat_close_str,
+            closed: req.body.hours_sat_closed,
+            allDay: req.body.hours_sat_allDay,
+        },
+        sun: {
+            open: req.body.hours_sun_open,
+            close: req.body.hours_sun_close,
+            open_str: req.body.hours_sun_open_str,
+            close_str: req.body.hours_sun_close_str,
+            closed: req.body.hours_sun_closed,
+            allDay: req.body.hours_sun_allDay,
+        }
+    };
 
+// console.log(req.body);
     var newData = {
         name: name,
         single_line_address: single_line_address,
@@ -964,6 +1031,7 @@ router.put("/:id", middleware.checkPlaceOwnership, function(req, res) {
         not_for_kids: not_for_kids,
         verified_by_owner: verified_by_owner,
         kid_restrictions: kid_restrictions,
+        opening_hours: opening_hours,
     };
 
     //find and update place

@@ -1,0 +1,632 @@
+<% include ../partials/header %>
+
+    <div class="container" id="editPlaceContainer">
+
+        <h3 class="headerText" style="text-align:center"><span class="h5">Edit:</span>
+            <%= place.name %>
+        </h3>
+
+        <div class="row">
+
+
+            <div class="col-lg-6 col-md-12 col-sm-12">
+                <h4 class="boxTitle">Basic Data</h4>
+                <div class="card paper-box">
+                    <div class="content card-body">
+                        
+                        <form action="/places/<%=place._id %>?_method=PUT" method="POST">
+                            <table>
+                                <tr>
+                                    <th class="label"><label class="label" for="name">Name</label></th>
+                                    <th class="input"><input class="form-control" type="text" id="name" name="name" placeholder="" value="<%= place.name %>"></th>
+                                </tr>
+                                <tr>
+                                    <th class="label"><label class="label" for="description">Description</label></th>
+                                    <th class="input"><input class="form-control" type="text" id="description" name="description" placeholder="" value="<%= place.description %>"></th>
+                                </tr>
+                                <tr>
+                                    <th class="label"><label class="label" for="website">Website</label></th>
+                                    <th class="input"><input class="form-control" type="text" id="website" name="website" placeholder="" value="<%= place.website %>"></th>
+                                </tr>
+                                <tr>
+                                    <th class="label"><label class="label" for="phone">Phone</label></th>
+                                    <th class="input"><input class="form-control" type="text" id="phone" name="phone" placeholder="" value="<%= place.phone %>"></th>
+                                </tr>
+                                <tr>
+                                    <th class="label"><label class="label" for="email">Email</label></th>
+                                    <th class="input"><input class="form-control" type="text" id="email" name="email" placeholder="" value="<%= place.email %>"></th>
+                                </tr>
+                                <tr>
+                                    <th class="label"><label class="label" for="imageURL">Card Image</label></th>
+                                    <th class="input"><input class="form-control" type="text" id="imageURL" name="imageURL" placeholder="" value="<%= place.images.card_img %>"></th>
+                                </tr>
+                                <tr>
+                                    <th class="label"><label class="label" for="slug">Slug</label></th>
+                                    <th class="input"><input class="form-control" type="text" id="slug" name="slug" placeholder="" value="<%= place.slug %>"></th>
+                                </tr>
+                                <tr>
+                                    <th class="label"><label class="label" for="category">Categories</label></th>
+                                    <th class="input"><input class="form-control" type="text" id="category" name="category" placeholder="e.g. restaurant, cafe, italian, pizza" value="<%= place.category.join(', ') %>">
+                                    </th>
+                                </tr>
+                            </table>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="col-lg-6 col-md-12 col-sm-12">
+                <h4 class="">Location</h4>
+                <div class="card paper-box">
+                    <div class="content card-body">
+
+                        <table>
+                            <tr>
+                                <th class="label"><label class="label" for="single_line_address">Address</label></th>
+                                <th class="input"><input class="form-control" type="text" id="single_line_address" name="single_line_address" placeholder="" value="<%= place.single_line_address %>"></th>
+                            </tr>
+                            <tr>
+                                <th class="label"><label class="label" for="latitude">Latitude</label></th>
+                                <th class="input"><input class="form-control" type="text" id="latitude" name="latitude" placeholder="" value="<%= place.latitude %>"></th>
+                            </tr>
+                            <tr>
+                                <th class="label"><label class="label" for="longitude">Longitude</label></th>
+                                <th class="input"><input class="form-control" type="text" id="longitude" name="longitude" placeholder="" value="<%= place.longitude %>"></th>
+                            </tr>
+                            <tr>
+                                <th class="label"><label class="label" for="street">Street</label></th>
+                                <th class="input"><input class="form-control" type="text" id="street" name="street" placeholder="" value="<%= place.street %>"></th>
+                            </tr>
+                            <tr>
+                                <th class="label"><label class="label" for="city">City</label></th>
+                                <th class="input"><input class="form-control" type="text" id="city" name="city" placeholder="" value="<%= place.city %>"></th>
+                            </tr>
+                            <tr>
+                                <th class="label"><label class="label" for="postcode">Postcode</label></th>
+                                <th class="input"><input class="form-control" type="text" id="postcode" name="postcode" placeholder="" value="<%= place.postcode %>"></th>
+                            </tr>
+                            <tr>
+                                <th class="label"><label class="label" for="country">Country</label></th>
+                                <th class="input"><input class="form-control" type="text" id="country" name="country" placeholder="" value="<%= place.country %>"></th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6 col-md-12 col-sm-12">
+                <h4 class="">Integrations</h4>
+                <div class="card paper-box">
+                    <div class="content card-body">
+                            <table>
+                                <tr>
+                                    <th class="label"><label class="label" for="muid">Apple ID</label></th>
+                                    <th class="input"><input class="form-control" type="text" id="muid" name="muid" placeholder="" value="<%= place.apple_id %>"></th>
+                                </tr>
+                                <tr>
+                                    <th class="label"><label class="label" for="_wpURL">Apple Card</label></th>
+                                    <th class="input"><input class="form-control" type="text" id="_wpURL" name="_wpURL" placeholder="" value="<%= place.apple_card %>"></th>
+                                </tr>
+                                <tr>
+                                    <th class="label"><label class="label" for="googlePlaceID">Google ID</label></th>
+                                    <th class="input"><input class="form-control" type="text" id="googlePlaceID" name="googlePlaceID" placeholder="" value="<%= place.google_id %>"></th>
+                                </tr>
+                                <tr>
+                                    <th class="label"><label class="label" for="fbPlaceID">Facebook ID</label></th>
+                                    <th class="input"><input class="form-control" type="text" id="fbPlaceID" name="fbPlaceID" placeholder="" value="<%= place.fb_id %>"></th>
+                                </tr>
+                            </table>
+                    </div>
+                </div>
+            </div>
+  
+            
+            <div class="col-lg-6 col-md-12 col-sm-12">
+                <h4 class="">Services</h4>
+                <div class="card paper-box">
+                    <div class="content card-body">
+                            <table>
+                                <tr>
+                                    <th class="label"><label class="label" for="menu_link">Menu Link</label></th>
+                                    <th class="input"><input class="form-control" type="text" id="menu_link" name="menu_link" placeholder="" value="<%= place.menu_link %>"></th>
+                                </tr>
+                                <tr>
+                                    <th class="label"><label class="label" for="kids_menu_link">Kids Menu Link</label></th>
+                                    <th class="input"><input class="form-control" type="text" id="kids_menu_link" name="kids_menu_link" placeholder="" value="<%= place.kids_menu_link %>"></th>
+                                </tr>
+                            </table>     
+                            <div class="items">
+                                <input class="checkbox" id="reservations" name="reservations" value="yes" type="checkbox" <% if (place.reservations) { %> checked <% } %>>
+                                <label class="checkbox_label" for="reservations">Takes bookings</label>
+                                
+                                <input class="checkbox" id="licenced" name="licenced" value="yes" type="checkbox" <% if (place.licenced) { %> checked <% } %>>
+                                <label class="checkbox_label" for="licenced">Licenced</label>
+                                
+                                <input class="checkbox" id="work_friendly" name="work_friendly" value="yes" type="checkbox" <% if (place.work_friendly) { %> checked <% } %>>
+                                <label class="checkbox_label" for="work_friendly">Work Friendly</label>
+                                
+                                <input class="checkbox" id="onsite_cafe_restaurant" name="onsite_cafe_restaurant" value="yes" type="checkbox" <% if (place.onsite_cafe_restaurant) { %> checked <% } %>>
+                                <label class="checkbox_label" for="onsite_cafe_restaurant">Onsite Cafe/Restaurant</label>
+                                
+                                <input class="checkbox" id="table_service" name="table_service" value="yes" type="checkbox" <% if (place.table_service) { %> checked <% } %>>
+                                <label class="checkbox_label" for="table_service">Table Service</label>
+                                
+                                <input class="checkbox" id="delivery" name="delivery" value="yes" type="checkbox" <% if (place.delivery) { %> checked <% } %>>
+                                <label class="checkbox_label" for="delivery">Delivery</label>
+                                
+                                <input class="checkbox" id="pickup" name="pickup" value="yes" type="checkbox" <% if (place.pickup) { %> checked <% } %>>
+                                <label class="checkbox_label" for="pickup">Collection</label>
+                                
+                                <input class="checkbox" id="takeout" name="takeout" value="yes" type="checkbox" <% if (place.takeout) { %> checked <% } %>>
+                                <label class="checkbox_label" for="takeout">Takeout</label>
+                                
+                                <input class="checkbox" id="walk_ins" name="walk_ins" value="yes" type="checkbox" <% if (place.walk_ins) { %> checked <% } %>>
+                                <label class="checkbox_label" for="walk_ins">Walk-Ins</label>
+
+                                <input class="checkbox" id="walk_ins_only" name="walk_ins_only" value="yes" type="checkbox" <% if (place.walk_ins_only) { %> checked <% } %>>
+                                <label class="checkbox_label" for="walk_ins_only">Walk-Ins Only</label>                                
+                                
+                                <input class="checkbox" id="customer_toilets" name="customer_toilets" value="yes" type="checkbox" <% if (place.customer_toilets) { %> checked <% } %>>
+                                <label class="checkbox_label" for="customer_toilets">Customer Toilets</label>       
+                                
+                                <input class="checkbox" id="gift_vouchers" name="gift_vouchers" value="yes" type="checkbox" <% if (place.gift_vouchers) { %> checked <% } %>>
+                                <label class="checkbox_label" for="gift_vouchers">Gift Vouchers Available</label>
+                                
+                                <input class="checkbox" id="venue_hire" name="venue_hire" value="yes" type="checkbox" <% if (place.venue_hire) { %> checked <% } %>>
+                                <label class="checkbox_label" for="venue_hire">Venue Hire</label>
+                            </div> 
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6 col-md-12 col-sm-12">
+                <h4 class="">Baby Change</h4>
+                <div class="card paper-box">
+                    <div class="content card-body">
+                         <!--<h6 class="">Baby Change:</h6>-->
+                          <div class="items">
+                            <input class="checkbox" id="baby_change_ladies" name="baby_change_ladies" value="yes" type="checkbox" <% if (place.baby_change.ladies) { %> checked <% } %>>
+                            <label class="checkbox_label" for="baby_change_ladies">Ladies</label>
+                        
+                            <input class="checkbox" id="baby_change_gents" name="baby_change_gents" value="yes" type="checkbox" <% if (place.baby_change.gents) { %> checked <% } %>>
+                            <label class="checkbox_label" for="baby_change_gents">Gents</label>
+                            
+                            <input class="checkbox" id="baby_change_unisex" name="baby_change_unisex" value="yes" type="checkbox" <% if (place.baby_change.unisex) { %> checked <% } %>>
+                            <label class="checkbox_label" for="baby_change_unisex">Unisex</label>
+                            
+                            <input class="checkbox" id="baby_change_disabled" name="baby_change_disabled" value="yes" type="checkbox" <% if (place.baby_change.disabled) { %> checked <% } %>>
+                            <label class="checkbox_label" for="baby_change_disabled">Disabled</label>
+                            
+                            <input class="checkbox" id="baby_change_room" name="baby_change_room" value="yes" type="checkbox" <% if (place.baby_change.room) { %> checked <% } %>>
+                            <label class="checkbox_label" for="baby_change_room">Changing room</label>
+                            
+                            <input class="checkbox" id="baby_change_free_nappy" name="baby_change_free_nappy" value="yes" type="checkbox" <% if (place.baby_change.free_nappy) { %> checked <% } %>>
+                            <label class="checkbox_label" for="baby_change_free_nappy">Free Nappies</label>
+                          </div>
+                    </div>
+                </div>
+            </div> 
+            
+            <div class="col-lg-6 col-md-12 col-sm-12">
+                <h4 class="">Transport</h4>
+                <div class="card paper-box">
+                    <div class="content card-body">
+                        <!--<h6 class="">Baby Change:</h6>-->
+                          <div class="items">
+                            <input class="checkbox" id="parking_onsite" name="parking_onsite" value="yes" type="checkbox" <% if (place.parking.onsite) { %> checked <% } %>>
+                            <label class="checkbox_label" for="parking_onsite">Onsite Parking</label>
+                            
+                            <input class="checkbox" id="parking_nearby" name="parking_nearby" value="yes" type="checkbox" <% if (place.parking.nearby) { %> checked <% } %>>
+                            <label class="checkbox_label" for="parking_nearby">Nearby Parking</label>
+                            
+                            <input class="checkbox" id="parking_free" name="parking_free" value="yes" type="checkbox" <% if (place.parking.free) { %> checked <% } %>>
+                            <label class="checkbox_label" for="parking_free">Free Parking</label>
+                            
+                            <input class="checkbox" id="parent_and_child" name="parent_and_child" value="yes" type="checkbox" <% if (place.parking.parent_and_child) { %> checked <% } %>>
+                            <label class="checkbox_label" for="parent_and_child">Parent & Child Spaces</label>
+                            
+                            <input class="checkbox" id="close_transport" name="close_transport" value="yes" type="checkbox" <% if (place.close_transport) { %> checked <% } %>>
+                            <label class="checkbox_label" for="close_transport">Nearby Transport</label>                            
+                          </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6 col-md-12 col-sm-12">
+                <h4 class="">Buggies</h4>
+                <div class="card paper-box">
+                    <div class="content card-body">
+                        <!--<h6 class="">Baby Change:</h6>-->
+                          <div class="items">
+                            <input class="checkbox" id="buggy_access" name="buggy_access" value="yes" type="checkbox" <% if (place.buggy.access) { %> checked <% } %>>
+                            <label class="checkbox_label" for="buggy_access">Good Access</label>
+                            
+                            <input class="checkbox" id="buggy_space_for" name="buggy_space_for" value="yes" type="checkbox" <% if (place.buggy.space_for) { %> checked <% } %>>
+                            <label class="checkbox_label" for="buggy_space_for">Plenty of Space</label>
+                            
+                            <input class="checkbox" id="buggy_store" name="buggy_store" value="yes" type="checkbox" <% if (place.buggy.store) { %> checked <% } %>>
+                            <label class="checkbox_label" for="buggy_store">Storage Area</label>
+                          </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6 col-md-12 col-sm-12">
+                <h4 class="">Specialities</h4>
+                <div class="card paper-box">
+                    <div class="content card-body">
+                            <table>
+                                <tr>
+                                    <th class="label"><label class="label" for="cuisine">Cuisine</label></th>
+                                    <th class="input"><input class="form-control" type="text" id="cuisine" name="cuisine" placeholder="e.g. chinese, thai, british " value="<%= place.cuisine.join(', ') %>"></th>
+                                </tr>
+                                <tr>
+                                    <th class="label"><label class="label" for="special_notes">Special Notes</label></th>
+                                    <th class="input"><input class="form-control" type="text" id="special_notes" name="special_notes" placeholder="" value="<%= place.special_notes %>"></th>
+                                </tr>
+                            </table>     
+                            <h6 class="">Meal Types</h6>
+                            <div class="items">
+                                <input class="checkbox" id="breakfast" name="breakfast" value="yes" type="checkbox" <% if (place.meal_type.breakfast) { %> checked <% } %>>
+                                <label class="checkbox_label" for="breakfast">Breakfast</label>
+                                
+                                <input class="checkbox" id="lunch" name="lunch" value="yes" type="checkbox" <% if (place.meal_type.lunch) { %> checked <% } %>>
+                                <label class="checkbox_label" for="lunch">Lunch</label>
+                                
+                                <input class="checkbox" id="dinner" name="dinner" value="yes" type="checkbox" <% if (place.meal_type.dinner) { %> checked <% } %>>
+                                <label class="checkbox_label" for="dinner">Dinner</label>
+                                
+                                <input class="checkbox" id="coffee" name="coffee" value="yes" type="checkbox" <% if (place.meal_type.coffee) { %> checked <% } %>>
+                                <label class="checkbox_label" for="coffee">Coffee</label>
+                                
+                                <input class="checkbox" id="drinks" name="drinks" value="yes" type="checkbox" <% if (place.meal_type.drinks) { %> checked <% } %>>
+                                <label class="checkbox_label" for="drinks">Drinks</label>
+                                
+                                <input class="checkbox" id="treats" name="treats" value="yes" type="checkbox" <% if (place.meal_type.treats) { %> checked <% } %>>
+                                <label class="checkbox_label" for="treats">Treats</label>
+                            </div> 
+                            <h6 class="">Food</h6>
+                            <div class="items">
+                                <input class="checkbox" id="vegetarian_options" name="vegetarian_options" value="yes" type="checkbox" <% if (place.vegetarian_options) { %> checked <% } %>>
+                                <label class="checkbox_label" for="vegetarian_options">Vegetarian Options</label>
+                                
+                                <input class="checkbox" id="vegan_options" name="vegan_options" value="yes" type="checkbox" <% if (place.vegan_options) { %> checked <% } %>>
+                                <label class="checkbox_label" for="vegan_options">Vegan Options</label>
+                                
+                                <input class="checkbox" id="healthy_options" name="healthy_options" value="yes" type="checkbox" <% if (place.healthy_options) { %> checked <% } %>>
+                                <label class="checkbox_label" for="healthy_options">Healthy Options</label>
+                                
+                                <input class="checkbox" id="organic_options" name="organic_options" value="yes" type="checkbox" <% if (place.organic_options) { %> checked <% } %>>
+                                <label class="checkbox_label" for="organic_options">Organic Options</label>
+                                
+                                <input class="checkbox" id="halal_options" name="halal_options" value="yes" type="checkbox" <% if (place.halal_options) { %> checked <% } %>>
+                                <label class="checkbox_label" for="halal_options">Halal Options</label>
+                                
+                                <input class="checkbox" id="great_coffee" name="great_coffee" value="yes" type="checkbox" <% if (place.great_coffee) { %> checked <% } %>>
+                                <label class="checkbox_label" for="great_coffee">Great Coffee</label>
+                                
+                                <input class="checkbox" id="great_cake" name="great_cake" value="yes" type="checkbox" <% if (place.great_cake) { %> checked <% } %>>
+                                <label class="checkbox_label" for="great_cake">Great Cake</label>
+                                
+                                <input class="checkbox" id="snacks_available" name="snacks_available" value="yes" type="checkbox" <% if (place.snacks_available) { %> checked <% } %>>
+                                <label class="checkbox_label" for="snacks_available">Snacks Available</label>
+                            </div> 
+                            <h6 class="">Allergies</h6>
+                            <div class="items">
+                                <input class="checkbox" id="friendly" name="allergy_friendly" value="yes" type="checkbox" <% if (place.allergy.friendly) { %> checked <% } %>>
+                                <label class="checkbox_label" for="friendly">Allergy Friendly</label>
+                                
+                                <input class="checkbox" id="gluten" name="gluten" value="yes" type="checkbox" <% if (place.allergy.gluten) { %> checked <% } %>>
+                                <label class="checkbox_label" for="gluten">Gluten</label>
+                                
+                                <input class="checkbox" id="nut" name="nut" value="yes" type="checkbox" <% if (place.allergy.nut) { %> checked <% } %>>
+                                <label class="checkbox_label" for="nut">Nut</label>
+                                
+                                <input class="checkbox" id="dairy" name="dairy" value="yes" type="checkbox" <% if (place.allergy.dairy) { %> checked <% } %>>
+                                <label class="checkbox_label" for="dairy">Dairy</label>
+                                
+                                <input class="checkbox" id="eggs" name="eggs" value="yes" type="checkbox" <% if (place.allergy.eggs) { %> checked <% } %>>
+                                <label class="checkbox_label" for="eggs">Eggs</label>
+                            </div> 
+                            <table>
+                                <tr>
+                                    <th class="label"><label class="label" for="allergy_notes">Allergy Notes</label></th>
+                                    <th class="input"><input class="form-control" type="text" id="allergy_notes" name="allergy_notes" placeholder="" value="<%= place.allergy.special_notes %>"></th>
+                                </tr>
+                            </table>     
+                    </div>
+                </div>
+            </div>  
+            <div class="col-lg-6 col-md-12 col-sm-12">
+                <h4 class="">Size</h4>
+                <div class="card paper-box">
+                    <div class="content card-body">
+                        <!--<h6 class="">Baby Change:</h6>-->
+                          <div class="items">
+                            <input class="checkbox" id="lots_of_space" name="lots_of_space" value="yes" type="checkbox" <% if (place.lots_of_space) { %> checked <% } %>>
+                            <label class="checkbox_label" for="lots_of_space">Lots of Space</label>
+                            
+                            <input class="checkbox" id="group_friendly" name="group_friendly" value="yes" type="checkbox" <% if (place.group_friendly) { %> checked <% } %>>
+                            <label class="checkbox_label" for="group_friendly">Group Friendly</label>
+                            
+                            <input class="checkbox" id="large_group_space" name="large_group_space" value="yes" type="checkbox" <% if (place.large_group_space) { %> checked <% } %>>
+                            <label class="checkbox_label" for="large_group_space">Large Group Space</label>
+                          </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6 col-md-12 col-sm-12">
+                <h4 class="">Facilities</h4>
+                <div class="card paper-box">
+                    <div class="content card-body">
+                            <h6 class="">Breastfeeding</h6>
+                            <div class="items">
+                                <input class="checkbox" id="breastfeeding_friendly" name="breastfeeding_friendly" value="yes" type="checkbox" <% if (place.breastfeeding.friendly) { %> checked <% } %>>
+                                <label class="checkbox_label" for="breastfeeding_friendly">Friendly</label>
+                                
+                                <input class="checkbox" id="breastfeeding_discreet" name="breastfeeding_discreet" value="yes" type="checkbox" <% if (place.breastfeeding.discreet) { %> checked <% } %>>
+                                <label class="checkbox_label" for="breastfeeding_discreet">Discreet</label>
+                                
+                                <input class="checkbox" id="breastfeeding_no_purchase_req" name="breastfeeding_no_purchase_req" value="yes" type="checkbox" <% if (place.breastfeeding.no_purchase_req) { %> checked <% } %>>
+                                <label class="checkbox_label" for="breastfeeding_no_purchase_req">No Purchase Required</label>
+                                
+                                <input class="checkbox" id="breastfeeding_feeding_room" name="breastfeeding_feeding_room" value="yes" type="checkbox" <% if (place.breastfeeding.feeding_room) { %> checked <% } %>>
+                                <label class="checkbox_label" for="breastfeeding_feeding_room">Feeding Room</label>
+                            </div> 
+                            <h6 class="">Equipment</h6>
+                            <div class="items">
+                                <input class="checkbox" id="highchairs_available" name="highchairs_available" value="yes" type="checkbox" <% if (place.highchairs.available) { %> checked <% } %>>
+                                <label class="checkbox_label" for="highchairs_available">Highchairs Available</label>
+                                
+                                <input class="checkbox" id="highchairs_lots" name="highchairs_lots" value="yes" type="checkbox" <% if (place.highchairs.lots) { %> checked <% } %>>
+                                <label class="checkbox_label" for="highchairs_lots">Lots of Highchairs</label>
+                                
+                                <input class="checkbox" id="kids_menu" name="kids_menu" value="yes" type="checkbox" <% if (place.kids_menu) { %> checked <% } %>>
+                                <label class="checkbox_label" for="kids_menu">Kids Menu</label>
+                                
+                                <input class="checkbox" id="kids_utensils" name="kids_utensils" value="yes" type="checkbox" <% if (place.kids_utensils) { %> checked <% } %>>
+                                <label class="checkbox_label" for="kids_utensils">Kids Utensils</label>
+                            </div> 
+                            <h6 class="">BYO Infant Food</h6>
+                            <div class="items">
+                                <input class="checkbox" id="BYO_allowed" name="BYO_allowed" value="yes" type="checkbox" <% if (place.BYO_infant_food.allowed) { %> checked <% } %>>
+                                <label class="checkbox_label" for="BYO_allowed">Allowed</label>
+                                
+                                <input class="checkbox" id="BYO_microwave" name="BYO_microwave" value="yes" type="checkbox" <% if (place.BYO_infant_food.microwave) { %> checked <% } %>>
+                                <label class="checkbox_label" for="BYO_microwave">Microwave</label>
+                                
+                                <input class="checkbox" id="BYO_bottle_warmer" name="BYO_bottle_warmer" value="yes" type="checkbox" <% if (place.BYO_infant_food.bottle_warmer) { %> checked <% } %>>
+                                <label class="checkbox_label" for="BYO_bottle_warmer">Bottle Warmer</label>
+                            </div> 
+                            <h6 class="">Play</h6>
+                            <div class="items">
+                                <input class="checkbox" id="play_indoor" name="play_indoor" value="yes" type="checkbox" <% if (place.play.indoor) { %> checked <% } %>>
+                                <label class="checkbox_label" for="play_indoor">Indoor</label>
+                                
+                                <input class="checkbox" id="play_outdoor" name="play_outdoor" value="yes" type="checkbox" <% if (place.play.outdoor) { %> checked <% } %>>
+                                <label class="checkbox_label" for="play_outdoor">Outdoor</label>
+                                
+                                <input class="checkbox" id="play_toys" name="play_toys" value="yes" type="checkbox" <% if (place.play.toys) { %> checked <% } %>>
+                                <label class="checkbox_label" for="play_toys">Toys</label>
+                                
+                                <input class="checkbox" id="play_colouring" name="play_colouring" value="yes" type="checkbox" <% if (place.play.colouring) { %> checked <% } %>>
+                                <label class="checkbox_label" for="play_colouring">Colouring</label>
+                                
+                                <input class="checkbox" id="play_soft" name="play_soft" value="yes" type="checkbox" <% if (place.play.soft) { %> checked <% } %>>
+                                <label class="checkbox_label" for="play_soft">Soft</label>
+                                
+                                <input class="checkbox" id="play_creche" name="play_creche" value="yes" type="checkbox" <% if (place.play.creche) { %> checked <% } %>>
+                                <label class="checkbox_label" for="play_creche">Creche</label>
+                            </div> 
+                            <h6 class="">Seating</h6>
+                            <div class="items">
+                                <input class="checkbox" id="seating_indoor" name="seating_indoor" value="yes" type="checkbox" <% if (place.seating.indoor) { %> checked <% } %>>
+                                <label class="checkbox_label" for="seating_indoor">Indoor</label>
+                                
+                                <input class="checkbox" id="seating_outdoor" name="seating_outdoor" value="yes" type="checkbox" <% if (place.seating.outdoor) { %> checked <% } %>>
+                                <label class="checkbox_label" for="seating_outdoor">Outdoor</label>
+                                
+                                <input class="checkbox" id="picnic" name="picnic" value="yes" type="checkbox" <% if (place.seating.picnic) { %> checked <% } %>>
+                                <label class="checkbox_label" for="picnic">Picnic</label>
+                                
+                                <input class="checkbox" id="party_size" name="party_size" value="yes" type="checkbox" <% if (place.seating.party_size) { %> checked <% } %>>
+                                <label class="checkbox_label" for="party_size">Party Size</label>
+                                
+                                <input class="checkbox" id="fifty_plus_seats" name="fifty_plus_seats" value="yes" type="checkbox" <% if (place.seating.fifty_plus_seats) { %> checked <% } %>>
+                                <label class="checkbox_label" for="fifty_plus_seats">50+ Seats</label>
+                            </div> 
+                            <h6 class="">Dogs</h6>
+                            <div class="items">
+                                <input class="checkbox" id="dog_friendly" name="dog_friendly" value="yes" type="checkbox" <% if (place.dog.friendly) { %> checked <% } %>>
+                                <label class="checkbox_label" for="dog_friendly">Dog Friendly</label>
+                                
+                                <input class="checkbox" id="dog_water" name="dog_water" value="yes" type="checkbox" <% if (place.dog.water) { %> checked <% } %>>
+                                <label class="checkbox_label" for="dog_water">Water</label>
+                                
+                                <input class="checkbox" id="dog_inside" name="dog_inside" value="yes" type="checkbox" <% if (place.dog.inside) { %> checked <% } %>>
+                                <label class="checkbox_label" for="dog_inside">Allowed Inside</label>
+                                
+                                <input class="checkbox" id="dog_outside" name="dog_outside" value="yes" type="checkbox" <% if (place.dog.outside) { %> checked <% } %>>
+                                <label class="checkbox_label" for="dog_outside">Allowed Outside</label>
+                                
+                                <input class="checkbox" id="dog_restricted" name="dog_restricted" value="yes" type="checkbox" <% if (place.dog.restricted) { %> checked <% } %>>
+                                <label class="checkbox_label" for="dog_restricted">Restricted</label>
+                                
+                                <input class="checkbox" id="dog_walks" name="dog_walks" value="yes" type="checkbox" <% if (place.dog.good_walks) { %> checked <% } %>>
+                                <label class="checkbox_label" for="dog_walks">Good Walks Nearby</label>
+                            </div> 
+                                
+                            <input class="checkbox" id="wifi" name="wifi" value="yes" type="checkbox" <% if (place.wifi) { %> checked <% } %>>
+                            <label class="checkbox_label" for="wifi">Wifi</label>
+                            <table>
+                                <tr>
+                                    <th class="label"><label class="label" for="other_facilities">Other Facilities</label></th>
+                                    <th class="input"><input class="form-control" type="text" id="other_facilities" name="other_facilities" placeholder="e.g. something, something else" value="<%= place.other_facilities.join(', ') %>"></th>
+                                </tr>
+                                <tr>
+                                    <th class="label"><label class="label" for="dog_restrictions">Dog Restrictions</label></th>
+                                    <th class="input"><input class="form-control" type="text" id="dog_restrictions" name="dog_restrictions" placeholder="" value="<%= place.dog.restrictions %>"></th>
+                                </tr>
+                          </table>
+                            </table>  
+                    </div>
+                </div>
+            </div>  
+            
+            <div class="col-lg-6 col-md-12 col-sm-12">
+                <h4 class="">Disability</h4>
+                <div class="card paper-box">
+                    <div class="content card-body">
+                        <!--<h6 class="">Baby Change:</h6>-->
+                          <div class="items">
+                            <input class="checkbox" id="disability_friendly" name="disability_friendly" value="yes" type="checkbox" <% if (place.disability.friendly) { %> checked <% } %>>
+                            <label class="checkbox_label" for="disability_friendly">Friendly</label>
+                            
+                            <input class="checkbox" id="disability_access" name="disability_access" value="yes" type="checkbox" <% if (place.disability.access) { %> checked <% } %>>
+                            <label class="checkbox_label" for="disability_access">Access</label>
+                            
+                            <input class="checkbox" id="disability_spacious" name="disability_spacious" value="yes" type="checkbox" <% if (place.disability.spacious) { %> checked <% } %>>
+                            <label class="checkbox_label" for="disability_spacious">Spacious</label>
+                            
+                            <input class="checkbox" id="disability_parking" name="disability_parking" value="yes" type="checkbox" <% if (place.disability.parking) { %> checked <% } %>>
+                            <label class="checkbox_label" for="disability_parking">Parking</label>
+                            
+                            <input class="checkbox" id="disability_toilet" name="disability_toilet" value="yes" type="checkbox" <% if (place.disability.toilet) { %> checked <% } %>>
+                            <label class="checkbox_label" for="disability_toilet">Toilet</label>
+                            
+                            <input class="checkbox" id="disability_induction_loop" name="disability_induction_loop" value="yes" type="checkbox" <% if (place.disability.induction_loop) { %> checked <% } %>>
+                            <label class="checkbox_label" for="disability_induction_loop">Induction Loop</label>
+                            
+                            <input class="checkbox" id="disability_ir_induction_loop" name="disability_ir_induction_loop" value="yes" type="checkbox" <% if (place.disability.ir_induction_loop) { %> checked <% } %>>
+                            <label class="checkbox_label" for="disability_ir_induction_loop">IR Induction Loop</label>
+                            
+                            <input class="checkbox" id="disability_braille" name="disability_braille" value="yes" type="checkbox" <% if (place.disability.braille) { %> checked <% } %>>
+                            <label class="checkbox_label" for="disability_braille">Braille</label>
+                            
+                            <input class="checkbox" id="disability_autism" name="disability_autism" value="yes" type="checkbox" <% if (place.disability.autism) { %> checked <% } %>>
+                            <label class="checkbox_label" for="disability_autism">Autism Friendly</label>
+                          </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-12 col-sm-12">
+                <h4 class="">Good For</h4>
+                <div class="card paper-box">
+                    <div class="content card-body">
+                        <!--<h6 class="">Baby Change:</h6>-->
+                          <div class="items">
+                            <input class="checkbox" id="good_for_play" name="good_for_play" value="yes" type="checkbox" <% if (place.good_for.play) { %> checked <% } %>>
+                            <label class="checkbox_label" for="good_for_play">Play</label>
+                            
+                            <input class="checkbox" id="good_for_party" name="good_for_party" value="yes" type="checkbox" <% if (place.good_for.party) { %> checked <% } %>>
+                            <label class="checkbox_label" for="good_for_party">Party</label>
+                            
+                            <input class="checkbox" id="good_for_large_groups" name="good_for_large_groups" value="yes" type="checkbox" <% if (place.good_for.large_groups) { %> checked <% } %>>
+                            <label class="checkbox_label" for="good_for_large_groups">Large Groups</label>
+                            
+                            <input class="checkbox" id="good_for_supervised_visits" name="good_for_supervised_visits" value="yes" type="checkbox" <% if (place.good_for.supervised_visits) { %> checked <% } %>>
+                            <label class="checkbox_label" for="good_for_supervised_visits">Supervised Visits</label>
+
+                            <input class="checkbox" id="good_for_food_service" name="good_for_food_service" value="yes" type="checkbox" <% if (place.good_for.food) { %> checked <% } %>>
+                            <label class="checkbox_label" for="good_for_food_service">Food</label>
+                            
+                            <input class="checkbox" id="good_for_nappy_change_facilities" name="good_for_nappy_change_facilities" value="yes" type="checkbox" <% if (place.good_for.nappy_change) { %> checked <% } %>>
+                            <label class="checkbox_label" for="good_for_nappy_change_facilities">Nappy Change Facilities</label>                            
+                          </div>
+                          <h6 class="">Age Groups:</h6>
+                          <div class="items">
+                            <input class="checkbox" id="age_group_newborn" name="age_group_newborn" value="yes" type="checkbox" <% if (place.good_for.age_goup.newborn) { %> checked <% } %>>
+                            <label class="checkbox_label" for="age_group_newborn">Newborn</label>
+                            
+                            <input class="checkbox" id="age_group_baby" name="age_group_baby" value="yes" type="checkbox" <% if (place.good_for.age_goup.baby) { %> checked <% } %>>
+                            <label class="checkbox_label" for="age_group_baby">Baby</label>
+                            
+                            <input class="checkbox" id="age_group_toddler" name="age_group_toddler" value="yes" type="checkbox" <% if (place.good_for.age_goup.toddler) { %> checked <% } %>>
+                            <label class="checkbox_label" for="age_group_toddler">Toddler</label>
+                            
+                            <input class="checkbox" id="age_group_pre_school" name="age_group_pre_school" value="yes" type="checkbox" <% if (place.good_for.age_goup.pre_school) { %> checked <% } %>>
+                            <label class="checkbox_label" for="age_group_pre_school">Pre-school</label>
+                            
+                            <input class="checkbox" id="age_group_school" name="age_group_school" value="yes" type="checkbox" <% if (place.good_for.age_goup.school) { %> checked <% } %>>
+                            <label class="checkbox_label" for="age_group_school">School</label>                            
+                          </div>
+                        </div>
+                    </div>
+                </div>  
+                
+                <div class="col-lg-6 col-md-12 col-sm-12">
+                <h4 class="">Flags</h4>
+                <div class="card paper-box">
+                    <div class="content card-body">
+                        <!--<h6 class="">Baby Change:</h6>-->
+                          <div class="items">
+                            <input class="checkbox" id="permanently_closed" name="permanently_closed" value="yes" type="checkbox" <% if (place.permanently_closed) { %> checked <% } %>>
+                            <label class="checkbox_label" for="permanently_closed">Permanently Closed</label>
+                            
+                            <input class="checkbox" id="temporarily_closed" name="temporarily_closed" value="yes" type="checkbox" <% if (place.temporarily_closed) { %> checked <% } %>>
+                            <label class="checkbox_label" for="temporarily_closed">Temporarily Closed</label>
+                            
+                            <input class="checkbox" id="kid_friendly" name="kid_friendly" value="yes" type="checkbox" <% if (place.kid_friendly) { %> checked <% } %>>
+                            <label class="checkbox_label" for="kid_friendly">Kid Friendly</label>
+                            
+                            <input class="checkbox" id="not_for_kids" name="not_for_kids" value="yes" type="checkbox" <% if (place.not_for_kids) { %> checked <% } %>>
+                            <label class="checkbox_label" for="not_for_kids">Not for Kids</label>
+                            
+                            <input class="checkbox" id="verified_by_owner" name="verified_by_owner" value="yes" type="checkbox" <% if (place.verified_by_owner) { %> checked <% } %>>
+                            <label class="checkbox_label" for="verified_by_owner">Verified By Owner</label> 
+                          </div>
+                          <table>
+                                <tr>
+                                    <th class="label"><label class="label" for="kid_restrictions">Kid Restrictions</label></th>
+                                    <th class="input"><input class="form-control" type="text" id="kid_restrictions" name="kid_restrictions" placeholder="" value="<%= place.kid_restrictions %>"></th>
+                                </tr>
+                          </table>
+                    </div>
+                </div>
+            </div>
+                
+            
+            <div class="button">
+                <a class="btn lm-button cancel-button" onclick="goBack()" href="#">Cancel</a>
+                <button class="btn save-button lm-button" onclick="clearSession()">Save</button>
+            </div>
+
+        </form>
+      <div class="delete-button-container">  
+<button type="button" data-toggle="modal" data-target="#deleteModal" class="lm-button delete-button">Delete</button>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this Place?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn lm-button cancel-button" data-dismiss="modal">Cancel</button>
+                <form class="deleteForm" action="/places/<%= place._id %>?_method=DELETE" method="POST">
+                    <button class="lm-button delete-button">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
+
+
+<% include ../partials/footer %>

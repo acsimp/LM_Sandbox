@@ -1,25 +1,38 @@
-<% include ../partials/header %>
+<% include ../partials/header-top %>
 
-    <div class="row"></div>
-        <h1 class="mt-3" style="text-align:center">Add This Place:</h1>
-        <div style="width:30%; min-width:250px; margin: 25px auto; ">
+    <title>Add to Little Maven</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/form.css">
+
+<% include ../partials/header-bottom %>
+
+
+        <div class="row mt-5">
+
+ <div class="col-lg-3 col-md-2 col-sm-12"></div>
+            <div class="col-lg-6 col-md-8 col-sm-12">
+                <h5 class="boxTitle">Add This Place</h5>
+                <div class="card paper-box">
+                    <div class="content card-body">
+        <!--<div style="width:30%; min-width:320px; margin: 25px auto; ">-->
+           
+           <img class="mx-auto d-block mb-2" id="imageThumb" src= "" width="200">
            
            <form action="/places" method="POST">
                 <div class="form-group">
-                    <label class="label" for="name">Name</label>
+                    <!--<label class="label" for="name">Name</label>-->
                     <input class="form-control" type="text" id="name" name="name" placeholder="name" value="" readonly>
                 </div>
                 <div class="form-group">
-                    <label class="label" for="formattedAddress">Address</label>
+                    <!--<label class="label" for="formattedAddress">Address</label>-->
                     <input class="form-control" type="text" id ="formattedAddress" name="formattedAddress" placeholder="formattedAddress" value="" readonly>
                 </div>                
                 <!--<div class="form-group">-->
                 <!--    <label class="label" for="latitude">Latitude</label>-->
-                <!--    <input class="form-control" type="hidden" id="latitude" name="latitude" placeholder="latitude" value="" readonly>-->
+                <!--    <input class="form-control" type="text" id="latitude" name="latitude" placeholder="latitude" value="" readonly>-->
                 <!--</div>                -->
                 <!--<div class="form-group">-->
                 <!--    <label class="label" for="longitude">Longitude</label>-->
-                <!--    <input class="form-control" type="hidden" id="longitude" name="longitude" placeholder="longitude" value="" readonly>-->
+                <!--    <input class="form-control" type="text" id="longitude" name="longitude" placeholder="longitude" value="" readonly>-->
                 <!--</div>-->
                 <!--<div class="form-group">-->
                 <!--    <label class="label" for="_wpURL">Apple Card</label>-->
@@ -27,7 +40,7 @@
                 <!--</div>-->
                 <!--<div class="form-group">-->
                 <!--    <label class="label" for="muid">Apple Place ID</label>-->
-                <!--    <input class="form-control" type="hidden" id="muid" name="muid" placeholder="muid" value="" readonly>-->
+                <!--    <input class="form-control" type="text" id="muid" name="muid" placeholder="muid" value="" readonly>-->
                 <!--</div>                -->
                 <!--<div class="form-group">-->
                 <!--    <label class="label" for="googlePlaceID">Google Place ID</label>-->
@@ -41,46 +54,61 @@
                     <input class="form-control" type="hidden" id="latitude" name="latitude" placeholder="latitude" value="" readonly>
                     <input class="form-control" type="hidden" id="longitude" name="longitude" placeholder="longitude" value="" readonly>
                     <input class="form-control" type="hidden" id="fbPlaceID" name="fbPlaceID" placeholder="*No Facebook Place was found or selected" value="" readonly>
-                    <input class="form-control" type="hidden" id="fbPlaceID" name="fbPlaceID" placeholder="*No Facebook Place was found or selected" value="" readonly>
+                    <input class="form-control" type="hidden" id="googlePlaceID" name="googlePlaceID" placeholder="*No Google Place was found or selected" value="" readonly>
                     <input class="form-control" type="hidden" id="muid" name="muid" placeholder="muid" value="" readonly>
                     <input class="form-control" type="hidden" id="_wpURL" name="_wpURL" placeholder="_wpURL" value="" readonly>
+                    <input class="form-control" type="hidden" id="categories" name="categories" placeholder="categories" value="" readonly>
             
             
-                      <img class="" id="imageThumb" src= "" width="300">
+                      
                 
-                <div class="form-group">
-                    <label class="label" for="imageURL">Image URL</label>
-                    <input class="form-control" type="text" id="imageURL" name="imageURL" placeholder="*No image available" value="" readonly>
-                </div>
+                    <!--<label class="label" for="imageURL">Card Image URL - update this if it is missing or of poor quality</label>-->
+                    <label class="" for="imageURL">Card Image URL</label>
+                    <input class="form-control" type="text" id="imageURL" name="imageURL" placeholder="*No image available" value="" >
+                    <span class="body2"> <em>(update this if the above image is missing or of poor quality)</em></span>
+        </div>
+                            </div>
+                                            <div class="card paper-box">
+                    <div class="content card-body">
 
-
-                        <h5 class="text-uppercase text-info">Why should this place be in the database?</h5>
+                        <p class="subtitle1">Why add this place to Little Maven?</p>
    
                             <div class="items">
-                                <input class="checkbox" id="food_service" name="food_service" value="yes" type="checkbox">
-                                <label class="checkbox_label" for="food_service">Food</label>
+                                <input class="checkbox" id="good_for_food_service" name="good_for_food_service" value="yes" type="checkbox">
+                                <label class="checkbox_label" for="good_for_food_service">Food For Kids</label>
                                 
-                                <input class="checkbox" id="nappy_change_facilities" name="nappy_change_facilities" value="yes" type="checkbox">
-                                <label class="checkbox_label" for="nappy_change_facilities">Nappy Change Facilities</label>
+                                <input class="checkbox" id="good_for_nappy_change_facilities" name="good_for_nappy_change_facilities" value="yes" type="checkbox">
+                                <label class="checkbox_label" for="good_for_nappy_change_facilities">Nappy Changing Facilities</label>
                                 
+                                <input class="checkbox" id="good_for_play" name="good_for_play" value="yes" type="checkbox">
+                                <label class="checkbox_label" for="good_for_play">Good Play Facilities</label>
                             </div> 
 
 
-                <div class="form-group">
-                <button class="btn btn-lg btn-primary btn-block" onclick="clearSession()">Save</button>
-                </div>
+                 <div class="button">
+                <a class="btn lm-button cancel-button" href="/a-places/a-map">Cancel</a>
+                <button class="btn save-button lm-button" onclick="clearSession()">Save</button>
+            </div>
+            <div class="button">
+                <a onclick="goBack()" href="#">Go Back</a>
+            </div>
             </form>
            
            <p id="session"></p>
            
-            <a onclick="goBack()" href="#">Go Back</a>
+            
         </div>
+                            </div>
+                </div>
+                 <div class="col-lg-3 col-md-2 col-sm-12"></div>
+            </div>
         
         <script>
             var placeData = JSON.parse(sessionStorage.getItem('placeData'));
             var fbPlaceID = sessionStorage.getItem('fbPlaceID');
             var googlePlaceID = sessionStorage.getItem('googlePlaceID');
             var imageURL = sessionStorage.getItem('imageURL');
+            var categories = sessionStorage.getItem('categories');
 
             // sessionStorage.removeItem('placeData');
             $(document).ready(function() {
@@ -96,6 +124,9 @@
               if (fbPlaceID) {
                   $('#fbPlaceID').val(fbPlaceID);
               };
+              if (categories) {
+                  $('#categories').val(categories);
+              };
               if (imageURL) {
                   $('#imageURL').val(imageURL);
                   $('#imageThumb').attr({
@@ -109,6 +140,7 @@
                 sessionStorage.removeItem('fbPlaceID');
                 sessionStorage.removeItem('googlePlaceID');
                 sessionStorage.removeItem('imageURL');
+                sessionStorage.removeItem('categories');
             };  
             
 

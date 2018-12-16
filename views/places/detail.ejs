@@ -56,7 +56,7 @@
             <% }; %>
             <% } %>
             <p class="body2 sm-mb" id="categories"><%= typeof place.category !='undefined' && place.category !='' ? 
-            place.category : (typeof fb_place.category_list !='undefined' && fb_place.category_list !='' ? categories.substring(0, 70) + " ..." : '*no record') %></p>
+            place.category.join(', ').substring(0, 70) + " ..." : (typeof fb_place.category_list !='undefined' && fb_place.category_list !='' ? categories.substring(0, 70) + " ..." : '*no record') %></p>
             </p>
             
             
@@ -151,6 +151,7 @@
 
           <div id="map">
             <button id="mapScaleBtn" type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-sm btn-secondary"><i class="fas fa-expand pr-1"></i>Larger Map</button>
+            <button id="mapScaleBtn" type="button" class="btn btn-sm btn-secondary" data-toggle="tooltip" data-html="true" title="Sorry - <em>I don't work yet!</em>"><i class="fas fa-expand pr-1"></i>Larger Map</button>
           </div>
           
           
@@ -624,6 +625,7 @@
                     <ul class="tick">
                       <% if(place.baby_change.ladies){ %> <li>Ladies</li> <% } %>
                       <% if(place.baby_change.gents){ %> <li>Gents</li> <% } %>
+                      <% if(place.baby_change.unisex){ %> <li>Unisex</li> <% } %>
                       <% if(place.baby_change.disabled){ %> <li>Disabled</li> <% } %>
                       <% if(place.baby_change.room){ %> <li>Changing Room</li> <% } %>
                       <% if(place.baby_change.free_nappy){ %> <li>Free Nappies</li> <% } %>
@@ -1123,11 +1125,11 @@
             <a target="_blank" href="https://maps.apple.com/?daddr=(<%= place.location.coordinates[1] + ", " + place.location.coordinates[0]%>)&dirflg=d" class="placeButton" id="mobile-directionsBtn"><span id="directionsIcon"><i class="fas fa-directions placeButtonIcon"></i></span>Directions</a>
             </div>
             <% } %>
-            <div class="mobile-placeBtnDiv">
+            <div class="mobile-placeBtnDiv" data-toggle="tooltip" data-html="true" title="Sorry - <em>I don't work yet!</em>">
               <div class="circle"></div>
             <button class="placeButton" id="mobile-saveBtn"><span id="saveIcon"><i class="far fa-heart placeButtonIcon"></i></span>Save</button>
             </div>
-            <div class="mobile-placeBtnDiv">
+            <div class="mobile-placeBtnDiv" data-toggle="tooltip" data-html="true" title="Sorry - <em>I don't work yet!</em>">
               <div class="circle"></div>
             <button class="placeButton" id="mobile-shareBtn"><span id="shareIcon"><i class="fas fa-share placeButtonIcon"></i></span>Share</button>
             </div>
@@ -1237,9 +1239,14 @@
         initialRating: <%= place.ratings.overall.mean.toFixed(1) %>,
       });
    });
+</script> 
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip(); 
+});
 </script>
 
 
 
 <% include ../partials/footer %>
-|

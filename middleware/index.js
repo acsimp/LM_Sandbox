@@ -25,8 +25,11 @@ middlewareObj.checkPlaceOwnership = function(req, res, next) {
             }
         });
     } else {
+        var origin = req.originalUrl;
+        console.log(origin);
+        req.session.redirectTo = origin;
         req.flash("error", "You need to be logged in to do that");
-        res.redirect("back");
+        res.redirect("/login");
     }
 };
 middlewareObj.checkCommentOwnership = function(req, res, next) {

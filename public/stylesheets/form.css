@@ -1,4 +1,4 @@
-#editPlaceContainer h4{
+#editPlaceContainer h5{
   color: var(--maven-primary);
 }
 .headerText{
@@ -17,6 +17,12 @@
 }
 }
 
+::placeholder{
+   font-size:0.8rem;
+   color: var(--maven-grey);
+   font-style: italic;
+}
+
 label.label{
     margin-bottom: 0rem !important;
     width: 6rem;
@@ -30,6 +36,93 @@ label.label::after {
 table{
     /*margin-bottom:1rem;*/
 }
+#opening_times th{
+    font-size:0.75rem;
+}
+#opening_times td:nth-child(1), #opening_times th:nth-child(1) {
+    text-align:right;
+    width: 2.15rem;
+    vertical-align:middle;
+}
+#opening_times .label {
+    width: 2.5rem;
+}
+#opening_times td:nth-child(2), #opening_times th:nth-child(2) {
+    text-align: center;
+    /*background-color:pink;*/
+    /*padding-left:10px;*/
+    width:4rem;
+}
+#opening_times td:nth-child(3), #opening_times th:nth-child(3) {
+    text-align: center;
+    /*background-color:pink;*/
+    /*padding-left:10px;*/
+    width:1rem;
+}
+#opening_times td:nth-child(4),#opening_times th:nth-child(4) {
+    text-align: center;
+    /*background-color:pink;*/
+    /*padding-left:10px;*/
+    width:4rem;
+}
+#opening_times td:nth-child(5),#opening_times th:nth-child(5) {
+    text-align: center;
+    /*background-color:pink;*/
+    /*padding-left:10px;*/
+    width:4rem;
+}
+#opening_times td:nth-child(6),#opening_times th:nth-child(6) {
+    text-align: center;
+    /*background-color:pink;*/
+    /*padding-left:10px;*/
+    width:4rem;
+}
+
+
+#opening_times .checkbox {
+  display: block;
+  height: 0px;
+  margin: 0 0 0px -9999px;
+  order: 4;
+}
+
+#opening_times .checkbox:checked {
+}
+
+#opening_times .checkbox_label {
+  display: block;
+  position: relative;
+  padding: 7px 10px 7px 10px;
+  /*border-top: 1px solid #fff;*/
+  order: 4;
+  cursor: pointer;
+  margin:0px;
+}
+
+#opening_times .checkbox_label::before {
+  /*content: '\f10c'; */
+  display: block;
+  position: absolute;
+  top: 0px;
+  left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+  font-size: 1.5rem;
+  font-family: "Material Icons";
+  content: "\e835"; /*black checkbox*/
+}
+
+#opening_times .checkbox_label::after { 
+    content: "";
+}
+#opening_times .checkbox_label:hover {
+  background-color: white;
+}
+
+#opening_times .checkbox:checked + label::before {
+  content: '\e834'; /* checkmark */
+}
+
 
 .formColumn {
     /*padding: 0 1rem;*/
@@ -136,6 +229,8 @@ table{
 .checkbox:checked + label::before {
   content: '\e834'; /* checkmark */
 }
+
+
 
 textarea {
 	-webkit-box-sizing: border-box;

@@ -21,20 +21,12 @@
                                     <th class="input"><input class="form-control" type="text" id="name" name="name" placeholder="" value="<%= place.name %>"></th>
                                 </tr>
                                 <tr>
-                                    <th class="label"><label class="label" for="description">Description</label></th>
-                                    <th class="input"><input class="form-control" type="text" id="description" name="description" placeholder="" value="<%= place.description %>"></th>
-                                </tr>
-                                <tr>
                                     <th class="label"><label class="label" for="imageURL">Card Cover Image</label></th>
                                     <th class="input"><input class="form-control" type="text" id="imageURL" name="imageURL" placeholder="Image URL" value="<%= place.images.card_img %>"></th>
                                 </tr>
                                 <tr>
-                                    <th class="label"><label class="label" for="slug">Slug</label></th>
-                                    <th class="input"><input class="form-control" type="text" id="slug" name="slug" placeholder="" value="<%= place.slug %>" disabled></th>
-                                </tr>
-                                <tr>
                                     <th class="label"><label class="label" for="category">Categories</label></th>
-                                    <th class="input"><input class="form-control" type="text" id="category" name="category" placeholder="e.g. restaurant, cafe, italian, pizza" value="<%= place.category.join(', ') %>"  data-toggle="tooltip" data-html="true" title="Separate each category with a comma and a space - ', '">
+                                    <th class="input"><input class="form-control" type="text" id="category" name="category" placeholder="*Separate with commas* e.g. restaurant, cafe, italian, pizza" value="<%= place.category.join(', ') %>">
                                     </th>
                                 </tr>
                                 </table>
@@ -51,196 +43,13 @@
                             
                             <input class="checkbox" id="not_for_kids" name="not_for_kids" value="yes" type="checkbox" <% if (place.not_for_kids) { %> checked <% } %>>
                             <label class="checkbox_label" for="not_for_kids">Simply Not For Kids</label>
-                            
-                            <input class="checkbox" id="verified_by_owner" name="verified_by_owner" value="yes" type="checkbox" <% if (place.verified_by_owner) { %> checked <% } %>>
-                            <label class="checkbox_label" for="verified_by_owner">Verified By Owner</label> 
                           </div>
                           <table>
                                 <tr>
                                     <th class="label"><label class="label" for="kid_restrictions">Kid Restrictions</label></th>
-                                    <th class="input"><input class="form-control" type="text" id="kid_restrictions" name="kid_restrictions" placeholder="" value="<%= place.kid_restrictions %>"></th>
+                                    <th class="input"><input class="form-control" type="text" id="kid_restrictions" name="kid_restrictions" placeholder="e.g. no kids after 7pm... no kids in the bar area" value="<%= place.kid_restrictions %>"></th>
                                 </tr>
                           </table>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-lg-6 col-md-12 col-sm-12">
-                <h5 class="boxTitle">Opening Times</h5>
-                <div class="card paper-box">
-                    <div class="content card-body">
-                                <table id="opening_times">
-                                    <tr>
-                                        <th></th>
-                                        <th>Open</th>
-                                        <th></th>
-                                        <th>Close</th>
-                                        <th>Closed</th>
-                                        <th>Open 24 hrs</th>
-                                    </tr>
-                                <tr>
-                                    <td class="label"><label class="label" for="hours_mon_open_str">Mon</label></th>
-                                    <td class="input"><input class="form-control hour_str" type="time" id="hours_mon_open_str" name="hours_mon_open_str" placeholder="" value="<%= place.opening_hours.mon.open_str %>">
-                                    <input class="form-control hour_num" type="hidden" id="hours_mon_open" name="hours_mon_open" placeholder="" value="<%= place.opening_hours.mon.open %>" ></td>
-                                    <td class="dash"> - </td>
-                                    <td class="input"><input class="form-control hour_str" type="time" id="hours_mon_close_str" name="hours_mon_close_str" placeholder="" value="<%= place.opening_hours.mon.close_str %>">
-                                    <input class="form-control hour_num" type="hidden" id="hours_mon_close" name="hours_mon_close" placeholder="" value="<%= place.opening_hours.mon.close %>">
-                                    </td>
-                                    <td><input class="checkbox" id="hours_mon_closed" name="hours_mon_closed" value="yes" type="checkbox" onClick="toggleSelect('hours_mon')" <% if (place.opening_hours.mon.closed) { %> checked <% } %>>
-                                    <label class="checkbox_label" for="hours_mon_closed"></label></td>
-                                    <td><input class="checkbox" id="hours_mon_allDay" name="hours_mon_allDay" value="yes" type="checkbox" onClick="toggleSelect('hours_mon')" <% if (place.opening_hours.mon.allDay) { %> checked <% } %>>
-                                    <label class="checkbox_label" for="hours_mon_allDay"></label></td></td>
-                                    
-                                </tr>
-                                <tr>
-                                    <td class="label"><label class="label" for="hours_tue_open_str">Tue</label></th>
-                                    <td class="input"><input class="form-control hour_str" type="time" id="hours_tue_open_str" name="hours_tue_open_str" placeholder="" value="<%= place.opening_hours.tue.open_str %>">
-                                    <input class="form-control hour_num" type="hidden" id="hours_tue_open" name="hours_tue_open" placeholder="" value="<%= place.opening_hours.tue.open %>" ></td>
-                                    <td class="dash"> - </td>
-                                    <td class="input"><input class="form-control hour_str" type="time" id="hours_tue_close_str" name="hours_tue_close_str" placeholder="" value="<%= place.opening_hours.tue.close_str %>">
-                                    <input class="form-control hour_num" type="hidden" id="hours_tue_close" name="hours_tue_close" placeholder="" value="<%= place.opening_hours.tue.close %>">
-                                    </td>
-                                    <td><input class="checkbox" id="hours_tue_closed" name="hours_tue_closed" value="yes" type="checkbox" onClick="toggleSelect('hours_tue')" <% if (place.opening_hours.tue.closed) { %> checked <% } %>>
-                                    <label class="checkbox_label" for="hours_tue_closed"></label></td>
-                                    <td><input class="checkbox" id="hours_tue_allDay" name="hours_tue_allDay" value="yes" type="checkbox" onClick="toggleSelect('hours_tue')" <% if (place.opening_hours.tue.allDay) { %> checked <% } %>>
-                                    <label class="checkbox_label" for="hours_tue_allDay"></label></td></td>
-                                    
-                                </tr>
-                                <tr>
-                                    <td class="label"><label class="label" for="hours_wed_open_str">Wed</label></th>
-                                    <td class="input"><input class="form-control hour_str" type="time" id="hours_wed_open_str" name="hours_wed_open_str" placeholder="" value="<%= place.opening_hours.wed.open_str %>">
-                                    <input class="form-control hour_num" type="hidden" id="hours_wed_open" name="hours_wed_open" placeholder="" value="<%= place.opening_hours.wed.open %>" ></td>
-                                    <td class="dash"> - </td>
-                                    <td class="input"><input class="form-control hour_str" type="time" id="hours_wed_close_str" name="hours_wed_close_str" placeholder="" value="<%= place.opening_hours.wed.close_str %>">
-                                    <input class="form-control hour_num" type="hidden" id="hours_wed_close" name="hours_wed_close" placeholder="" value="<%= place.opening_hours.wed.close %>">
-                                    </td>
-                                    <td><input class="checkbox" id="hours_wed_closed" name="hours_wed_closed" value="yes" type="checkbox" onClick="toggleSelect('hours_wed')" <% if (place.opening_hours.wed.closed) { %> checked <% } %>>
-                                    <label class="checkbox_label" for="hours_wed_closed"></label></td>
-                                    <td><input class="checkbox" id="hours_wed_allDay" name="hours_wed_allDay" value="yes" type="checkbox" onClick="toggleSelect('hours_wed')" <% if (place.opening_hours.wed.allDay) { %> checked <% } %>>
-                                    <label class="checkbox_label" for="hours_wed_allDay"></label></td></td>
-                                    
-                                </tr>
-                                <tr>
-                                    <td class="label"><label class="label" for="hours_thu_open_str">Thu</label></th>
-                                    <td class="input"><input class="form-control hour_str" type="time" id="hours_thu_open_str" name="hours_thu_open_str" placeholder="" value="<%= place.opening_hours.thu.open_str %>">
-                                    <input class="form-control hour_num" type="hidden" id="hours_thu_open" name="hours_thu_open" placeholder="" value="<%= place.opening_hours.thu.open %>" ></td>
-                                    <td class="dash"> - </td>
-                                    <td class="input"><input class="form-control hour_str" type="time" id="hours_thu_close_str" name="hours_thu_close_str" placeholder="" value="<%= place.opening_hours.thu.close_str %>">
-                                    <input class="form-control hour_num" type="hidden" id="hours_thu_close" name="hours_thu_close" placeholder="" value="<%= place.opening_hours.thu.close %>">
-                                    </td>
-                                    <td><input class="checkbox" id="hours_thu_closed" name="hours_thu_closed" value="yes" type="checkbox" onClick="toggleSelect('hours_thu')" <% if (place.opening_hours.thu.closed) { %> checked <% } %>>
-                                    <label class="checkbox_label" for="hours_thu_closed"></label></td>
-                                    <td><input class="checkbox" id="hours_thu_allDay" name="hours_thu_allDay" value="yes" type="checkbox" onClick="toggleSelect('hours_thu')" <% if (place.opening_hours.thu.allDay) { %> checked <% } %>>
-                                    <label class="checkbox_label" for="hours_thu_allDay"></label></td></td>
-                                    
-                                </tr>
-                                <tr>
-                                    <td class="label"><label class="label" for="hours_fri_open_str">Fri</label></th>
-                                    <td class="input"><input class="form-control hour_str" type="time" id="hours_fri_open_str" name="hours_fri_open_str" placeholder="" value="<%= place.opening_hours.fri.open_str %>">
-                                    <input class="form-control hour_num" type="hidden" id="hours_fri_open" name="hours_fri_open" placeholder="" value="<%= place.opening_hours.fri.open %>" ></td>
-                                    <td class="dash"> - </td>
-                                    <td class="input"><input class="form-control hour_str" type="time" id="hours_fri_close_str" name="hours_fri_close_str" placeholder="" value="<%= place.opening_hours.fri.close_str %>">
-                                    <input class="form-control hour_num" type="hidden" id="hours_fri_close" name="hours_fri_close" placeholder="" value="<%= place.opening_hours.fri.close %>">
-                                    </td>
-                                    <td><input class="checkbox" id="hours_fri_closed" name="hours_fri_closed" value="yes" type="checkbox" onClick="toggleSelect('hours_fri')" <% if (place.opening_hours.fri.closed) { %> checked <% } %>>
-                                    <label class="checkbox_label" for="hours_fri_closed"></label></td>
-                                    <td><input class="checkbox" id="hours_fri_allDay" name="hours_fri_allDay" value="yes" type="checkbox" onClick="toggleSelect('hours_fri')" <% if (place.opening_hours.fri.allDay) { %> checked <% } %>>
-                                    <label class="checkbox_label" for="hours_fri_allDay"></label></td></td>
-                                    
-                                </tr>
-                                <tr>
-                                    <td class="label"><label class="label" for="hours_sat_open_str">Sat</label></th>
-                                    <td class="input"><input class="form-control hour_str" type="time" id="hours_sat_open_str" name="hours_sat_open_str" placeholder="" value="<%= place.opening_hours.sat.open_str %>">
-                                    <input class="form-control hour_num" type="hidden" id="hours_sat_open" name="hours_sat_open" placeholder="" value="<%= place.opening_hours.sat.open %>" ></td>
-                                    <td class="dash"> - </td>
-                                    <td class="input"><input class="form-control hour_str" type="time" id="hours_sat_close_str" name="hours_sat_close_str" placeholder="" value="<%= place.opening_hours.sat.close_str %>">
-                                    <input class="form-control hour_num" type="hidden" id="hours_sat_close" name="hours_sat_close" placeholder="" value="<%= place.opening_hours.sat.close %>">
-                                    </td>
-                                    <td><input class="checkbox" id="hours_sat_closed" name="hours_sat_closed" value="yes" type="checkbox" onClick="toggleSelect('hours_sat')" <% if (place.opening_hours.sat.closed) { %> checked <% } %>>
-                                    <label class="checkbox_label" for="hours_sat_closed"></label></td>
-                                    <td><input class="checkbox" id="hours_sat_allDay" name="hours_sat_allDay" value="yes" type="checkbox" onClick="toggleSelect('hours_sat')" <% if (place.opening_hours.sat.allDay) { %> checked <% } %>>
-                                    <label class="checkbox_label" for="hours_sat_allDay"></label></td></td>
-                                    
-                                </tr>
-                                <tr>
-                                    <td class="label"><label class="label" for="hours_sun_open_str">Sun</label></th>
-                                    <td class="input"><input class="form-control hour_str" type="time" id="hours_sun_open_str" name="hours_sun_open_str" placeholder="" value="<%= place.opening_hours.sun.open_str %>">
-                                    <input class="form-control hour_num" type="hidden" id="hours_sun_open" name="hours_sun_open" placeholder="" value="<%= place.opening_hours.sun.open %>" ></td>
-                                    <td class="dash"> - </td>
-                                    <td class="input"><input class="form-control hour_str" type="time" id="hours_sun_close_str" name="hours_sun_close_str" placeholder="" value="<%= place.opening_hours.sun.close_str %>">
-                                    <input class="form-control hour_num" type="hidden" id="hours_sun_close" name="hours_sun_close" placeholder="" value="<%= place.opening_hours.sun.close %>">
-                                    </td>
-                                    <td><input class="checkbox" id="hours_sun_closed" name="hours_sun_closed" value="yes" type="checkbox" onClick="toggleSelect('hours_sun')" <% if (place.opening_hours.sun.closed) { %> checked <% } %>>
-                                    <label class="checkbox_label" for="hours_sun_closed"></label></td>
-                                    <td><input class="checkbox" id="hours_sun_allDay" name="hours_sun_allDay" value="yes" type="checkbox" onClick="toggleSelect('hours_sun')" <% if (place.opening_hours.sun.allDay) { %> checked <% } %>>
-                                    <label class="checkbox_label" for="hours_sun_allDay"></label></td></td>
-                                    
-                                </tr>
-                                </table>
-                                
-                                <script>
-                                    
-                                    var els = document.getElementsByClassName("hour_num");
-
-                                    Array.prototype.forEach.call(els, function(el) {
-                                        // Do stuff here
-                                        
-                                        var number_id, string_id = String;
-                                        var string = document.getElementById(el.id);
-                                        string_id = String(string.id) + "_str";
-                                        number_id = String(string.id);
-                                        // console.log(string_id + ": " + typeof(string_id));
-                                        // console.log(number_id + ": " + typeof(number_id));
-                                        
-                                        var string = document.getElementById(string_id);
-                                        var number = document.getElementById(number_id);
-                                        // console.log(string, number)
-                                        string.addEventListener("input", function() {
-                                            var time,hr,min,minutes;
-                                            time = string.value.split(" ");
-                                            time = time[0].split(":");
-                                            minutes = (parseInt(time[0])*60) + parseInt(time[1]);
-                                            number.value = minutes;
-                                    });
-                                    });
-                                    </script>
-                                    
-                                    <script>
-                                        var sevenDays = ['hours_mon', 'hours_tue','hours_wed','hours_thu','hours_fri','hours_sat', 'hours_sun'];
-                                        
-                                        Array.prototype.forEach.call(sevenDays, function(day) {
-                                        window.onload = toggleSelect(day); // to disable select on load if needed
-                                        });
-
-                                        function toggleSelect(day)
-                                        {
-                                            var x,closed,close_str,allDay,open_str,open,close = String;
-                                            x = String(day);
-                                            closed = x + "_closed";
-                                            allDay = x + "_allDay";
-                                            close_str = x + "_close_str";
-                                            open_str = x + "_open_str";
-                                            close = x + "_close";
-                                            open = x + "_open";
-                                            // console.log(x + closed + open + open_str + close_str + allDay + close);
-                                            if (x !== "") {
-                                          var closedIsChecked = document.getElementById(closed).checked;
-                                          var allDayIsChecked = document.getElementById(allDay).checked;
-                                          if(allDayIsChecked || closedIsChecked) {
-                                          document.getElementById(open_str).disabled = true;
-                                          document.getElementById(close_str).disabled = true;
-                                          document.getElementById(open_str).value = "";
-                                          document.getElementById(close_str).value = "";
-                                          document.getElementById(open).value = "";
-                                          document.getElementById(close).value = "";
-                                          } else {
-                                              document.getElementById(open_str).disabled = false;
-                                              document.getElementById(close_str).disabled = false;
-                                          }
-                                        }}
-                                       
-                                    </script>
-                     
                     </div>
                 </div>
             </div>
@@ -255,14 +64,6 @@
                             <tr>
                                 <th class="label"><label class="label" for="single_line_address">Address</label></th>
                                 <th class="input"><input class="form-control" type="text" id="single_line_address" name="single_line_address" placeholder="" value="<%= place.single_line_address %>"></th>
-                            </tr>
-                            <tr>
-                                <th class="label"><label class="label" for="latitude">Latitude</label></th>
-                                <th class="input"><input class="form-control" type="text" id="latitude" name="latitude" placeholder="" value="<%= place.latitude %>"></th>
-                            </tr>
-                            <tr>
-                                <th class="label"><label class="label" for="longitude">Longitude</label></th>
-                                <th class="input"><input class="form-control" type="text" id="longitude" name="longitude" placeholder="" value="<%= place.longitude %>"></th>
                             </tr>
                             <tr>
                                 <th class="label"><label class="label" for="street">Street</label></th>
@@ -280,6 +81,14 @@
                                 <th class="label"><label class="label" for="country">Country</label></th>
                                 <th class="input"><input class="form-control" type="text" id="country" name="country" placeholder="" value="<%= place.country %>"></th>
                             </tr>
+                            <!--<tr>-->
+                            <!--    <th class="label"><label class="label" for="latitude">Latitude</label></th>-->
+                            <!--    <th class="input"><input class="form-control" type="hidden" id="latitude" name="latitude" placeholder="" value="<%= place.latitude %>"></th>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                            <!--    <th class="label"><label class="label" for="longitude">Longitude</label></th>-->
+                            <!--    <th class="input"><input class="form-control" type="hidden" id="longitude" name="longitude" placeholder="" value="<%= place.longitude %>"></th>-->
+                            <!--</tr>-->
                             <tr>
                                 <th class="label"><label class="label" for="website">Website</label></th>
                                 <th class="input"><input class="form-control" type="text" id="website" name="website" placeholder="" value="<%= place.website %>"></th>
@@ -297,56 +106,28 @@
                 </div>
             </div>
             
-            <div class="col-lg-6 col-md-12 col-sm-12">
-                <h5 class="">Integrations</h5>
-                <div class="card paper-box">
-                    <div class="content card-body">
-                            <table>
-                                <tr>
-                                    <th class="label"><label class="label" for="muid">Apple ID</label></th>
-                                    <th class="input"><input class="form-control" type="text" id="muid" name="muid" placeholder="" value="<%= place.apple_id %>"></th>
-                                </tr>
-                                <tr>
-                                    <th class="label"><label class="label" for="_wpURL">Apple Card</label></th>
-                                    <th class="input"><input class="form-control" type="text" id="_wpURL" name="_wpURL" placeholder="" value="<%= place.apple_card %>"></th>
-                                </tr>
-                                <tr>
-                                    <th class="label"><label class="label" for="googlePlaceID">Google ID</label></th>
-                                    <th class="input"><input class="form-control" type="text" id="googlePlaceID" name="googlePlaceID" placeholder="" value="<%= place.google_id %>"></th>
-                                </tr>
-                                <tr>
-                                    <th class="label"><label class="label" for="fbPlaceID">Facebook ID</label></th>
-                                    <th class="input"><input class="form-control" type="text" id="fbPlaceID" name="fbPlaceID" placeholder="" value="<%= place.fb_id %>"></th>
-                                </tr>
-                            </table>
-                    </div>
-                </div>
-            </div>
   
             <div class="col-lg-6 col-md-12 col-sm-12">
                 <h5 class="">Good For</h5>
                 <div class="card paper-box">
                     <div class="content card-body">
+                        <!--<hr><h6 class="">Baby Change:</h6>-->
                           <div class="items">
                             <input class="checkbox" id="good_for_food_service" name="good_for_food_service" value="yes" type="checkbox" <% if (place.good_for.food) { %> checked <% } %>>
-                            <label class="checkbox_label" for="good_for_food_service">Food For Kids</label>
+                            <label class="checkbox_label" for="good_for_food_service">Food</label>
                             
                             <input class="checkbox" id="good_for_nappy_change_facilities" name="good_for_nappy_change_facilities" value="yes" type="checkbox" <% if (place.good_for.nappy_change) { %> checked <% } %>>
-                            <label class="checkbox_label" for="good_for_nappy_change_facilities">Nappy Change Facilities</label>         
+                            <label class="checkbox_label" for="good_for_nappy_change_facilities">Nappy Change Facilities</label> 
                             
                             <input class="checkbox" id="good_for_play" name="good_for_play" value="yes" type="checkbox" <% if (place.good_for.play) { %> checked <% } %>>
-                            <label class="checkbox_label" for="good_for_play">Play Facilities</label>
+                            <label class="checkbox_label" for="good_for_play">Play</label>
                             
                             <input class="checkbox" id="good_for_party" name="good_for_party" value="yes" type="checkbox" <% if (place.good_for.party) { %> checked <% } %>>
-                            <label class="checkbox_label" for="good_for_party">Parties</label>
+                            <label class="checkbox_label" for="good_for_party">Party</label>
                             
                             <input class="checkbox" id="good_for_large_groups" name="good_for_large_groups" value="yes" type="checkbox" <% if (place.good_for.large_groups) { %> checked <% } %>>
                             <label class="checkbox_label" for="good_for_large_groups">Large Groups</label>
                             
-                            <input class="checkbox" id="good_for_supervised_visits" name="good_for_supervised_visits" value="yes" type="checkbox" <% if (place.good_for.supervised_visits) { %> checked <% } %>>
-                            <label class="checkbox_label" for="good_for_supervised_visits">Supervised Visits</label>
-
-                                               
                           </div>
                           <hr><h6 class="">Age Groups:</h6>
                           <div class="items">
@@ -388,7 +169,7 @@
                                 <label class="checkbox_label" for="play_outdoor">Outdoor</label>
                                 
                                 <input class="checkbox" id="play_toys" name="play_toys" value="yes" type="checkbox" <% if (place.play.toys) { %> checked <% } %>>
-                                <label class="checkbox_label" for="play_toys">Toys</label>
+                                <label class="checkbox_label" for="play_toys">Toy Box</label>
                                 
                                 <input class="checkbox" id="play_colouring" name="play_colouring" value="yes" type="checkbox" <% if (place.play.colouring) { %> checked <% } %>>
                                 <label class="checkbox_label" for="play_colouring">Colouring</label>
@@ -429,13 +210,14 @@
                                 
                                 <input class="checkbox" id="dog_walks" name="dog_walks" value="yes" type="checkbox" <% if (place.dog.good_walks) { %> checked <% } %>>
                                 <label class="checkbox_label" for="dog_walks">Good Walks Nearby</label>
-                            </div> 
-                            <table>
+                                </div> 
+                                <table>
                                 <tr>
                                     <th class="label"><label class="label" for="dog_restrictions">Restrictions</label></th>
                                     <th class="input"><input class="form-control" type="text" id="dog_restrictions" name="dog_restrictions" placeholder="" value="<%= place.dog.restrictions %>"></th>
                                 </tr>
-                            </table>
+                            </table>   
+                            
                         </div>
                     </div>
                 </div>  
@@ -507,7 +289,7 @@
                             <table>
                                 <tr>
                                     <th class="label"><label class="label" for="cuisine">Cuisine</label></th>
-                                    <th class="input"><input class="form-control" type="text" id="cuisine" name="cuisine" placeholder="e.g. chinese, thai, british " value="<%= place.cuisine.join(', ') %>"></th>
+                                    <th class="input"><input class="form-control" type="text" id="cuisine" name="cuisine" placeholder="*Separate with commas* e.g. chinese, thai, british " value="<%= place.cuisine.join(', ') %>"></th>
                                 </tr>
                                 <tr>
                                     <th class="label"><label class="label" for="special_notes">Special Notes</label></th>
@@ -743,7 +525,7 @@
             
             <div class="button">
                 <a class="btn lm-button cancel-button" onclick="goBack()" href="#">Cancel</a>
-                <button class="btn save-button lm-button">Save</button>
+                <button class="btn save-button lm-button" onclick="clearSession()">Save</button>
             </div>
 
         </form>
@@ -779,12 +561,6 @@
     function goBack() {
         window.history.back();
     }
-</script>
-
-<script>
-$(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip(); 
-});
 </script>
 
 

@@ -444,7 +444,7 @@
             }
 
                     document.getElementById("results").innerHTML +=
-                    '<div class="col-lg-3 col-md-4 col-sm-6">' +
+                    '<div class="col-lg-6 col-md-6 col-sm-12">' +
                     '<div class="content card mb-4 box-shadow text-white bg-dark">' +
                     '<div class="content card-body" style="border-top: 5px solid #17a2b8;">' +
                     '<h5 class="card-title mb-3">Not found the place you are looking for?</h5>' +
@@ -534,8 +534,17 @@
         // mapkit.Overlay[] removeOverlays(mapkit.Overlay[] overlays);
         document.getElementById('results').innerHTML = "";
     }
+    
+    function clearSession() {
+                sessionStorage.removeItem('placeData');
+                sessionStorage.removeItem('fbPlaceID');
+                sessionStorage.removeItem('googlePlaceID');
+                sessionStorage.removeItem('imageURL');
+                sessionStorage.removeItem('categories');
+            };  
 
     function storePlace(num) {
+        clearSession();
         var placeData = JSON.stringify(placeObj[num]);
         //fetch object
 

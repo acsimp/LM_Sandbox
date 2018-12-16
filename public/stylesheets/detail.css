@@ -47,7 +47,7 @@ body{
     float:right;
     margin-top:3rem;
     font-size: 0.65rem;
-    background-color: var(--maven-icon-grey);
+    background-color: var(--monkey-pink);
     padding:6px;
 }
                             @media (max-width: 767px){
@@ -820,7 +820,7 @@ ul {
     position:absolute;
     right:0;
     top:-21px;
-    background-color: var(--maven-primary);
+    background-color: var(--monkey-pink);
     padding: 4px;
     box-shadow: 
     -2px -2px 4px -1px rgba(0,0,0,.05), 
@@ -892,3 +892,21 @@ ul {
     /*color: var(--monkey-off-white);*/
     /*background-color: red;*/
 }
+
+/*.tooltip{*/
+/*    margin:25px;*/
+/*}*/
+
+/*.tooltip.in{*/
+/*}*/
+
+/*.tooltip-inner{*/
+/*    background-color: var(--monkey-pink);*/
+
+/*}*/
+
+
+/*.bs-tooltip-top .arrow::before, .bs-tooltip-bottom .arrow::before{*/
+/*    border-top-color: var(--monkey-pink);*/
+/*}*/
+/*.tooltip > .tooltip-arrow { border-top-color:#f00; }*/
