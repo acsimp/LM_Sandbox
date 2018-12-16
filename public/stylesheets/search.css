@@ -5,6 +5,10 @@
     object-fit: cover;
 }
 
+#searchForm{
+    margin-top: 2.5rem;
+}
+
 .image{
     position:relative;
     overflow:hidden;
@@ -92,7 +96,7 @@
 .banner{
   padding-top: 1.5rem;
   padding-bottom: 3rem;
-  background-color: var(--maven-off-white2);
+  /*background-color: var(--maven-off-white2);*/
   /*margin-bottom: 0.5rem;*/
 }
 
@@ -147,6 +151,9 @@
             }
             #map {
                 height: 225px;
+            }
+            #searchForm{
+                margin-top: .75rem;
             }
 #cards{
     padding-right: 0px;

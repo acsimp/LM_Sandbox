@@ -1,6 +1,6 @@
 </head>
 
-<body class="mt-5">
+<body class="">
 
   <header id="navbar">
 
@@ -57,9 +57,47 @@
 
     <div id="searchMenuBG"></div>
     <div class="" id="searchMenu">
-      <form>
-        <input type="text" name="search" placeholder="Search.." style="margin-top: 80px; margin-right: auto; margin-left: auto; display: block; width: 200px;">
-      </form>
+      <div class="mobileMenuOuter">
+      <a id="navBrand" href="/"><img class="" src="/images/Little Maven Logo-Teal.svg"></a>
+      </div>
+      <div class="container">
+      <form id="navSearchForm" class="" action="/places" autocomplete="off" method="GET">
+                        <div class="search" id="navSearchDiv">
+                                    <input class="" id="navLatitide" type="hidden" name="lat" placeholder="latitide" value="" >
+                                    <input class="" id="navLongitude" type="hidden" name="lng" placeholder="longitude" value="">
+
+                                 <div class="right-side searchItem" id="navFindDiv">
+                                    <input class="field location" type="text" name="search" autocomplete="off" placeholder="name, category, cuisine..." value="">
+                                    <div class="field-wrapper">
+                                      <span class="field-title near">Find</span>
+                                    </div>
+                                  </div>   
+                                <div class="right-side near_field searchItem" id="navLocationDiv">
+                                    <input class="field location" type="text" name="geocoder" id="navGeocoder" autocomplete="off" placeholder="address, neighbouthood, city, postcode" aria-label="navGeocoder" value="">
+                                    <div class="field-wrapper">
+                                      <span class="field-title near">Near</span>
+                                    </div>
+                                    <ul class="right-side__sublist">
+                                      <li class="right-side__subitem"><a class="right-side__sublink current" id="navNearMeBtn" onclick="navGetLocation()">Near Me</a></li>
+                                    </ul>
+                                  </div>
+                                    <div class="distKm searchItem" id="navDistKmDiv">
+                                    <input class="field location" id="navDistKm" type="number" name="distKm" autocomplete="off" placeholder="km" value="">
+                                    <div class="field-wrapper">
+                                      <span class="field-title near">Km</span>
+                                    </div>
+                                  </div>   
+                                    
+                                <div class="searchItem" id="navSearchBtnDiv">
+                                    <input class="search-button btn" type="button" onclick="navSubmitFn()" value="Search">
+                                </div>
+                            
+                        </div>
+                    </form>
+                            <script src="https://cdn.apple-mapkit.com/mk/5.x.x/mapkit.js"></script>
+
+                    <div id="navCoords"></div>
+                    </div>
     </div>
 
 

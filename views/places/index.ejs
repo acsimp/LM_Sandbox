@@ -1,18 +1,19 @@
-<% include ../partials/header %>
+<% include ../partials/header-top %>
+    <title>FInd the Perfect Places - Little Maven</title>
 
+<% include ../partials/header-bottom %>
 
     <div class="banner">
         <div class="container">
             <!--<div class="container">-->
                 <!--<h5 class="jumbotron-heading">Search little Maven</h5>-->
-                <p>
                     <form id="searchForm" class="" action="/places" autocomplete="off" method="GET">
                         <div class="search" id="searchDiv">
 
                                     
                                     
-                                    <input class="" id="latitide" type="hidden" name="lat" placeholder="latitide" value="<%= lat %>" >
-                                    <input class="" id="longitude" type="hidden" name="lng" placeholder="longitude" value="<%= lng %>">
+                                    <input class="" id="latitide" type="hidden" name="lat" placeholder="latitide" value="<%=// lat %>" >
+                                    <input class="" id="longitude" type="hidden" name="lng" placeholder="longitude" value="<%=// lng %>">
                                     
                                  <div class="right-side searchItem" id="findDiv">
                                     <input class="field location" type="text" name="search" autocomplete="off" placeholder="name, category, cuisine..." value="<%= search %>">
@@ -46,7 +47,6 @@
                     
                     
                     <div id="coords"></div>
-                </p>
                 
                 <!--<div class="form-inline">-->
                 <!--    <input class="form-control mr-sm-2" type="search" name="geocoder" id="geocoder" placeholder="What are you looking for?" aria-label="geocoder">-->
@@ -328,6 +328,7 @@ function showError(error) {
     function submitFn() {
     
         let location = document.getElementById("geocoder").value;
+        let placeholder = document.getElementById("geocoder").placeholder;
         let geocoder = new mapkit.Geocoder({
             getsUserLocation: true
         });
@@ -351,8 +352,12 @@ function showError(error) {
                 document.getElementById("searchForm").submit();
                 
             });
+        } else if (placeholder == "Near Me") {
+            // document.getElementById("latitide").value = "";
+            // document.getElementById("longitude").value = "";
+            document.getElementById("searchForm").submit();
         } else {
-        document.getElementById("searchForm").submit();
+            document.getElementById("searchForm").submit();
     }
     } 
     

@@ -1,3 +1,22 @@
+#editPlaceContainer h4{
+  color: var(--maven-primary);
+}
+.headerText{
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.paper-box{
+  margin-right: -10px;
+  margin-left: -10px;
+}
+@media (max-width: 768px){
+.paper-box{
+   margin-right: -15px;
+   margin-left: -15px; 
+}
+}
+
 label.label{
     margin-bottom: 0rem !important;
     width: 6rem;
@@ -21,7 +40,34 @@ table{
 .button {
     width:100%;
     text-align: center;
-    margin-top: 1rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding:15px;
+}
+.delete-button-container {
+    width:100%;
+    text-align: right;
+    margin-bottom: 1.5rem;
+    padding:15px;
+}
+.save-button{
+    padding-top:10px;
+    padding-bottom:10px;
+    font-size: 1rem;
+    background-color: var(--maven-primary);
+}
+.delete-button{
+    padding-top:10px;
+    padding-bottom:10px;
+    font-size: 1rem;
+    background-color: var(--monkey-pink);
+    /*float:right;*/
+}
+.cancel-button{
+    padding-top:10px;
+    padding-bottom:10px;
+    font-size: 1rem;
+    background-color: var(--maven-icon-grey);
 }
 .btn{
     width:250px;
@@ -73,7 +119,7 @@ table{
   /*content: '\f10c'; */
   display: block;
   position: absolute;
-  top: 7px;
+  top: 0px;
   right: 10px;
   font-size: 1.5rem;
   font-family: "Material Icons";
@@ -84,7 +130,7 @@ table{
     content: ": ";
 }
 .checkbox_label:hover {
-  background-color: rgba(255, 255, 255, .2);
+  background-color: var(--maven-off-white2);
 }
 
 .checkbox:checked + label::before {

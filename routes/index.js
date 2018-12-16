@@ -160,24 +160,42 @@ router.put("/users/:id", middleware.isLoggedIn, function(req, res) {
 
 //LOGIN FORM
 router.get("/login", function(req, res) {
+    // var origin = req.originalUrl;
+    // console.log(origin);
+    // req.session.redirectTo = origin;
     res.render("login", { page: 'login' });
 });
 
 passport.authenticate('local', { successFlash: 'Welcome!' });
+    
+
 
 //LOGIN logic (with middleware)
 router.post("/login", passport.authenticate("local", {
-    successRedirect: "/places",
+// is authenticated ?
+    // res.redirect(redirectTo);
+    // successRedirect: "/places",
+    // successRedirect: redirectTo,
     failureRedirect: "/login",
     failureFlash : true,
     successFlash : true,
 }), function(req, res) {
+    var redirectTo = req.session.redirectTo || '/places';
+    delete req.session.redirectTo;
+    res.redirect(redirectTo);
     //this callback doesn't do anything, could be removed. Here to illustrate middleware.
 });
 
 //LOGOUT ROUTE
 router.get("/logout", function(req, res) {
     //comes from passport package
+    // var origin = req.originalUrl;
+    // console.log(req.session.redirectTo);
+    // req.session.redirectTo = origin;
+    // var redirectTo = req.session.redirectTo || '/';
+    // delete req.session.redirectTo;
+    // res.redirect(redirectTo);
+    
     req.logout();
     req.flash("success", "Logged you out!");
     res.redirect("/Places");
@@ -193,7 +211,7 @@ router.get("/users/:id", function(req, res) {
             req.flash("error", "Something went wrong.");
             res.redirect("back");
         }
-        console.log(foundUser);
+        // console.log(foundUser);
         Place.find().where("author.id").equals(foundUser._id).exec(function(err, places) {
             if (err) {
                 req.flash("error", "Something went wrong.");
@@ -207,7 +225,7 @@ router.get("/users/:id", function(req, res) {
                 res.redirect("back");
                 // next();
             }
-            console.log(comments);
+            // console.log(comments);
             // comment == comments;
         
         // console.log(place);

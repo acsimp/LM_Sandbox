@@ -72,8 +72,20 @@ middlewareObj.isLoggedIn = function(req, res, next){
         return next();
     }
     //flash code
+    var origin = req.originalUrl;
+    console.log(origin);
+    req.session.redirectTo = origin;
     req.flash("error", "You need to be logged in to do that");
     res.redirect("/login");
 };
+
+// middlewareObj.restrict = function(req, res, next){
+//     if (!req.session.userid) {
+//         req.session.redirectTo = '/account';
+//         res.redirect('/login');
+//     } else {
+//         next();
+//     }
+// };
 
 module.exports = middlewareObj;

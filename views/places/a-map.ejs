@@ -1,36 +1,92 @@
-<% include ../partials/header %>
-<script src="/js/browser.js"></script>
+<% include ../partials/header-top %>
+<!--<script src="/js/browser.js"></script>-->
 <!--<div class="container">-->
+    <link rel="stylesheet" type="text/css" href="/stylesheets/search.css">
 
-<div class="jumbotron text-center">
-    <div class="container">
-        <div class="row" style="display:flex; flex-wrap: wrap; margin-bottom:5px;">
-            <div class="col-md-12">
+<% include ../partials/header-bottom %>
+
+    <div class="banner">
+        <div class="container">
+            <!--<div class="container">-->
+                <!--<h5 class="jumbotron-heading">Search little Maven</h5>-->
+                <h5 class="text-center mt-5">Find & Add a New Place</h5>
+                    <!--<form id="searchForm" class="" action="/places" autocomplete="off" method="GET">-->
+                        <div class="search" id="searchDiv">
+
+                                    
+                                    
+                                    <input class="" id="latitide" type="hidden" name="lat" placeholder="latitide" value="" >
+                                    <input class="" id="longitude" type="hidden" name="lng" placeholder="longitude" value="">
+                                    
+                                 <div class="right-side searchItem" id="findDiv">
+                                    <input class="field location" type="text" id="searchTerm" name="search" autocomplete="off" placeholder="name, category, cuisine..." value="">
+                                    <div class="field-wrapper">
+                                      <span class="field-title near">Find</span>
+                                    </div>
+                                  </div>   
+                                <div class="right-side near_field searchItem" id="locationDiv">
+                                    <input class="field location" type="text" name="geocoder" id="geocoder" autocomplete="off" placeholder="address, neighbouthood, city, postcode" aria-label="geocoder" value="">
+                                    <div class="field-wrapper">
+                                      <span class="field-title near">Near</span>
+                                    </div>
+                                    <ul class="right-side__sublist" id="locationDropdown">
+                                      <li class="right-side__subitem"><a class="right-side__sublink current" id="nearMeBtn" onclick="getLocation()">Near Me</a></li>
+                                    </ul>
+                                  </div>
+                                    
+                                <div class="searchItem" id="searchBtnDiv">
+                                    <input class="search-button btn" type="button" id="searchBtn" value="Search">
+                                </div>
+                                <!--<button class="btn btn-outline-danger my-2 my-sm-0" id="regionSearchBtn" type="submit">Search here instead</button>-->
+
+                        </div>
+                    </form>
+                    
+                    
+                    
+                    
+                    <div id="coords"></div>
                 
-                <h1 class="jumbotron-heading">Find & Add a New Place <span style="color: red; font-size: 0.5em" id="demo"></span></h1>
-                <p>
+                <!--<div class="form-inline">-->
+                <!--    <input class="form-control mr-sm-2" type="search" name="geocoder" id="geocoder" placeholder="What are you looking for?" aria-label="geocoder">-->
+                <!--    <button class="btn btn-outline-success my-2 my-sm-0" id="geocoderBtn" type="submit">Geocode</button>-->
+                <!--</div>-->
+                
+            <!--</div><!--container-->
+        </div><!--container-->
+    </div>
+
+
+
+<!--<div class="jumbotron text-center">-->
+<!--    <div class="container">-->
+<!--        <div class="row" style="display:flex; flex-wrap: wrap; margin-bottom:5px;">-->
+<!--            <div class="col-md-12">-->
+                
+<!--                <h5 class="">Find & Add a New Place</h5>-->
+<!--                <p>-->
                     <!--<form id="searchForm" class="form-inline mx-auto">-->
-                        <div class=" mx-auto">
-                            <label class="label" for="search">Find:</label>
-                            <input class="mr-sm-2" type="text" name="search" id="searchTerm" placeholder="name, category, cuisine..." value="">
+<!--                        <div class=" mx-auto">-->
+<!--                            <label class="label" for="search">Find:</label>-->
+<!--                            <input class="mr-sm-2" type="text" name="search" id="searchTerm" placeholder="name, category, cuisine..." value="">-->
                                 <!--<input class="form-control" id="location" type="text" name="loc" placeholder="location" onclick="getLocation()" value="">-->
-                                <input class="form-control" id="latitide" type="hidden" name="lat" placeholder="latitide" value="" >
-                                <input class="form-control" id="longitude" type="hidden" name="lng" placeholder="longitude" value="">
-                            <label class="label ml-1" for="geocoder">Near:</label>
-                            <input class="mr-sm-2" type="text" name="geocoder" id="geocoder" placeholder="address, neighbouthood, city, postcode" aria-label="geocoder" value="">
-                            <a class="btn btn-sm btn-outline-info" id="nearMeBtn" onclick="getLocation()">Near Me</a>
+<!--                                <input class="form-control" id="latitide" type="hidden" name="lat" placeholder="latitide" value="" >-->
+<!--                                <input class="form-control" id="longitude" type="hidden" name="lng" placeholder="longitude" value="">-->
+<!--                            <label class="label ml-1" for="geocoder">Near:</label>-->
+<!--                            <input class="mr-sm-2" type="text" name="geocoder" id="geocoder" placeholder="address, neighbouthood, city, postcode" aria-label="geocoder" value="">-->
+<!--                            <a class="btn btn-sm btn-outline-info" id="nearMeBtn" onclick="getLocation()">Near Me</a>-->
                                 <!--<label class="label ml-1" for="distKm">Radius:</label>-->
                                 <!--<input class="form-control" style="width: 70px;" id="distKm" type="number" name="distKm" placeholder="distance in km" value="">-->
                             <!--<input class="btn btn-secondary my-2" type="button" id="searchBtn" value="Search">-->
-                            <button class="btn btn-outline-success my-2 my-sm-0" id="searchBtn" type="submit">Search</button>
-                            <button class="btn btn-outline-danger my-2 my-sm-0" id="regionSearchBtn" type="submit">Search here instead</button>
+<!--                            <button class="btn btn-outline-success my-2 my-sm-0" id="searchBtn" type="submit">Search</button>-->
+<!--                            <button class="btn btn-outline-danger my-2 my-sm-0" id="regionSearchBtn" type="submit">Search here instead</button>-->
 
                         
-                        </div>
+<!--                        </div>-->
                     <!--</form>-->
                     
-                    <div id="coords"></div>
-                </p>
+<!--                    <div id="coords"></div>-->
+<!--                </p>-->
                 
                 <!--<div class="form-inline">-->
                 <!--    <input class="form-control mr-sm-2" type="search" name="placeName" id="placeName" placeholder="What are you looking for?" aria-label="Search">-->
@@ -41,38 +97,41 @@
                 <!--    <button class="btn btn-outline-success my-2 my-sm-0" id="geocoderBtn" type="submit">Geocode</button>-->
                 <!--</div>-->
 
-            </div>
+<!--            </div>-->
             <!--container-->
-            </div>
-            </div>
-</div>
+<!--            </div>-->
+<!--            </div>-->
+<!--</div>-->
 <div class="container">
+<div class="row">
 
-
+<div class="col-lg-6 col-md-6 col-sm-6" id="">
     <div id="map">
 
+     <button class="btn btn-success my-2 my-sm-0" id="regionSearchBtn" type="submit" style="position: absolute; z-index: 2; left: 50%; transform: translate(-50%,0); top: 10px;">Search This Map Area</button>
 
 
+
+    </div>
     </div>
     <!--<div class="col-md-12">-->
+    <!--<div class="col-lg-6 col-md-6 col-sm-6" id="cards">-->
+    <div id="results-col" class="col-lg-6 col-md-6 col-sm-6">
     <div id="results" class="row">
 
-        <!--</div>-->
+        </div>
     </div>
 
 </div>
 </div>
-</div>
+<!--</div>-->
+
 
 
 <!--</body>-->
 
 <script src="https://cdn.apple-mapkit.com/mk/5.x.x/mapkit.js"></script>
-<script>
-    if (!support) {
-        document.getElementById("demo").innerHTML = "*** Browser May Not Be Supported ***";
-    }
-</script>
+
 
 
 <script>
@@ -332,7 +391,7 @@
                 console.log(error);
                 return;
             }
-            console.log(results);
+            // console.log(results);
 
 
             // //display search results list
@@ -359,7 +418,7 @@
                 // console.log(myObjStr[i]);
                 document.getElementById("results").innerHTML +=
 
-                    '<div class="col-lg-3 col-md-4 col-sm-6">' +
+                    '<div class="col-lg-6 col-md-6 col-sm-12">' +
                     '<div class="content card mb-4 box-shadow">' +
                     // '<a href="/a-places/a-new?name=' + results.places[i].name + '&myparam2={id2}"><img class="card-img-top" src="https://www.ppihotline.co.uk/wp-content/uploads/2017/02/placeholder-image.jpg"></a>' +
                     '<div class="content card-body" style="border-top: 5px solid #17a2b8;">' +
@@ -415,7 +474,10 @@
             var i = 0;
             results.places.forEach(function(place){ 
                 var item = new mapkit.Coordinate(place.coordinate.latitude, place.coordinate.longitude);
-                    var annotation = new MarkerAnnotation(item, { color: "blue", title: place.name, subtitle: place.formattedAddress, glyphText: (i+1).toString() });
+                    var annotation = new MarkerAnnotation(item, { color: "#ed67bf", title: place.name, subtitle: place.formattedAddress, glyphText: (i+1).toString() });
+                // annotation.clusteringIdentifier = "DetailedCollectionCluster";
+                // annotation.collisionMode = mapkit.Annotation.CollisionMode.Rectangle;
+                // annotation.displayPriority = mapkit.Annotation.DisplayPriority.High;
                 mapItems.push(annotation);
                 i++;
             }); 
