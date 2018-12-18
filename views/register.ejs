@@ -1,4 +1,9 @@
-<% include ./partials/header %>
+<% include ./partials/header-top %>
+
+    <title>Sign Up to Little Maven</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/form.css">
+
+<% include ./partials/header-bottom %>
 
 <form class="form-signin text-center" action="/register" method="post">
       <div style="font-size:3em; color:var(--maven-grey);">
@@ -34,9 +39,11 @@
       <!--  </label>-->
       <!--</div>-->
  
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+     <div class="button">
+      <button class="btn save-button lm-button" type="submit">Sign Up</button>
+      </div>
       
-      <p class="mt-5">Already have an account?</p>
+      <p class="">Already have an account?</p>
       <a href="/register">Log in</a>
     </form>
 

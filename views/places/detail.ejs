@@ -77,7 +77,25 @@
             <hr style="width: 100%">
             <p class="body2 sm-mb">
               <span id="clockIcon"><i class="far fa-clock summaryIcon"></i></span>
-              <span class="uppercase pr-2">Open Now</span>|<span class="pr-2 pl-2">8:00 - 20:30</span>|<a href="#" class="pl-2" id="summaryHours">hours</a>
+              
+              <% var today = new Date();
+              var day = today.getDay();
+              var daylist = ["Sunday","Monday","Tueday","Wednesday","Thursday","Friday","Saturday"];
+              var hour = today.getHours();
+              var min = today.getMinutes();
+              var total_mins = (hour*60) + min;
+              var array = [place.opening_hours.sun, place.opening_hours.mon, place.opening_hours.tue, place.opening_hours.wed, place.opening_hours.thu, place.opening_hours.fri, place.opening_hours.sat];
+              %>
+              
+              <span class="uppercase pr-2">Open Now</span>
+              |
+              <span class="pr-2 pl-2"><%= typeof array[day].closed !='undefined' && array[day].closed ? "Closed on " + daylist[day] + "s" : 
+                  (typeof array[day].allDay !='undefined' && array[day].allDay) ? "Open all day " + daylist[day] :
+                  (typeof array[day].open_str !='undefined' && array[day].open_str !='' && typeof array[day].close_str !='undefined' && array[day].close_str !='') ? 
+                  array[day].open_str + " - " + array[day].close_str : "--:-- to --:--" %>
+                </span>
+                |
+                <a href="#" class="pl-2" id="summaryHours">hours</a>
             </p>
             <p class="body2 sm-mb">
               <span id="costIcon"><i class="fas fa-pound-sign summaryIcon"></i></span>
@@ -773,15 +791,36 @@
             <div class="place-detail-container">
           <table>
             <tr>
-              <td>Opening Hours</td>
+              <td id="opening_hours">Opening Hours</td>
             <td>
-                <div><span class="day">Monday</span><span class="hours">09:00 - 17:00</span></div>
-                <div><span class="day">Tuesday</span><span class="hours">09:00 - 17:00</span></div>
-                <div><span class="day">Wednesday</span><span class="hours">09:00 - 17:00</span></div>
-                <div><span class="day">Thursday</span><span class="hours">09:00 - 17:00</span></div>
-                <div><span class="day">Friday</span><span class="hours">09:00 - 17:00</span></div>
-                <div><span class="day">Saturday</span><span class="hours">09:00 - 17:00</span></div>
-                <div><span class="day">Sunday</span><span class="hours">09:00 - 17:00</span></div>
+                <div><span class="day">Monday</span><span class="hours"><%= typeof place.opening_hours.mon.closed !='undefined' && place.opening_hours.mon.closed ? "Closed" : 
+                  (typeof place.opening_hours.mon.allDay !='undefined' && place.opening_hours.mon.allDay) ? "Open all day" :
+                  (typeof place.opening_hours.mon.open_str !='undefined' && place.opening_hours.mon.open_str !='' && typeof place.opening_hours.mon.close_str !='undefined' && place.opening_hours.mon.close_str !='') ? 
+                  place.opening_hours.mon.open_str + " - " + place.opening_hours.mon.close_str : "Unknown" %></span></div>
+                <div><span class="day">Tuesday</span><span class="hours"><%= typeof place.opening_hours.tue.closed !='undefined' && place.opening_hours.tue.closed ? "Closed" : 
+                  (typeof place.opening_hours.tue.allDay !='undefined' && place.opening_hours.tue.allDay) ? "Open all day" :
+                  (typeof place.opening_hours.tue.open_str !='undefined' && place.opening_hours.tue.open_str !='' && typeof place.opening_hours.tue.close_str !='undefined' && place.opening_hours.tue.close_str !='') ? 
+                  place.opening_hours.tue.open_str + " - " + place.opening_hours.tue.close_str : "Unknown" %></span></div>
+                <div><span class="day">Wednesday</span><span class="hours"><%= typeof place.opening_hours.wed.closed !='undefined' && place.opening_hours.wed.closed ? "Closed" : 
+                  (typeof place.opening_hours.wed.allDay !='undefined' && place.opening_hours.wed.allDay) ? "Open all day" :
+                  (typeof place.opening_hours.wed.open_str !='undefined' && place.opening_hours.wed.open_str !='' && typeof place.opening_hours.wed.close_str !='undefined' && place.opening_hours.wed.close_str !='') ? 
+                  place.opening_hours.wed.open_str + " - " + place.opening_hours.wed.close_str : "Unknown" %></span></div>
+                <div><span class="day">Thursday</span><span class="hours"><%= typeof place.opening_hours.thu.closed !='undefined' && place.opening_hours.thu.closed ? "Closed" : 
+                  (typeof place.opening_hours.thu.allDay !='undefined' && place.opening_hours.thu.allDay) ? "Open all day" :
+                  (typeof place.opening_hours.thu.open_str !='undefined' && place.opening_hours.thu.open_str !='' && typeof place.opening_hours.thu.close_str !='undefined' && place.opening_hours.thu.close_str !='') ? 
+                  place.opening_hours.thu.open_str + " - " + place.opening_hours.thu.close_str : "Unknown" %></span></div>
+                <div><span class="day">Friday</span><span class="hours"><%= typeof place.opening_hours.fri.closed !='undefined' && place.opening_hours.fri.closed ? "Closed" : 
+                  (typeof place.opening_hours.fri.allDay !='undefined' && place.opening_hours.fri.allDay) ? "Open all day" :
+                  (typeof place.opening_hours.fri.open_str !='undefined' && place.opening_hours.fri.open_str !='' && typeof place.opening_hours.fri.close_str !='undefined' && place.opening_hours.fri.close_str !='') ? 
+                  place.opening_hours.fri.open_str + " - " + place.opening_hours.fri.close_str : "Unknown" %></span></div>
+                <div><span class="day">Saturday</span><span class="hours"><%= typeof place.opening_hours.sat.closed !='undefined' && place.opening_hours.sat.closed ? "Closed" : 
+                  (typeof place.opening_hours.sat.allDay !='undefined' && place.opening_hours.sat.allDay) ? "Open all day" :
+                  (typeof place.opening_hours.sat.open_str !='undefined' && place.opening_hours.sat.open_str !='' && typeof place.opening_hours.sat.close_str !='undefined' && place.opening_hours.sat.close_str !='') ? 
+                  place.opening_hours.sat.open_str + " - " + place.opening_hours.sat.close_str : "Unknown" %></span></div>
+                <div><span class="day">Sunday</span><span class="hours"><%= typeof place.opening_hours.sun.closed !='undefined' && place.opening_hours.sun.closed ? "Closed" : 
+                  (typeof place.opening_hours.sun.allDay !='undefined' && place.opening_hours.sun.allDay) ? "Open all day" :
+                  (typeof place.opening_hours.sun.open_str !='undefined' && place.opening_hours.sun.open_str !='' && typeof place.opening_hours.sun.close_str !='undefined' && place.opening_hours.sun.close_str !='') ? 
+                  place.opening_hours.sun.open_str + " - " + place.opening_hours.sun.close_str : "Unknown" %></span></div>
               </td>
             </tr>
             <tr>

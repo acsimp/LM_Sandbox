@@ -1,0 +1,85 @@
+            get current day hour and minute
+            
+            display today's opening hours:
+            
+            if day = 0 (sun)
+            then do sun
+            
+            
+            
+            <<% var today = new Date();
+              var day = today.getDay();
+              var daylist = ["sun","mon","tue","wed","thu","fri","sat"];
+              var hour = today.getHours();
+              var min = today.getMinutes();
+              var total_mins = (hour*60) + min;
+              var today_str = String;
+              today_str = "place.opening_hours." + daylist[day] + "closed";
+              var array = [place.opening_hours.sun, place.opening_hours.mon, place.opening_hours.tue];
+              %>
+              
+              <%=// today_str %>
+              <%= //place.opening_hours.mon %>
+              <%= //array[day].closed %>
+              <%= typeof array[day].closed !='undefined' && array[day].closed ? "Closed" : 
+                  (typeof array[day].allDay !='undefined' && array[day].allDay) ? "Open all day" :
+                  (typeof array[day].open_str !='undefined' && array[day].open_str !='' && typeof array[day].close_str !='undefined' && array[day].close_str !='') ? 
+                  array[day].open_str + " - " + array[day].close_str : "--:-- to --:--" %>
+
+              
+              // var suffix = (hour >= 12)? " PM" : " AM";
+              // hour = (hour >= 12)? hour - 12 : hour;
+              
+              // if (hour === "0" && suffix === " PM"){
+              //   if(min === "0" && sec === "0") {
+              //     hour = 12;
+              //     suffix = " Noon";
+              //   }
+              // } 
+              // else if (hour === "0" && suffix === " AM") {
+              //   if(min === "0" && sec === "0") {
+              //     hour = 12;
+              //     suffix = " Midnight";
+              //   }
+              // }
+              
+              var todayHTML = document.getElementById("todayHTML");
+              var timeHTML = document.getElementById("timeHTML");
+              
+              todayHTML.innerHTML = "today is " + daylist[day];
+              timeHTML.innerHTML = "the time is " + hour + suffix + " " + min; 
+              %>
+              
+              <div><span class="day">Monday</span><span class="hours"><%= typeof place.opening_hours.mon.closed !='undefined' && place.opening_hours.mon.closed ? "Closed" : 
+                  (typeof place.opening_hours.mon.allDay !='undefined' && place.opening_hours.mon.allDay) ? "Open all day" :
+                  (typeof place.opening_hours.mon.open_str !='undefined' && place.opening_hours.mon.open_str !='' && typeof place.opening_hours.mon.close_str !='undefined' && place.opening_hours.mon.close_str !='') ? 
+                  place.opening_hours.mon.open_str + " - " + place.opening_hours.mon.close_str : "Unknown" %></span>
+                  </div>
+              
+              
+               <script>
+                                    
+                                    var els = document.getElementsByClassName("hour_num");
+
+                                    Array.prototype.forEach.call(els, function(el) {
+                                        // Do stuff here
+                                        
+                                        var number_id, string_id = String;
+                                        var string = document.getElementById(el.id);
+                                        string_id = String(string.id) + "_str";
+                                        number_id = String(string.id);
+                                        // console.log(string_id + ": " + typeof(string_id));
+                                        // console.log(number_id + ": " + typeof(number_id));
+                                        
+                                        var string = document.getElementById(string_id);
+                                        var number = document.getElementById(number_id);
+                                        // console.log(string, number)
+                                        string.addEventListener("input", function() {
+                                            var time,hr,min,minutes;
+                                            time = string.value.split(" ");
+                                            time = time[0].split(":");
+                                            minutes = (parseInt(time[0])*60) + parseInt(time[1]);
+                                            number.value = minutes;
+                                    });
+                                    });
+                                    </script>

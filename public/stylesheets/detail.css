@@ -805,6 +805,7 @@ ul {
 }
 .hours {
     display: inline-block;
+    font-style: italic;
 }
 
 
