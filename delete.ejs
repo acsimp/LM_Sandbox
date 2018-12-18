@@ -5,7 +5,10 @@
             if day = 0 (sun)
             then do sun
             
-            
+if open and close exist && open minutes < current total minutes < close minutes, then print OPEN NOW, else print CLOSED       
+if allDay, then print OPEN NOW || OPEN ALL DAY TODAY
+if closed, then print CLOSED || Closed on Day
+else print UNKNOWN || do not display
             
             <<% var today = new Date();
               var day = today.getDay();
