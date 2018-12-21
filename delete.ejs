@@ -21,6 +21,15 @@ else print UNKNOWN || do not display
               var array = [place.opening_hours.sun, place.opening_hours.mon, place.opening_hours.tue];
               %>
               
+              
+              <span class="uppercase pr-2">Open Now</span>
+              
+              <%= typeof array[day].closed !='undefined' && array[day].closed ? "Closed" : 
+                  (typeof array[day].allDay !='undefined' && array[day].allDay) ? "Open Now" :
+                  (typeof array[day].open_str !='undefined' && array[day].open_str !='' && typeof array[day].close_str !='undefined' && array[day].close_str !='') ? 
+                  "Open Now" : "Unknown" %>
+              
+              
               <%=// today_str %>
               <%= //place.opening_hours.mon %>
               <%= //array[day].closed %>

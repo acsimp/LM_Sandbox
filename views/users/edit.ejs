@@ -1,4 +1,8 @@
-<% include ../partials/header %>
+<% include ../partials/header-top %>
+
+    <title>Edit <%= user.firstname + " " + user.lastname %>'s Account - Little Maven</title>
+
+<% include ../partials/header-bottom %>
 
 <form class="form-signin text-center" action="/users/<%=user._id %>?_method=PUT" method="POST">
       <div style="font-size:6em; color:#999999">

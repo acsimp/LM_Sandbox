@@ -755,6 +755,7 @@ router.put("/:id", middleware.isLoggedIn, function(req, res) {
     var country = req.body.country;
     var description = req.body.description;
     var website = req.body.website;
+    var fb_link = req.body.fb_link;
     var phone = req.body.phone;
     var email = req.body.email;
     var baby_change = {
@@ -974,7 +975,7 @@ router.put("/:id", middleware.isLoggedIn, function(req, res) {
         postcode: postcode,
         country: country,
         description: description,
-        website: website,
+        fb_link: fb_link,
         phone: phone,
         email: email,
         baby_change: baby_change,

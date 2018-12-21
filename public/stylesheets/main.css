@@ -43,6 +43,14 @@ body {
     --monkey-icon:#3c3c3b;
     --monkey-off-white:#ededed;
     
+    --spread-pink: #de4065;
+    --spead-teal: #00b2a5;
+    
+    --pastel-blue: #2ab1e6;
+    --pastel-pink: #f37a7a;
+    --brighter-teal: #0edab6;
+    
+    
     
     --thin: 100;
     --light: 300;
@@ -455,9 +463,7 @@ to{opacity:1}
 #hamburger.open span:nth-child(2){-webkit-transform:rotate(45deg);-moz-transform:rotate(45deg);-o-transform:rotate(45deg);transform:rotate(45deg)}
 #hamburger.open span:nth-child(3){-webkit-transform:rotate(-45deg);-moz-transform:rotate(-45deg);-o-transform:rotate(-45deg);transform:rotate(-45deg)}
 
-/*# sourceMappingURL=/static/css/homepage.min.css.map */
 
-/* font-family: 'Lobster', cursive; */
 
 #navbar {
   transition: top 0.5s;

@@ -1,4 +1,8 @@
-<% include ../partials/header %>
+<% include ../partials/header-top %>
+
+    <title>Edit <%= place.name %> - Little Maven</title>
+
+<% include ../partials/header-bottom %>
 
     <div class="container" id="editPlaceContainer">
 
@@ -283,6 +287,10 @@
                             <tr>
                                 <th class="label"><label class="label" for="website">Website</label></th>
                                 <th class="input"><input class="form-control" type="text" id="website" name="website" placeholder="" value="<%= place.website %>"></th>
+                            </tr>
+                            <tr>
+                                <th class="label"><label class="label" for="fb_link">Website</label></th>
+                                <th class="input"><input class="form-control" type="text" id="fb_link" name="fb_link" placeholder="" value="<%= place.fb_link %>"></th>
                             </tr>
                             <tr>
                                 <th class="label"><label class="label" for="phone">Phone</label></th>

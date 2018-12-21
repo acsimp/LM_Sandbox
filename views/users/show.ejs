@@ -1,37 +1,19 @@
-<% include ../partials/header %>
+<% include ../partials/header-top %>
+
+    <title><%= user.firstname + " " + user.lastname %> - Little Maven</title>
+
+<% include ../partials/header-bottom %>
+
+
 
 <div class="container menuTopMargin">
 
-<div class="row">
-	<div class="col-md-4">
-			<h1 class="capitalize"><%= user.firstname + " " + user.lastname %></h1>
-		<div class="card">
-			<img class="card-img-top object-fit_cover" src="<%= user.avatar %>" alt="user profile image">
-			<div class="card-body">
-			    <a href="mailto:<%= user.email %>"><%= user.email %></a></div>
-		</div>
-		<% if(currentUser && user.id === String(currentUser._id)){ %>
-			<div class="btn-group">
-				<a class="btn btn-sm btn-outline-warning" href="/users/<%= user._id %>/edit">Edit</a>
-			</div>
-		<% } %>
+<div class="row text-center">
+	<div class="col-md-6 mx-auto paper-box px-3">
+			<h3 class="capitalize">Hi <%= user.firstname %>!</h3>
+			<h6>This section is under development - come back soon... :)</h6>
 	</div>
-	<div class="col-md-8">
-		<h3>Places <%= user.username %> added to the database:</h3>
-		<ul>
-		<% places.forEach(function(place) { %>
-			<li><a href="/places/<%= place.id %>"><%= place.name %></a></li>
-		<% }); %>
-		</ul>
-	</div>
-	<div class="col-md-8">
-		<h3><%= user.username %>'s comments:</h3>
-		<ul>
-		<% comments.forEach(function(comment) { %>
-			<li><p></p><a href="/places/<%= comment.place.id %>"><%= comment.place.name %></a> - <%= comment.text %> - created <%= moment(comment.createdAt).fromNow() %></p></li>
-		<% }); %>
-		</ul>
-	</div>
+	
 </div>
 </div>
 

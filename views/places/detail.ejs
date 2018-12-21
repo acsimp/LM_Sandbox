@@ -56,7 +56,7 @@
             <% }; %>
             <% } %>
             <p class="body2 sm-mb" id="categories"><%= typeof place.category !='undefined' && place.category !='' ? 
-            place.category.join(', ').substring(0, 70) + " ..." : (typeof fb_place.category_list !='undefined' && fb_place.category_list !='' ? categories.substring(0, 70) + " ..." : '*no record') %></p>
+            place.category.join(', ').substring(0, 70) + " ..." : (typeof fb_place.category_list !='undefined' && fb_place.category_list !='' ? categories.substring(0, 70) + " ..." : '*no categories on record') %></p>
             </p>
             
             
@@ -87,7 +87,15 @@
               var array = [place.opening_hours.sun, place.opening_hours.mon, place.opening_hours.tue, place.opening_hours.wed, place.opening_hours.thu, place.opening_hours.fri, place.opening_hours.sat];
               %>
               
-              <span class="uppercase pr-2">Open Now</span>
+              <!--if open and close exist && open minutes < current total minutes < close minutes, then print OPEN NOW, else print CLOSED-->
+
+              
+              <span class="uppercase pr-2"><%= typeof array[day].closed !='undefined' && array[day].closed ? "Closed" : 
+                  (typeof array[day].allDay !='undefined' && array[day].allDay) ? "Open Now" :
+                  (typeof array[day].open !='undefined' && array[day].open <= total_mins && typeof array[day].close !='undefined' && total_mins < array[day].close) ? "Open Now" : 
+                  (typeof array[day].open =='number' && array[day].open > total_mins) ? "Closed" :
+                  (typeof array[day].close =='number' && total_mins >= array[day].close) ? "Closed" :
+                  "Unknown" %></span>
               |
               <span class="pr-2 pl-2"><%= typeof array[day].closed !='undefined' && array[day].closed ? "Closed on " + daylist[day] + "s" : 
                   (typeof array[day].allDay !='undefined' && array[day].allDay) ? "Open all day " + daylist[day] :
@@ -103,23 +111,33 @@
             </p>
             
             <p class="body2 sm-mb" id="summaryLinks">
-              <span id="webIcon"><i class="fas fa-desktop summaryIcon"></i></span>
+              <span id="webIcon"><i class="fas fa-link summaryIcon"></i></span>
               
-              <% if( typeof place.website !='undefined' && place.website !=''){ %>
-                <a href="<%= place.website %>" class="pl-2 external-link" target="_blank">Website</a>
-              <% } else if( typeof fb_place.website !='undefined' && fb_place.website !=''){ %>
-                <a href="<%= fb_place.website %>" class="pr-2 external-link" target="_blank">Website</a>|
+              <% var link_tags = []; %>
+              <% var link_names = []; %>
+              <% if( typeof place.website !='undefined' && place.website !=''){ link_tags.push(place.website); link_names.push('Website'); %>
+              <% } else if( typeof fb_place.website !='undefined' && fb_place.website !='') { link_tags.push(fb_place.website); link_names.push('Website'); %>
               <% } %>
-              
-              <% if( typeof fb_place.link !='undefined' && fb_place.link !=''){ %>
-                <a href="<%= fb_place.link %>" class="pr-2 pl-2 external-link" target="_blank">Facebook</a>|
+              <% if( typeof place.fb_link !='undefined' && place.fb_link !=''){ link_tags.push(place.fb_link); link_names.push('Facebook'); %>
+              <% } else if( typeof fb_place.link !='undefined' && fb_place.link !='') { link_tags.push(fb_place.link); link_names.push('Facebook'); %>
               <% } %>
-              
-              <% if( typeof place.email !='undefined' && place.email !=''){ %>
-                <a href="mailto:<%= place.email %>" class="pl-2 external-link" target="_top">Email</a>
-              <% } else if( typeof fb_place.emails !='undefined' && fb_place.emails !=''){ %>
-                <a href="mailto:<%= fb_place.emails[0].value %>" class="pl-2" target="_top">Email</a>
+              <% if( typeof place.email !='undefined' && place.email !=''){ link_tags.push(place.email); link_names.push('Email'); %>
+              <% } else if( typeof fb_place.emails !='undefined' && fb_place.emails !='') { link_tags.push(emails[0].value); link_names.push('Email'); %>
               <% } %>
+            
+              <% if (link_names.length > 0){ %>
+                  <% for (var i = 0; i < link_names.length; i++){%>
+                  <% if (link_names[i] == 'Email') { %>
+                  <a href="mailto:<%= link_tags[i] %>" class="" target="_top"><%= link_names[i] %></a>
+                  <% } else { %>
+                  <a href="<%= link_tags[i] %>" class="external-link" target="_blank"><%= link_names[i] %></a></span>
+                  <% } %>
+                  <% if (i<(link_tags.length-1)){ %>
+                  <span class="pr-2 pl-2">|</span>
+                  <% } %><% } %><% } else {%>
+                  <i>*No websites on record*</i>
+                  <% } %>
+
             </p>
             <p class="body2 sm-mb">
               <span id="phoneIcon"><i class="fas fa-phone summaryIcon"></i></span>
@@ -371,23 +389,23 @@
                   </select>
               <span class="middotDivider"></span><%= moment(comment.createdAt).format("D MMM YY") %></span>
             </div>
-            </div>
-            <div class="review-text">
-              <p class="subtitle2 review-title capitalize"><%= comment.title %></p>
-              <p class="body2"><%= comment.text %></p>
-            
-                   
-            
-                       <!--If the visitor is logged in and the owner of the comment, show the edit and delete buttons-->
-
-                    <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
-                            <a class="btn btn-sm btn-warning" 
+            <div class="flex-child">
+            <!--If the visitor is logged in and the owner of the comment, show the edit button -->
+               <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
+                            <a class="btn btn-sm btn-light" style="margin-top: 15px;" 
                             href="/places/<%= place._id %>/comments/<%= comment._id %>/edit">
                             Edit
                             </a>
                             
                             <% } %>
-                    
+            </div>
+            </div>
+            <div class="review-text">
+              <p class="subtitle2 review-title capitalize"><%= comment.title %></p>
+              
+              <p class="body2"><%= comment.text %></p>
+            
+                   
              </div>
              </div>       
             <script>
@@ -445,7 +463,7 @@
         <table id="sticky-review-table">
           <tr class="rate-overall">
             <td>Overall</td>
-            <td><select id="overall-sticky" name="rating_overall">
+            <td><select id="overall-sticky" name="rating_overall" required>
                     <option value=""></option>
                     <option value="1">Terrible</option>
                     <option value="2">Poor</option>
@@ -526,8 +544,8 @@
                   </td>
           </tr>          
 </table>
-        <input id="sticky-review-title" name="comment[title]" class="form-control" type="text" placeholder="Title your review">
-        <textarea class="form-control" name="comment[text]" id="sticky-review-text" rows="4" placeholder="Tell others what you think about this place. Would you recommend it and why?"></textarea>
+        <input id="sticky-review-title" name="comment[title]" class="form-control" type="text" placeholder="Title your review" required>
+        <textarea class="form-control" name="comment[text]" id="sticky-review-text" rows="4" placeholder="Tell others what you think about this place. Would you recommend it and why?" required></textarea>
 
         <div class="button-right-wrapper">
         <button type="submit" id="sticky-review-submit" class="buttonText lm-button">Submit</button>
@@ -1046,7 +1064,7 @@
         <table id="sticky-review-table">
           <tr class="rate-overall">
             <td>Overall</td>
-            <td><select id="overall-sticky" name="rating_overall">
+            <td><select id="overall-sticky" name="rating_overall" required>
                     <option value=""></option>
                     <option value="1">Terrible</option>
                     <option value="2">Poor</option>
@@ -1127,8 +1145,8 @@
                   </td>
           </tr>          
 </table>
-        <input id="sticky-review-title" name="comment[title]" class="form-control" type="text" placeholder="Title your review">
-        <textarea class="form-control" name="comment[text]" id="sticky-review-text" rows="4" placeholder="Tell others what you think about this place. Would you recommend it and why?"></textarea>
+        <input id="sticky-review-title" name="comment[title]" class="form-control" type="text" placeholder="Title your review" required>
+        <textarea class="form-control" name="comment[text]" id="sticky-review-text" rows="4" placeholder="Tell others what you think about this place. Would you recommend it and why?" required></textarea>
 
         <div class="button-right-wrapper">
         <button type="submit" id="sticky-review-submit" class="buttonText lm-button">Submit</button>

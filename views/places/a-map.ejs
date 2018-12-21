@@ -1,7 +1,10 @@
 <% include ../partials/header-top %>
+
 <!--<script src="/js/browser.js"></script>-->
 <!--<div class="container">-->
     <link rel="stylesheet" type="text/css" href="/stylesheets/search.css">
+      <link rel="stylesheet" type="text/css" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
+
 
 <% include ../partials/header-bottom %>
 
@@ -10,6 +13,7 @@
             <!--<div class="container">-->
                 <!--<h5 class="jumbotron-heading">Search little Maven</h5>-->
                 <h5 class="text-center mt-5">Find & Add a New Place</h5>
+                <p class="subtitle2 text-center">Step 1 of 4</p>
                     <!--<form id="searchForm" class="" action="/places" autocomplete="off" method="GET">-->
                         <div class="search" id="searchDiv">
 
@@ -105,21 +109,23 @@
 <div class="container">
 <div class="row">
 
-<div class="col-lg-6 col-md-6 col-sm-6" id="">
-    <div id="map">
 
-     <button class="btn btn-success my-2 my-sm-0" id="regionSearchBtn" type="submit" style="position: absolute; z-index: 2; left: 50%; transform: translate(-50%,0); top: 10px;">Search This Map Area</button>
-
-
-
-    </div>
-    </div>
     <!--<div class="col-md-12">-->
     <!--<div class="col-lg-6 col-md-6 col-sm-6" id="cards">-->
     <div id="results-col" class="col-lg-6 col-md-6 col-sm-6">
     <div id="results" class="row">
 
         </div>
+    </div>
+    
+    <div class="col-lg-6 col-md-6 col-sm-6" id="">
+    <div id="map">
+
+     <button class="btn btn-secondary my-2 my-sm-0" id="regionSearchBtn" type="submit" style="position: absolute; z-index: 2; left: 50%; transform: translate(-50%,0); top: 10px;">Search This Map Area</button>
+
+
+
+    </div>
     </div>
 
 </div>
@@ -418,15 +424,18 @@
                 // console.log(myObjStr[i]);
                 document.getElementById("results").innerHTML +=
 
-                    '<div class="col-lg-6 col-md-6 col-sm-12">' +
+                    '<div class="col-lg-6 col-md-6 col-sm-12" id="cards">' +
                     '<div class="content card mb-4 box-shadow">' +
+                    '<span class="placeNumber" style="background-color:#757575; right: 0;">' + (i+1).toString() + '</span>' +
                     // '<a href="/a-places/a-new?name=' + results.places[i].name + '&myparam2={id2}"><img class="card-img-top" src="https://www.ppihotline.co.uk/wp-content/uploads/2017/02/placeholder-image.jpg"></a>' +
-                    '<div class="content card-body" style="border-top: 5px solid #17a2b8;">' +
-                    '<h5 class="card-title mb-3">' + results.places[i].name + '</h5>' +
-                    '<p class="card-text">' + results.places[i].formattedAddress + '</p>' +
-                    '<div class="d-flex justify-content-between align-items-center">' +
+                    // '<div class="content card-body" style="border-top: 5px solid #00C4B3;">' +
+                    '<div class="content card-body">' +
+                    '<h6 class="subtitle1">' + results.places[i].name + '</h6>' +
+                    '<p class="captionText card_address">' + results.places[i].formattedAddress + '</p>' +
+                    '<div class="buttons">' +
                     // '<div class="btn-group">' +
-                    '<a class="btn btn-sm btn-outline-secondary" target="_blank" href="' + results.places[i]._wpURL + '"><i class="fab fa-apple"></i>&nbsp; Card</a>' +
+                    '<a class="more-info external-link" target="_blank" href="' + results.places[i]._wpURL + '">More Info</a>' +
+                    // '<a class="btn btn-sm btn-outline-secondary" target="_blank" href="' + results.places[i]._wpURL + '"><i class="fab fa-apple"></i>&nbsp; More Info</a>' +
                     //   '<a class="mdc-fab" onclick="storePlace(' + i + ')" href="/a-places/a-new?name=' + results.places[i].name + 
                     '<a class="mdc-fab" onclick="storePlace(' + i + ')" href="/a-places/g-search?name=' + results.places[i].name + 
 
@@ -443,15 +452,15 @@
                     '</div>';
             }
 
-                    document.getElementById("results").innerHTML +=
-                    '<div class="col-lg-6 col-md-6 col-sm-12">' +
-                    '<div class="content card mb-4 box-shadow text-white bg-dark">' +
-                    '<div class="content card-body" style="border-top: 5px solid #17a2b8;">' +
-                    '<h5 class="card-title mb-3">Not found the place you are looking for?</h5>' +
-                    '<a href="g-search" class="btn btn-primary" onclick="">Try Google</a>'
-                    '</div>' +
-                    '</div>' +
-                    '</div>';
+                    // document.getElementById("results").innerHTML +=
+                    // '<div class="col-lg-6 col-md-6 col-sm-12">' +
+                    // '<div class="content card mb-4 box-shadow text-white bg-dark">' +
+                    // '<div class="content card-body" style="border-top: 5px solid #17a2b8;">' +
+                    // '<h5 class="card-title mb-3">Not found the place you are looking for?</h5>' +
+                    // '<a href="g-search" class="btn btn-primary" onclick="">Try Google</a>'
+                    // '</div>' +
+                    // '</div>' +
+                    // '</div>';
 
             //Controls - Mapkit search results    
             // var annotations = results.places.map(function(place) {
@@ -474,7 +483,7 @@
             var i = 0;
             results.places.forEach(function(place){ 
                 var item = new mapkit.Coordinate(place.coordinate.latitude, place.coordinate.longitude);
-                    var annotation = new MarkerAnnotation(item, { color: "#ed67bf", title: place.name, subtitle: place.formattedAddress, glyphText: (i+1).toString() });
+                    var annotation = new MarkerAnnotation(item, { color: "#757575", title: place.name, subtitle: place.formattedAddress, glyphText: (i+1).toString() });
                 // annotation.clusteringIdentifier = "DetailedCollectionCluster";
                 // annotation.collisionMode = mapkit.Annotation.CollisionMode.Rectangle;
                 // annotation.displayPriority = mapkit.Annotation.DisplayPriority.High;

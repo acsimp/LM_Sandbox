@@ -1,19 +1,81 @@
-<% include ../partials/header %>
+<% include ../partials/header-top %>
+
+    <title>Add to Little Maven</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/search.css">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
+
+<% include ../partials/header-bottom %>
 
 <div class="container">
 
 
-    <h1 class="my-5 text-center" style="width:100%">Add a New Place</h1>
+    <h5 class="mt-5 text-center" style="width:100%">Add a New Place</h5>
+    <p class="subtitle2 text-center">Step 2 of 4</p>
 
 
-    <div class="row" style="border-bottom: 2px solid lightgray;">
+
+      <div id="results" class="row">
+    <h6 class="my-3 text-center" style="width:100%">Select the Matching Google Place:</h6>
+
+        <% var i; %>
+        <%for (i = 0; i < place.results.length; i++) { %>
+
+
+
+        <!--<div class="col-md-4 col-sm-6">-->
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="content card mb-4 box-shadow">
+                <div class="content card-body">
+
+                    <h6 class="subtitle1">
+                        <%= place.results[i].name %>
+                    </h6>
+
+                    <p class="captionText card_address">
+                        <% if (place.results[i].formatted_address) { %>
+                            <%= place.results[i].formatted_address %><br />
+                        <% } else { %>
+                        <% if (place.results[i].vicinity){ %>
+                            <%= place.results[i].vicinity %><br />
+                        <% } else {%>
+                            Address not found
+                        <% } }%>
+                    </p>
+                    <p class="captionText capitalize card_address">
+                    <% if (place.results[i].types){ %>
+                            <%= place.results[i].types[0] %><br />
+                        <% } %>
+                    </p>
+                    <p class="overlineText">
+                    <% if (place.results[i].distance) { %>
+                            <%= place.results[i].distance.toFixed(3) %>km from search coords<br />
+                    <% } %>
+                    </p>
+                        <div class="buttons">
+                        <a class="more-info external-link" href="https://www.google.com/maps/search/?api=1&query=<%= place.results[i].name %>&query_place_id=<%= place.results[i].place_id %>" target="_blank">Google Map Link</a>
+
+                    <a class="mdc-fab" style="" onclick="storePlace('<%= place.results[i].place_id %>')" href="/a-places/fb-search<%= searchQuery %>"><span class="material-icons mdc-fab__icon" style="color: white">add</span></a>
+                </div>
+                </div>
+                
+            </div>
+        </div>
+        <%// }); %>
+        <% } %>
+        <br />
+        <!--<a href="<%= //place.paging.next %>"> next </a>-->
+
+    </div>
+    <!--<hr>-->
+
+    <div class="row paper-box">
 
     <div id= "query_card" class="col-lg-3 col-md-4 col-sm-6">
-            <div class="card mb-4 box-shadow text-white bg-dark">
+            <div class="card mb-4 box-shadow">
                 <div class="content card-body" style="border-top: 5px solid black;">
-                    <h4 class="text-uppercase text-info">Find a match for:</h4>
-                    <h5 id="query_card_name" class="card-title mb-3">
-                    </h5>
+                    <h5 class="" style="colour:var(--maven-primary);">Find a match for:</h5>
+                    <h6 id="query_card_name" class="subtitle1">
+                    </h6>
                     <p id="query_card_formattedAddress" class="card-text"></p>
                 </div>
             </div>
@@ -27,7 +89,7 @@
                 </div>
             </div>
             <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="card mb-4 box-shadow text-white bg-dark">
+                <div class="card mb-4 box-shadow">
                     <div class="content card-body">
                         <h4 class="text-uppercase text-info">Redefine Search</h4>
                         <form>
@@ -63,52 +125,7 @@
                 </div>
             </div>
         </div>
-      <div id="results" class="row">
-    <h4 class="my-5 text-center" style="width:100%">Google Search Results</h4>
 
-        <% var i; %>
-        <%for (i = 0; i < place.results.length; i++) { %>
-
-
-
-        <!--<div class="col-md-4 col-sm-6">-->
-        <div class="col-lg-3 col-md-4 col-sm-6">
-            <div class="content card mb-4 box-shadow">
-                <div class="content card-body" style="border-top: 5px solid #17a2b8;">
-
-                    <h5 class="card-title mb-3">
-                        <%= place.results[i].name %>
-                    </h5>
-
-                    <b>
-                        <% if (place.results[i].formatted_address) { %>
-                            <%= place.results[i].formatted_address %><br />
-                        <% } else { %>
-                        <% if (place.results[i].vicinity){ %>
-                            <%= place.results[i].vicinity %><br />
-                        <% } else {%>
-                            Address not found
-                        <% } }%>
-                    </b>
-                    <% if (place.results[i].types){ %>
-                            <%= place.results[i].types[0] %><br />
-                        <% } %>
-                    <% if (place.results[i].distance) { %>
-                            <%= place.results[i].distance.toFixed(3) %>km from Apple place<br />
-                    <% } %>
-                        
-                        <a href="https://www.google.com/maps/place/?q=place_id:<%= place.results[i].place_id %>" target="_blank">Google Map Link</a>
-                    <br/><br/>
-                    <a class="mdc-fab" style="position: absolute; bottom: 1rem; right: 1rem; z-index: 1;" onclick="storePlace('<%= place.results[i].place_id %>')" href="/a-places/fb-search<%= searchQuery %>"><span class="material-icons mdc-fab__icon" style="color: white">add</span></a>
-                </div>
-            </div>
-        </div>
-        <%// }); %>
-        <% } %>
-        <br />
-        <!--<a href="<%= //place.paging.next %>"> next </a>-->
-
-    </div>
 </div>
 
 <script>

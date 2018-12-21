@@ -235,7 +235,7 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
 });
 
 // EDIT COMMENT
-router.get("/:comment_id/edit", middleware.checkCommentOwnership, function(req, res) {
+router.get("/:comment_id/edit", middleware.checkCommentOwnership, middleware.isLoggedIn, function(req, res) {
     Place.findById(req.params.id, function(err, foundPlace) {
         if (err || !foundPlace) {
             req.flash("error", "No place found");
@@ -247,7 +247,7 @@ router.get("/:comment_id/edit", middleware.checkCommentOwnership, function(req, 
             }
             else {
                 //id is already available from app.js due to the prefix route files
-                res.render("comments/edit", { place_id: req.params.id, comment: foundComment, back: req.params.id });
+                res.render("comments/edit", { place_id: req.params.id, comment: foundComment, back: req.params.id, place: foundPlace });
             }
         });
     });

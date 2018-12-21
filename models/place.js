@@ -14,6 +14,7 @@ var placeSchema = new mongoose.Schema({
         description: String,
         category: [],
         website: String,
+        fb_link: String,
         phone: String,
         email: String,
         price: Number, // 1-4, relative, ££££

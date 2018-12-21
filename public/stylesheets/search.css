@@ -57,9 +57,35 @@
     box-shadow: 
      0 2px 3px 0px rgba(0,0,0,.10), 
      0 4px 3px 0px rgba(0,0,0,.08);
+    right:0;
 }
-
-
+.placeNumber-inline {
+    height: 2rem;
+    width: 2rem;
+    border-radius: 50%;
+    background-color: var(--maven-primary);
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 2rem;
+    font-size: 1rem;
+    position: inline-block;
+    z-index: 2;
+    margin: 0.5rem;
+    /*font-weight: 500;*/
+    font-weight: 500;
+    box-shadow: 
+     0 2px 3px 0px rgba(0,0,0,.10), 
+     0 4px 3px 0px rgba(0,0,0,.08);
+}
+.more-info{
+    bottom: 20px;
+    position: absolute;
+    text-decoration: underline;
+}
+.more-info:hover{
+    font-weight: 500; 
+}
 .distanceTo{
     margin-top: -2.75rem;
     background-color: white;
@@ -173,9 +199,7 @@
     width: 180px;
     padding-bottom:0px;
 }
-.placeNumber{
-right:0;
-}
+
 .distanceTo {
     margin-top: 0px;
     bottom: 0;
@@ -200,3 +224,24 @@ right:0;
                               width: 62%;
                         }
                         }
+                        
+
+.buttons{
+    margin-top:16px;
+}                        
+                        
+.mdc-fab {
+    background-color: var(--maven-primary, #018786)!important;
+    float:right;
+    margin-right: -25px;
+    margin-bottom: -25px;
+    border-bottom-right-radius: 3px!important;
+}
+.external-link:after {
+    font: normal normal normal 18px/1 "Font Awesome 5 Free";
+    font-size: .65em;
+    margin-left: 5px;
+    content: '\f35d';
+    font-weight: 900;
+    vertical-align: super;
+}

@@ -10,17 +10,19 @@ var request = require('request-promise');
 //APPLE MAP - show apple map of places
 router.get("/a-map", middleware.isLoggedIn, function(req, res) {
     //get all places from the db
-    Place.find({}, function(err, allPlaces) {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            //res.render("places/index");
+                res.render("places/a-map", {currentUser: req.user });
 
-            res.render("places/a-map", { places: allPlaces, currentUser: req.user, page: 'map' });
+    // Place.find({}, function(err, allPlaces) {
+    //     if (err) {
+    //         console.log(err);
+    //     }
+    //     else {
+    //         //res.render("places/index");
 
-        }
-    });
+    //         res.render("places/a-map", { places: allPlaces, currentUser: req.user, page: 'map' });
+
+    //     }
+    // });
 });
 
 
