@@ -9,14 +9,35 @@
 <div class="container">
 
 
-    <h5 class="mt-5 text-center" style="width:100%">Add a New Place</h5>
+    <h5 class="mt-4 text-center" style="width:100%">Add a New Place</h5>
     <p class="subtitle2 text-center">Step 2 of 4</p>
+
+<div id= "query_card" class="col-lg-4 col-md-4 col-sm-6 mx-auto">
+            <div class="card mb-4 box-shadow">
+                <div class="content card-body">
+                    <!--<h6 class="" style="colour:var(--maven-primary);">Find a match for:</h6>-->
+                    <h6 id="query_card_name" class="subtitle1">
+                    </h6>
+                    <p id="query_card_formattedAddress" class="captionText capitalize card_address"></p>
+                </div>
+            </div>
+        </div>
+        </div>
+<div class="middleBG">
+        <div class="container">
+        
 
 
 
       <div id="results" class="row">
-    <h6 class="my-3 text-center" style="width:100%">Select the Matching Google Place:</h6>
-
+    <h6 class="my-2 text-center" style="width:100%">Select the Matching Google Place:</h6>
+<% if(place.results.length > 0) { %>
+            <p class="subtitle2 text-center" style="width:100%"><b><%= place.results.length %></b> place/s found</p>
+        <% } %>
+          <% if (typeof place.results!='undefined' && place.results.length == 0) { %>
+        <p>No search results found</p>
+    <% } else if (typeof place.results!='undefined'){ %>
+        
         <% var i; %>
         <%for (i = 0; i < place.results.length; i++) { %>
 
@@ -25,7 +46,9 @@
         <!--<div class="col-md-4 col-sm-6">-->
         <div class="col-lg-3 col-md-4 col-sm-6">
             <div class="content card mb-4 box-shadow">
+                <span class="placeNumber" style="background-color:#757575; right: 0;"><%=(i+1).toString()%></span>
                 <div class="content card-body">
+                     
 
                     <h6 class="subtitle1">
                         <%= place.results[i].name %>
@@ -41,12 +64,12 @@
                             Address not found
                         <% } }%>
                     </p>
-                    <p class="captionText capitalize card_address">
+                    <i class="captionText capitalize card_address">
                     <% if (place.results[i].types){ %>
                             <%= place.results[i].types[0] %><br />
                         <% } %>
-                    </p>
-                    <p class="overlineText">
+                    </i>
+                    <p class="overlineText" id="googleDist">
                     <% if (place.results[i].distance) { %>
                             <%= place.results[i].distance.toFixed(3) %>km from search coords<br />
                     <% } %>
@@ -62,71 +85,74 @@
         </div>
         <%// }); %>
         <% } %>
+        <% } %>
         <br />
         <!--<a href="<%= //place.paging.next %>"> next </a>-->
 
     </div>
     <!--<hr>-->
-
-    <div class="row paper-box">
-
-    <div id= "query_card" class="col-lg-3 col-md-4 col-sm-6">
-            <div class="card mb-4 box-shadow">
-                <div class="content card-body" style="border-top: 5px solid black;">
-                    <h5 class="" style="colour:var(--maven-primary);">Find a match for:</h5>
-                    <h6 id="query_card_name" class="subtitle1">
-                    </h6>
-                    <p id="query_card_formattedAddress" class="card-text"></p>
-                </div>
-            </div>
-        </div>
-                <div id= "no_match" class="col-lg-3 col-md-4 col-sm-6">
-                <div class="content card-body">
-                    <h5 id="" class="card-title mb-3">
+    </div>
+    </div>
+    <div class="">
+    <div class="container">
+<h6 id="" class="my-2 text-center">
                         No match found?
-                    </h5>
-                    <a href="/a-places/fb-search<%= searchQuery %>" class="btn btn-primary" onclick="clearGoogleSession()">Proceed without</a>
-                </div>
+                    </h6>
+    <div class="row">
+
+ <div id= "" class="col-lg-4 col-md-4 col-sm-6">
             </div>
-            <div class="col-lg-3 col-md-4 col-sm-6">
+
+               
+            <div class="col-lg-4 col-md-4 col-sm-6">
                 <div class="card mb-4 box-shadow">
                     <div class="content card-body">
-                        <h4 class="text-uppercase text-info">Redefine Search</h4>
+                        <h6 class="">Redefine Search</h6>
                         <form>
-                            <table>
+                            <table id="refineSearchTable">
                                 <tr>
-                                    <th class="label"><label class="label" for="name">Name</label></th>
-                                    <th class="input"><input class="form-control" type="text" id="name" name="name" placeholder="" value="<%= name %>"></th>
+                                    <td class="label"><label class="label captionText" for="name">Name</label></td>
+                                    <td class="input"><input class="form-control" type="text" id="name" name="name" placeholder="" value="<%= name %>"></td>
                                 </tr>
                                 <tr>
-                                    <th class="label"><label class="label" for="address">Address</label></th>
-                                    <th class="input"><input class="form-control" type="text" id="address" name="address" placeholder="" value="<%= address %>"></th>
+                                    <td class="label"><label class="label captionText" for="address">Address</label></td>
+                                    <td class="input"><input class="form-control" type="text" id="address" name="address" placeholder="" value="<%= address %>"></td>
                                 </tr>
                                 <tr>
-                                    <th class="label"><label class="label" for="latitude">Latitude</label></th>
-                                    <th class="input"><input class="form-control" type="text" id="latitude" name="latitude" placeholder="" value="<%= latitude %>"></th>
+                                    <td class="label"><label class="label captionText" for="latitude">Latitude</label></td>
+                                    <td class="input"><input class="form-control" type="text" id="latitude" name="latitude" placeholder="" value="<%= latitude %>"></td>
                                 </tr>
                                 <tr>
-                                    <th class="label"><label class="label" for="longitude">Longitude</label></th>
-                                    <th class="input"><input class="form-control" type="text" id="longitude" name="longitude" placeholder="" value="<%= longitude %>"></th>
+                                    <td class="label"><label class="label captionText" for="longitude">Longitude</label></td>
+                                    <td class="input"><input class="form-control" type="text" id="longitude" name="longitude" placeholder="" value="<%= longitude %>"></td>
                                 </tr>
                                 <tr>
-                                    <th class="label"><label class="label" for="radius">Radius (m)</label></th>
-                                    <th class="input"><input class="form-control" type="text" id="radius" name="radius" placeholder="" value="<%= radius %>"></th>
+                                    <td class="label"><label class="label captionText" for="radius">Radius (m)</label></td>
+                                    <td class="input"><input class="form-control" type="text" id="radius" name="radius" placeholder="" value="<%= radius %>"></td>
                                 </tr>
                             </table>
                             
                             <div class="button">
-                                <button class="btn btn-lg btn-info">Search</button>
+                                <button class="btn save-button lm-button">Search</button>
                             </div>
                             
                             </form>
                     </div>
                 </div>
             </div>
+            
+             <div id= "no_match" class="col-lg-4 col-md-4 col-sm-6">
+                <div class="content card-body">
+                    
+                    <a href="/a-places/fb-search<%= searchQuery %>" class="btn btn-secondary" onclick="clearGoogleSession()">Skip Step</a>
+                </div>
+            </div>
+            
         </div>
 
 </div>
+</div>
+
 
 <script>
 
@@ -151,3 +177,5 @@ $(document).ready(function() {
     
     
 </script>
+
+<% include ../partials/footer %>

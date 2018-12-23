@@ -1,76 +1,39 @@
 <% include ../partials/header-top %>
 
     <title>Add to Little Maven</title>
-      <link rel="stylesheet" type="text/css" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
-
+    <link rel="stylesheet" type="text/css" href="/stylesheets/search.css">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
 
 <% include ../partials/header-bottom %>
 
 <div class="container">
 
- <h1 class="my-5 text-center" style="width:100%">Add a New Place</h1>
 
+    <h5 class="mt-4 text-center" style="width:100%">Add a New Place</h5>
+    <p class="subtitle2 text-center">Step 3 of 4</p>
 
-    <div class="row" style="border-bottom: 2px solid lightgray;">
-
-    <div id= "query_card" class="col-lg-3 col-md-4 col-sm-6">
-            <div class="card mb-4 box-shadow text-white bg-dark">
-                <div class="content card-body" style="border-top: 5px solid black;">
-                    <h4 class="text-uppercase text-info">Find a match for:</h4>
-                    <h5 id="query_card_name" class="card-title mb-3">
-                    </h5>
-                    <p id="query_card_formattedAddress" class="card-text"></p>
-                </div>
-            </div>
-        </div>
-                <div id= "no_match" class="col-lg-3 col-md-4 col-sm-6">
+<div id= "query_card" class="col-lg-4 col-md-4 col-sm-6 mx-auto">
+            <div class="card mb-4 box-shadow">
                 <div class="content card-body">
-                    <h5 id="" class="card-title mb-3">
-                        No match found?
-                    </h5>
-                    <a href="/a-places/a-new<%= searchQuery %>" class="btn btn-primary" onclick="clearFbSession()">Proceed without</a>
+                    <!--<h6 class="" style="colour:var(--maven-primary);">Find a match for:</h6>-->
+                    <h6 id="query_card_name" class="subtitle1">
+                    </h6>
+                    <p id="query_card_formattedAddress" class="captionText capitalize card_address"></p>
                 </div>
             </div>
-
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="card mb-4 box-shadow text-white bg-dark">
-                    <div class="content card-body">
-                        <h4 class="text-uppercase text-info">Redefine Search</h4>
-                        <form>
-                            <table>
-                                <tr>
-                                    <th class="label"><label class="label" for="name">Query</label></th>
-                                    <th class="input"><input class="form-control" type="text" id="name" name="name" placeholder="" value="<%= q %>"></th>
-                                </tr>
-                                <tr>
-                                    <th class="label"><label class="label" for="latitude">Latitude</label></th>
-                                    <th class="input"><input class="form-control" type="text" id="latitude" name="latitude" placeholder="" value="<%= latitude %>"></th>
-                                </tr>
-                                <tr>
-                                    <th class="label"><label class="label" for="longitude">Longitude</label></th>
-                                    <th class="input"><input class="form-control" type="text" id="longitude" name="longitude" placeholder="" value="<%= longitude %>"></th>
-                                </tr>
-                                <tr>
-                                    <th class="label"><label class="label" for="radius">Radius (m)</label></th>
-                                    <th class="input"><input class="form-control" type="text" id="radius" name="radius" placeholder="" value="<%= radius %>"></th>
-                                </tr>
-                            </table>
-                            
-                            <div class="button">
-                                <button class="btn btn-lg btn-info">Search</button>
-                            </div>
-                            
-                            </form>
-                    </div>
-                </div>
-            </div>
-
-
         </div>
-        
-        
+        </div>
+<div class="middleBG">
+        <div class="container">
+         
+         
+             
       <div id="results" class="row">
-    <h4 class="my-5 text-center" style="width:100%">Facebook Search Results</h4>
+    <h6 class="my-2 text-center" style="width:100%">Select the Matching Facebook Place</h6>
+    
+    <% if(place.data.length > 0) { %>
+            <p class="subtitle2 text-center" style="width:100%"><b><%= place.data.length %></b> place/s found</p>
+        <% } %>
     
     <% if (typeof place.data!='undefined' && place.data.length == 0) { %>
         <p>No search results found</p>
@@ -84,73 +47,66 @@
         <!--<div class="col-md-4 col-sm-6">-->
         <div class="col-lg-3 col-md-4 col-sm-6">
             <div class="content card mb-4 box-shadow">
+                <span class="placeNumber" style="background-color:#757575; right: 0;"><%=(i+1).toString()%></span>
 
                 <% if (place.data[i].photos) { %>
+                    <div class="image">
                     <img class="card-img-top" src="<%=place.data[i].photos.data[0].images[0].source %>">
+                     </div>   
                         <% imageURL[i] = place.data[i].photos.data[0].images[0].source %>
                 <% } else { %>
                 <% if (place.data[i].picture.data.url) { %>
+                <div class="image">
                     <img class="card-img-top" src="<%=place.data[i].picture.data.url %>">
                     <% imageURL[i] = place.data[i].picture.data.url %>
+                    </div>
                 <% } else { %>
+                <div class="image">
                     <img class="card-img-top" src="https://uploads-ssl.webflow.com/57e5747bd0ac813956df4e96/5aebae14c6d254621d81f826_placeholder.png">
+                </div>
                 <% } } %>
                 <div class="content card-body">
-                    <h5 class="card-title mb-3">
+                    <h6 class="subtitle1">
                         <%= place.data[i].name %>
-                    </h5>
-                    <% if (place.data[i].location) { %>
-                        <b>
-                            <%= place.data[i].location.street %><br />
-                            <%= place.data[i].location.city %><br />
-                            <%= place.data[i].location.zip %><br />
-                            <%= place.data[i].location.country %><br />
-                        </b>
+                    </h6>
+                    <% if (place.data[i].single_line_address) { %>
+                        <p class="captionText card_address mb-2">
+                            <%= place.data[i].single_line_address %>
+                        </p>
                     <% } %>
-                    <br/>
                      <% if (place.data[i].category_list) { %>
-                            <!--<%= // place.data[i].category_list[0].name %><br />-->
-                            
                             <% var categories = ""; %>
-                            
                             <% for (var j = 0; j < place.data[i].category_list.length; j++){%>
                                 <% categories += place.data[i].category_list[j].name;%>
                                 <% j<(place.data[i].category_list.length-1) ? categories += ", " : '';%>
                             <% }; %>
-                            <p class="body2 sm-mb" id="categories"><%=  categories.substring(0, 70) + " ..." %></p>
+                            <i class="captionText capitalize card_address mb-2" id="categories"><%=  categories.substring(0, 70) + " ..." %></i>
                             <p class="body2 sm-mb" style="display:none" id="categories-all"><%= categories %></p>
-
-                            
                     <% } %>
-                    <br/>
                      <% if (place.data[i].distance) { %>
-                            <%= place.data[i].distance.toFixed(3) %>km from Apple place<br />
+                            <p class="overlineText mb-2" id="googleDist"><%= place.data[i].distance.toFixed(3) %>km from Apple place</p>
                     <% } %>
                     
-                    <br/>
                     <% if (place.data[i].link) { %>
-                        <a href="<%= place.data[i].link %>" target="_blank">Facebook Page</a>
-                    <br/>
+                        <a class="external-link" href="<%= place.data[i].link %>" target="_blank">Facebook Page</a><br/>
                     <% } %>
                     <% if (place.data[i].website) { %>
-                        <a href="<%= place.data[i].website %>" target="_blank">Website</a>
-                        <br/>
+                        <a class="external-link" href="<%= place.data[i].website %>" target="_blank">Website</a><br/>
                     <% } %>
-                    <br />
+                    <p class="captionText card_address mt-2">
                     <% if (place.data[i].overall_star_rating) { %>
-                        <%= place.data[i].overall_star_rating + " out of 5 (" + place.data[i].rating_count + " reviews)"%><br />
+                        <%= place.data[i].overall_star_rating + "/5 (" + place.data[i].rating_count + " reviews)"%>
                     <% } %>                    
                     <% if (place.data[i].engagement.count) { %>
-                        <%= place.data[i].engagement.social_sentence %><br />
+                        <%= place.data[i].engagement.count %> Likes
                     <% } %>
                     <% if (place.data[i].checkins) { %>
-                        <%= place.data[i].checkins %> Check-ins<br />
+                        <%= place.data[i].checkins %> Check-ins
                     <% } %>
-
-                    <br />
-
-
-                    <a class="mdc-fab" style="position: absolute; bottom: 1rem; right: 1rem; z-index: 1;" onclick="storePlace(<%= place.data[i].id %>, <%= i %>)" href="/a-places/a-new"><span class="material-icons mdc-fab__icon" style="color: white">add</span></a>
+                    </p>    
+                    <div class="addButtonDiv">
+                        <a class="mdc-fab" style="" onclick="storePlace(<%= place.data[i].id %>, <%= i %>)" href="/a-places/a-new"><span class="material-icons mdc-fab__icon" style="color: white">add</span></a>
+                    </div>
 
                 </div>
             </div>
@@ -165,6 +121,67 @@
 
     </div>
 </div>
+</div>
+
+
+
+
+
+<div class="">
+    <div class="container">
+<h6 id="" class="my-2 text-center">
+                        No match found?
+                    </h6>
+
+    <div class="row">
+
+ <div id= "" class="col-lg-4 col-md-4 col-sm-6">
+            </div>
+            
+            
+
+
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                <div class="card mb-4 box-shadow">
+                    <div class="content card-body">
+                        <h6 class="">Redefine Search</h6>
+                        <form>
+                            <table id="refineSearchTable">
+                                <tr>
+                                    <td class="label"><label class="label captionText" for="name">Name</label></td>
+                                    <td class="input"><input class="form-control" type="text" id="name" name="name" placeholder="" value="<%= q %>"></td>
+                                </tr>
+                                <tr>
+                                    <td class="label"><label class="label captionText" for="latitude">Latitude</label></td>
+                                    <td class="input"><input class="form-control" type="text" id="latitude" name="latitude" placeholder="" value="<%= latitude %>"></td>
+                                </tr>
+                                <tr>
+                                    <td class="label"><label class="label captionText" for="longitude">Longitude</label></td>
+                                    <td class="input"><input class="form-control" type="text" id="longitude" name="longitude" placeholder="" value="<%= longitude %>"></td>
+                                </tr>
+                                <tr>
+                                    <td class="label"><label class="label captionText" for="radius">Radius (m)</label></td>
+                                    <td class="input"><input class="form-control" type="text" id="radius" name="radius" placeholder="" value="<%= radius %>"></td>
+                                </tr>
+                            </table>
+                            
+                            <div class="button">
+                                <button class="btn save-button lm-button">Search</button>
+                            </div>
+                            
+                            </form>
+                    </div>
+                </div>
+            </div>
+            
+                            <div id= "no_match" class="col-lg-4 col-md-4 col-sm-6">
+                <div class="content card-body">
+                    <a href="/a-places/a-new<%= searchQuery %>" class="btn btn-secondary" onclick="clearFbSession()">Skip Step</a>
+                </div>
+            </div>
+                </div>
+            </div>
+        </div>
 
 <script>
 
@@ -194,3 +211,4 @@ $(document).ready(function() {
     };
     
 </script>
+<% include ../partials/footer %>

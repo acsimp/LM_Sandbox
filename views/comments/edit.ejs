@@ -33,7 +33,7 @@
             <td>Overall</td>
             <td>
               
-              <select id="overall-sticky" name="comment[rating.overall_star]">
+              <select id="overall-sticky" name="comment[rating.overall_star]" required>
                     <option value="" <%= ( comment.rating.overall_star == '' ) ? "selected" : ""; %>></option>
                     <option value="1" <%= ( comment.rating.overall_star == '1' ) ? "selected" : ""; %>>Terrible</option>
                     <option value="2" <%= ( comment.rating.overall_star == '2' ) ? "selected" : ""; %>>Poor</option>
@@ -114,8 +114,8 @@
                   </td>
           </tr>          
 </table>
-        <input id="sticky-review-title" name="comment[title]" value="<%= comment.title %>" class="form-control" type="text" placeholder="Title your review">
-        <textarea class="form-control" name="comment[text]" id="sticky-review-text" rows="4" placeholder="Tell others what you think about this place. Would you recommend it and why?"><%= comment.text %></textarea>
+        <input id="sticky-review-title" name="comment[title]" value="<%= comment.title %>" class="form-control" type="text" placeholder="Title your review" required>
+        <textarea class="form-control" name="comment[text]" id="sticky-review-text" rows="4" placeholder="Tell others what you think about this place. Would you recommend it and why?" required><%= comment.text %></textarea>
 
         <div class="button-right-wrapper">
         <button type="submit" id="sticky-review-submit" class="buttonText lm-button">Submit</button>

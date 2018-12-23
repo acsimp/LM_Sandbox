@@ -204,6 +204,7 @@ router.get("/g-search", middleware.isLoggedIn, function(req, res) {
                 var distance = getDistanceFromLatLonInKm(latitude,longitude,googlePlaces.results[i].geometry.location.lat,googlePlaces.results[i].geometry.location.lng);
                 googlePlaces.results[i].distance = distance;
                 //console.log(place.data[i].distance);
+                // console.log(googlePlaces);
             }
             
             res.render('places/g-search', { place: googlePlaces, searchQuery: searchQuery, name: name, address: address, longitude: longitude, latitude: latitude, radius: radius });

@@ -138,10 +138,16 @@
                         .near_field{
                               margin-top:5px;
                         }
+                        
                    
 #findDiv, #navFindDiv{
     order: 1;
 }
+                   
+#findDiv{
+    margin-right:103px;
+}
+
 #locationDiv, #navLocationDiv{
     order: 3;
 }
@@ -153,6 +159,9 @@
 }
 
  }
+#map{
+    height:500px;
+}
 
 @media (max-width: 575px) {
             .field.location {
@@ -181,6 +190,7 @@
             #searchForm{
                 margin-top: .75rem;
             }
+
 #cards{
     padding-right: 0px;
     padding-left: 0px;
@@ -237,6 +247,14 @@
     margin-bottom: -25px;
     border-bottom-right-radius: 3px!important;
 }
+
+@media (max-width: 400px) {
+                                    .mdc-fab {
+                                        margin-right: -16px;
+                                        margin-bottom: -16px;
+                                    }
+}
+
 .external-link:after {
     font: normal normal normal 18px/1 "Font Awesome 5 Free";
     font-size: .65em;
@@ -244,4 +262,40 @@
     content: '\f35d';
     font-weight: 900;
     vertical-align: super;
+}
+
+#googleDist{
+    line-height:1rem;
+    margin-top:5px;
+}
+
+.label{
+    margin-bottom:0px;
+}
+.middleBG{
+    background-color:var(--monkey-off-white);
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+.button {
+    width:100%;
+    text-align: center;
+    /*margin-top: 1.5rem;*/
+    /*margin-bottom: 1.5rem;*/
+    padding:15px;
+}
+.save-button{
+    padding-top:10px;
+    padding-bottom:10px;
+    font-size: 1rem;
+    background-color: var(--maven-primary);
+}
+#refineSearchTable td:nth-child(2){
+    width: 100%;
+    
+}
+.addButtonDiv{
+    margin-top:-16px;
 }

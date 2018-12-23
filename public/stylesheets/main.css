@@ -394,7 +394,7 @@ header .mobileMenuOuter a img, #searchMenu #navBrand img{height:38px;margin:10px
 header ul{display:inline-block;margin:24px 0 0}
 header ul li{display:inline-block;margin:0 0 0 22px}
 header ul li a{font-weight:500;font-size:14px;line-height:1.33;color:white;text-decoration:none;text-transform:none;cursor:pointer}
-header ul li a:hover{color:#00a5e6}
+header ul li a:hover{color:white}
 header #hamburger,header #mobileMenuBG {-webkit-tap-highlight-color:transparent;display:none}
 #searchMenuBG{-webkit-tap-highlight-color:transparent;display:none}
 #searchMenuBG{position:fixed;top:0px;width:100%;height:100%;background-color:rgba(0,0,0,.24)}
