@@ -76,5 +76,7 @@ typings/
 # Serverless directories
 .serverless
 
+# AuthKey
+.p8
 
 # End of https://www.gitignore.io/api/node
